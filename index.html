@@ -2429,20 +2429,38 @@
                 };
               });
               
-              window.shapData = window.feedRows.map(f => {
+              // Fetch SHAP CSV
+              return fetch('reports/explainability/shap_local_explanations.csv').then(r => r.text());
+            })
+            .then(csv => {
+              const lines = csv.trim().split('\n').slice(1); // skip header
+              
+              const featureMap = {
+                'F3025': 'Net Community Mule Ratio',
+                'F3484': 'Transaction Velocity (7D/30D)',
+                'F1863': 'Counterparty Mule Count',
+                'F1022': 'Dormancy Spike Detected',
+                'F8901': 'Round Amount Ratio',
+                'F4512': 'Network Centrality',
+                'F2345': 'Account Age'
+              };
+
+              window.shapData = lines.map((line, i) => {
+                const cols = line.split(',');
+                const idStr = String(cols[0]); 
+                // We'll map the row index to our proxy accounts ACC_1000...
+                const accountId = `ACC_${String(i+1000).padStart(4, '0')}`;
+                
+                const f1 = featureMap[cols[1]] || cols[1] || 'Unusual Activity';
+                const f2 = featureMap[cols[2]] || cols[2] || 'Velocity Anomaly';
+                const f3 = featureMap[cols[3]] || cols[3] || 'High Risk Exposure';
+
+                const feedRow = window.feedRows.find(f => f.account_id === accountId) || window.feedRows[0];
                 return {
-                  account_id: f.account_id,
-                  prediction: f.risk_tier === 'CRITICAL' || f.risk_tier === 'HIGH' ? 'Mule' : 'Non-Mule',
-                  risk_score: f.risk_score,
-                  shap_net_community_mule_ratio: parseFloat((Math.random() * 0.25 - 0.02).toFixed(3)),
-                  shap_velocity_ratio_7d_30d: parseFloat((Math.random() * 0.25 - 0.02).toFixed(3)),
-                  shap_counterparty_mule_count: parseFloat((Math.random() * 0.25 - 0.02).toFixed(3)),
-                  shap_dormancy_days_before_spike: parseFloat((Math.random() * 0.05 - 0.12).toFixed(3)),
-                  shap_round_amount_ratio: parseFloat((Math.random() * 0.05 - 0.12).toFixed(3)),
-                  shap_bureau_credit_score: parseFloat((Math.random() * 0.05 - 0.12).toFixed(3)),
-                  shap_account_age_days: parseFloat((Math.random() * 0.05 - 0.12).toFixed(3)),
-                  shap_income_to_tx_ratio: parseFloat((Math.random() * 0.05 - 0.12).toFixed(3)),
-                  shap_kyc_verification_status: parseFloat((Math.random() * 0.05 - 0.12).toFixed(3))
+                  account_id: accountId,
+                  prediction: feedRow.risk_tier === 'CRITICAL' || feedRow.risk_tier === 'HIGH' ? 'Mule' : 'Non-Mule',
+                  risk_score: feedRow.risk_score,
+                  top_features: [f1, f2, f3]
                 };
               });
               resolve();
