@@ -1,6 +1,8 @@
 // Tab switching engine
     const switchTab = (tabId) => {
       const pages = ['surveillance-command', 'analytics-centers', 'risk-intelligence', 'governance'];
+      if (!pages.includes(tabId)) return;
+
       pages.forEach(p => {
         const el = document.getElementById(`page-${p}`);
         if (el) el.style.display = 'none';
@@ -13,12 +15,18 @@
       
       const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
       navLinks.forEach(link => {
-        if (link.getAttribute('href') === `#${tabId}`) {
+        const href = link.getAttribute('href');
+        if (href === `#${tabId}` || (tabId === 'surveillance-command' && href === '#surveillance-command')) {
           link.classList.add('active');
         } else {
           link.classList.remove('active');
         }
       });
+
+      // Update URL hash in address bar if different (without triggering hashchange loop)
+      if (window.location.hash !== `#${tabId}`) {
+        window.history.pushState(null, null, `#${tabId}`);
+      }
       
       // If switching to analytics-centers, default to LightGBM view
       if (tabId === 'analytics-centers') {
@@ -1158,6 +1166,7 @@
 
     // Case Dossier details modal for investigator feed clicks
     window.currentDossierAccountId = null;
+    const openCaseDossier = (data) => {
       let shapRecord = shapData.find(d => d.account_id === data.account_id);
       if (!shapRecord) {
         shapRecord = {
@@ -1386,8 +1395,25 @@
       }
     };
 
+    const handleHashRoute = () => {
+      let hash = window.location.hash.substring(1);
+      const validPages = ['surveillance-command', 'analytics-centers', 'risk-intelligence', 'governance'];
+      if (hash === 'command-nexus') {
+        hash = 'surveillance-command';
+      }
+      console.log("Active page:", window.location.hash || '#surveillance-command');
+      if (validPages.includes(hash)) {
+        switchTab(hash);
+      } else {
+        switchTab('surveillance-command');
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashRoute);
+
     // Run on startup
     window.addEventListener('DOMContentLoaded', async () => {
+      console.log("Navigation initialized");
       const now = new Date();
       const lastRefreshEl = document.getElementById('nav-last-refresh');
       if (lastRefreshEl) {
@@ -1413,6 +1439,9 @@
       loadRiskEngine();
       populateSHAPAccounts();
       loadChampionFramework();
+
+      // Handle initial route
+      handleHashRoute();
     });
 
     window.addEventListener('load', () => {

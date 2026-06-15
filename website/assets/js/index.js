@@ -1,6 +1,8 @@
 // Tab switching engine
     const switchTab = (tabId) => {
       const pages = ['platform-overview', 'surveillance-command', 'analytics-centers', 'risk-intelligence', 'governance'];
+      if (!pages.includes(tabId)) return;
+
       pages.forEach(p => {
         const el = document.getElementById(`page-${p}`);
         if (el) el.style.display = 'none';
@@ -13,12 +15,18 @@
       
       const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
       navLinks.forEach(link => {
-        if (link.getAttribute('href') === `#${tabId}`) {
+        const href = link.getAttribute('href');
+        if (href === `#${tabId}` || (tabId === 'surveillance-command' && href === '#surveillance-command')) {
           link.classList.add('active');
         } else {
           link.classList.remove('active');
         }
       });
+
+      // Update URL hash in address bar if different (without triggering hashchange loop)
+      if (window.location.hash !== `#${tabId}`) {
+        window.history.pushState(null, null, `#${tabId}`);
+      }
       
       const footer = document.getElementById('main-footer');
       if (footer) {
@@ -770,11 +778,6 @@
       injectImage(`${prefix}-curve-calib`, 'calibration_curve.png');
       injectImage(`${prefix}-curve-lift`, 'lift_chart.png');
     };
-      injectImage(`${prefix}-curve-roc`, 'roc_curve.png');
-      injectImage(`${prefix}-curve-pr`, 'pr_curve.png');
-      injectImage(`${prefix}-curve-calib`, 'calibration_curve.png');
-      injectImage(`${prefix}-curve-lift`, 'lift_chart.png');
-    };
 
     const renderXGBoostCurves = async () => {
       const plotCfg = { responsive: true, displayModeBar: false };
@@ -1362,8 +1365,25 @@
       }
     };
 
+    const handleHashRoute = () => {
+      let hash = window.location.hash.substring(1);
+      const validPages = ['platform-overview', 'surveillance-command', 'analytics-centers', 'risk-intelligence', 'governance'];
+      if (hash === 'command-nexus') {
+        hash = 'surveillance-command';
+      }
+      console.log("Active page:", window.location.hash || '#platform-overview');
+      if (validPages.includes(hash)) {
+        switchTab(hash);
+      } else {
+        switchTab('platform-overview');
+      }
+    };
+
+    window.addEventListener('hashchange', handleHashRoute);
+
     // Run on startup
     window.addEventListener('DOMContentLoaded', async () => {
+      console.log("Navigation initialized");
       const now = new Date();
       const lastRefreshEl = document.getElementById('nav-last-refresh');
       if (lastRefreshEl) {
@@ -1384,6 +1404,9 @@
       loadRiskEngine();
       populateSHAPAccounts();
       loadChampionFramework();
+
+      // Handle initial route
+      handleHashRoute();
 
       // Initialize charts
       setTimeout(() => {
