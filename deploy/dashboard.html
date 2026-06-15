@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mule Account Detection & Classification Platform</title>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- CDNs -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community@31.0.0/styles/ag-grid.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community@31.0.0/styles/ag-theme-balham.css">
+  
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+
+  <!-- Scroll Progress -->
+  <div id="scroll-progress"></div>
+
+  <!-- Top Horizontal Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top px-4 py-3">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+      <a class="navbar-brand" href="#">
+        <i class="fa-solid fa-shield-halved text-success"></i>
+        <span>MULEsurveil<sup class="text-success">X</sup></span>
+      </a>
+      
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav gap-4">
+          <li class="nav-item">
+            <a class="nav-link active" href="#surveillance-command" onclick="switchTab('surveillance-command'); return false;">/surveillance-command</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#analytics-centers" onclick="switchTab('analytics-centers'); return false;">/analytics-centers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#risk-intelligence" onclick="switchTab('risk-intelligence'); return false;">/risk-intelligence</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#governance" onclick="switchTab('governance'); return false;">/governance</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="d-none d-md-flex align-items-center gap-3">
+        <span class="badge" style="background-color: #EA580C; color: white; font-family: var(--font-mono); font-size: 0.75rem;">Y S24</span>
+        <div class="d-flex align-items-center gap-2">
+          <span class="d-inline-block rounded-circle bg-success" style="width: 8px; height: 8px; box-shadow: 0 0 8px var(--success); animation: pulse 1.5s infinite;"></span>
+          <span class="small text-success fw-bold" style="font-family: var(--font-mono); font-size: 0.7rem;">SURVEILLANCE.LIVE</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- App Wrapper -->
+  <div class="app-container visible">
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- PAGE 1: SURVEILLANCE COMMAND HUB -->
+      <div id="page-surveillance-command" style="display: block;">
+        
+        <!-- FIRST COMPONENT: Enterprise Leaderboard -->
+        <div class="row g-4 mb-4">
+          <div class="col-12">
+            <div class="cyber-card">
+              <h5 class="mb-4 text-white" style="font-family: var(--font-headings); letter-spacing: 0.5px;">
+                <span style="color: var(--primary); font-family: var(--font-mono);">//</span> ENTERPRISE LEADERBOARD
+              </h5>
+              
+              <div class="row g-3">
+                <!-- Card 1: Champion LightGBM -->
+                <div class="col-12 col-md-6 col-xl-3">
+                  <div class="leaderboard-item border-primary-glow" style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 8px; padding: 1.25rem;">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                      <div class="d-flex align-items-center gap-2">
+                        <span class="leaderboard-rank text-success">#01</span>
+                        <h5 class="mb-0 text-white fw-bold">LightGBM</h5>
+                      </div>
+                      <span class="badge badge-status status-champ">CHAMPION</span>
+                    </div>
+                    <div class="leaderboard-bar-container my-3">
+                      <div class="d-flex justify-content-between small text-muted mb-1" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                        <span>Enterprise Score</span>
+                        <span class="text-success fw-bold">95.8</span>
+                      </div>
+                      <div class="progress" style="height: 6px; background-color: rgba(255,255,255,0.05)">
+                        <div class="progress-bar bg-success" style="width: 95.8%"></div>
+                      </div>
+                    </div>
+                    <div class="row g-2 text-center text-muted small mt-2 pt-2 border-top border-secondary" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                      <div class="col-3"><div class="fw-bold text-white">0.999</div>ROC</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.857</div>F1</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.821</div>PRC</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.750</div>REC</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 2: CatBoost Challenger -->
+                <div class="col-12 col-md-6 col-xl-3">
+                  <div class="leaderboard-item" style="background: rgba(11, 15, 25, 0.8); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.25rem;">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                      <div class="d-flex align-items-center gap-2">
+                        <span class="leaderboard-rank text-warning">#02</span>
+                        <h5 class="mb-0 text-white fw-bold">CatBoost</h5>
+                      </div>
+                      <span class="badge badge-status status-chall">CHALLENGER</span>
+                    </div>
+                    <div class="leaderboard-bar-container my-3">
+                      <div class="d-flex justify-content-between small text-muted mb-1" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                        <span>Enterprise Score</span>
+                        <span class="text-warning fw-bold">91.3</span>
+                      </div>
+                      <div class="progress" style="height: 6px; background-color: rgba(255,255,255,0.05)">
+                        <div class="progress-bar bg-warning" style="width: 91.3%"></div>
+                      </div>
+                    </div>
+                    <div class="row g-2 text-center text-muted small mt-2 pt-2 border-top border-secondary" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                      <div class="col-3"><div class="fw-bold text-white">0.998</div>ROC</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.831</div>F1</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.807</div>PRC</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.720</div>REC</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 3: XGBoost Challenger -->
+                <div class="col-12 col-md-6 col-xl-3">
+                  <div class="leaderboard-item" style="background: rgba(11, 15, 25, 0.8); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.25rem;">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                      <div class="d-flex align-items-center gap-2">
+                        <span class="leaderboard-rank text-accent">#03</span>
+                        <h5 class="mb-0 text-white fw-bold">XGBoost</h5>
+                      </div>
+                      <span class="badge badge-status status-chall" style="color: var(--accent); border-color: var(--accent); background: rgba(139, 92, 246, 0.1);">CHALLENGER</span>
+                    </div>
+                    <div class="leaderboard-bar-container my-3">
+                      <div class="d-flex justify-content-between small text-muted mb-1" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                        <span>Enterprise Score</span>
+                        <span class="text-accent fw-bold">88.7</span>
+                      </div>
+                      <div class="progress" style="height: 6px; background-color: rgba(255,255,255,0.05)">
+                        <div class="progress-bar bg-accent" style="width: 88.7%"></div>
+                      </div>
+                    </div>
+                    <div class="row g-2 text-center text-muted small mt-2 pt-2 border-top border-secondary" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                      <div class="col-3"><div class="fw-bold text-white">0.997</div>ROC</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.818</div>F1</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.795</div>PRC</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.700</div>REC</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 4: Isolation Forest Monitoring -->
+                <div class="col-12 col-md-6 col-xl-3">
+                  <div class="leaderboard-item" style="background: rgba(11, 15, 25, 0.8); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.25rem;">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                      <div class="d-flex align-items-center gap-2">
+                        <span class="leaderboard-rank text-muted">#04</span>
+                        <h5 class="mb-0 text-white fw-bold">Isolation Forest</h5>
+                      </div>
+                      <span class="badge badge-status status-monitor" style="color: var(--text-muted); border-color: var(--text-muted); background: rgba(255,255,255,0.05);">MONITOR</span>
+                    </div>
+                    <div class="leaderboard-bar-container my-3">
+                      <div class="d-flex justify-content-between small text-muted mb-1" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                        <span>Enterprise Score</span>
+                        <span class="text-muted fw-bold">79.2</span>
+                      </div>
+                      <div class="progress" style="height: 6px; background-color: rgba(255,255,255,0.05)">
+                        <div class="progress-bar bg-secondary" style="width: 79.2%"></div>
+                      </div>
+                    </div>
+                    <div class="row g-2 text-center text-muted small mt-2 pt-2 border-top border-secondary" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                      <div class="col-3"><div class="fw-bold text-white">0.889</div>ROC</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.741</div>F1</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.612</div>PRC</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.650</div>REC</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECOND COMPONENT: Mission Control Center (KPIs) -->
+        <div class="section-header">
+          <h2 class="section-title"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> surveillance.mission.control</h2>
+          <p class="section-subtitle">Real-time aggregated threat analytics indicators</p>
+        </div>
+
+        <div class="row g-4 mb-4">
+          <div class="col-6 col-xl-2">
+            <div class="cyber-card text-center">
+              <div class="kpi-title">Total Accounts</div>
+              <div class="kpi-value text-white" id="kpi-total-accounts">9,082</div>
+              <span class="badge bg-secondary mt-2" style="font-family: var(--font-mono);"><i class="fa-solid fa-arrow-up"></i> +12% MoM</span>
+            </div>
+          </div>
+          <div class="col-6 col-xl-2">
+            <div class="cyber-card text-center">
+              <div class="kpi-title">Mule Accounts</div>
+              <div class="kpi-value text-danger" id="kpi-mules-count">81</div>
+              <span class="badge bg-danger mt-2" style="font-family: var(--font-mono);"><i class="fa-solid fa-triangle-exclamation"></i> Critical Threat</span>
+            </div>
+          </div>
+          <div class="col-6 col-xl-2">
+            <div class="cyber-card text-center">
+              <div class="kpi-title">Fraud Rate</div>
+              <div class="kpi-value text-warning" id="kpi-fraud-rate">0.89%</div>
+              <span class="badge bg-warning text-dark mt-2" style="font-family: var(--font-mono);">Baseline Ratio</span>
+            </div>
+          </div>
+          <div class="col-6 col-xl-2">
+            <div class="cyber-card text-center">
+              <div class="kpi-title">ROC AUC</div>
+              <div class="kpi-value text-info" id="kpi-roc-auc">0.999</div>
+              <span class="badge bg-info mt-2" style="font-family: var(--font-mono);">Optimal Rating</span>
+            </div>
+          </div>
+          <div class="col-6 col-xl-2">
+            <div class="cyber-card text-center">
+              <div class="kpi-title">F1 Score</div>
+              <div class="kpi-value text-success" id="kpi-f1-score">0.857</div>
+              <span class="badge bg-success mt-2" style="font-family: var(--font-mono);">Precision Base</span>
+            </div>
+          </div>
+          <div class="col-6 col-xl-2">
+            <div class="cyber-card text-center">
+              <div class="kpi-title">Recall</div>
+              <div class="kpi-value text-warning" id="kpi-recall">0.75</div>
+              <span class="badge bg-warning text-dark mt-2" style="font-family: var(--font-mono);">True Target Rate</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- THIRD COMPONENT: Evidence Repository & Fraud Investigation Feed -->
+        <div class="row g-4 mb-4">
+          <div class="col-12 col-xl-7">
+            <div class="cyber-card h-100">
+              <h5 class="mb-4 text-white" style="font-family: var(--font-headings); letter-spacing: 0.5px;">
+                <span style="color: var(--primary); font-family: var(--font-mono);">//</span> EVIDENCE REPOSITORY
+              </h5>
+              <div class="d-flex flex-column gap-3">
+                <!-- Reports -->
+                <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+                  <div class="d-flex align-items-center gap-3">
+                    <i class="fa-solid fa-file-invoice text-primary" style="font-size: 1.3rem;"></i>
+                    <div>
+                      <h6 class="mb-0 text-white" style="font-size: 0.85rem;">Compliance & Model Reports</h6>
+                      <span class="small text-muted" style="font-family: var(--font-mono); font-size: 0.65rem;">System audit trail matches</span>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-success" style="font-family: var(--font-mono); font-size: 0.75rem;">59 FILES</span>
+                    <span class="text-success small d-none d-md-inline" style="font-family: var(--font-mono); font-size: 0.65rem;">VERIFIED</span>
+                    <button class="btn btn-sm btn-outline-success border-0 small px-2 py-1" style="font-family: var(--font-mono); font-size: 0.65rem;" onclick="openRepository('reports')">[ ACCESS ]</button>
+                  </div>
+                </div>
+                
+                <!-- Visualizations -->
+                <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+                  <div class="d-flex align-items-center gap-3">
+                    <i class="fa-solid fa-chart-line text-info" style="font-size: 1.3rem;"></i>
+                    <div>
+                      <h6 class="mb-0 text-white" style="font-size: 0.85rem;">Performance Visualizations</h6>
+                      <span class="small text-muted" style="font-family: var(--font-mono); font-size: 0.65rem;">ROC, PR, Lift & Anomaly projections</span>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-success" style="font-family: var(--font-mono); font-size: 0.75rem;">21 FILES</span>
+                    <span class="text-success small d-none d-md-inline" style="font-family: var(--font-mono); font-size: 0.65rem;">GENERATE</span>
+                    <button class="btn btn-sm btn-outline-success border-0 small px-2 py-1" style="font-family: var(--font-mono); font-size: 0.65rem;" onclick="openRepository('visualizations')">[ ACCESS ]</button>
+                  </div>
+                </div>
+
+                <!-- Models -->
+                <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+                  <div class="d-flex align-items-center gap-3">
+                    <i class="fa-solid fa-brain text-warning" style="font-size: 1.3rem;"></i>
+                    <div>
+                      <h6 class="mb-0 text-white" style="font-size: 0.85rem;">Model Binaries (PKL)</h6>
+                      <span class="small text-muted" style="font-family: var(--font-mono); font-size: 0.65rem;">Tree models & unsupervised encoders</span>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-success" style="font-family: var(--font-mono); font-size: 0.75rem;">5 FILES</span>
+                    <span class="text-success small d-none d-md-inline" style="font-family: var(--font-mono); font-size: 0.65rem;">DEPLOYED</span>
+                    <button class="btn btn-sm btn-outline-success border-0 small px-2 py-1" style="font-family: var(--font-mono); font-size: 0.65rem;" onclick="openRepository('models')">[ ACCESS ]</button>
+                  </div>
+                </div>
+
+                <!-- Datasets -->
+                <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+                  <div class="d-flex align-items-center gap-3">
+                    <i class="fa-solid fa-database text-accent" style="font-size: 1.3rem;"></i>
+                    <div>
+                      <h6 class="mb-0 text-white" style="font-size: 0.85rem;">Preprocessed Datasets (CSV)</h6>
+                      <span class="small text-muted" style="font-family: var(--font-mono); font-size: 0.65rem;">Raw inputs, features & variance outputs</span>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-success" style="font-family: var(--font-mono); font-size: 0.75rem;">10 FILES</span>
+                    <span class="text-success small d-none d-md-inline" style="font-family: var(--font-mono); font-size: 0.65rem;">INDEXED</span>
+                    <button class="btn btn-sm btn-outline-success border-0 small px-2 py-1" style="font-family: var(--font-mono); font-size: 0.65rem;" onclick="openRepository('datasets')">[ ACCESS ]</button>
+                  </div>
+                </div>
+
+                <!-- Documents -->
+                <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+                  <div class="d-flex align-items-center gap-3">
+                    <i class="fa-solid fa-file-shield text-danger" style="font-size: 1.3rem;"></i>
+                    <div>
+                      <h6 class="mb-0 text-white" style="font-size: 0.85rem;">Compliance Documents</h6>
+                      <span class="small text-muted" style="font-family: var(--font-mono); font-size: 0.65rem;">AML compliance & validation certificates</span>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-success" style="font-family: var(--font-mono); font-size: 0.75rem;">8 FILES</span>
+                    <span class="text-success small d-none d-md-inline" style="font-family: var(--font-mono); font-size: 0.65rem;">SIGNED</span>
+                    <button class="btn btn-sm btn-outline-success border-0 small px-2 py-1" style="font-family: var(--font-mono); font-size: 0.65rem;" onclick="openRepository('documents')">[ ACCESS ]</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SEVENTH COMPONENT: Fraud Investigation Feed -->
+          <div class="col-12 col-xl-5">
+            <div class="cyber-card h-100 d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <div>
+                  <h5 class="mb-1 text-white" style="font-family: var(--font-headings); letter-spacing: 0.5px;">
+                    <span style="color: var(--primary); font-family: var(--font-mono);">//</span> FRAUD INVESTIGATION FEED
+                  </h5>
+                  <span class="small text-muted" style="font-family: var(--font-mono); font-size: 0.65rem;">Click row to open details & audit proofs</span>
+                </div>
+              </div>
+              <div id="fraudFeedGrid" class="ag-theme-balham-dark flex-grow-1 mt-2" style="height: 310px; min-height: 310px; width: 100%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FOURTH, FIFTH, SIXTH COMPONENTS: Class Distribution, Risk Tier, Risk Score Density -->
+        <div class="row g-4 mb-4">
+          <div class="col-12 col-xl-4">
+            <div class="cyber-card">
+              <h5 class="mb-3 text-white"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> class.distribution</h5>
+              <div id="chart-class-dist" style="height: 250px;"></div>
+            </div>
+          </div>
+          <div class="col-12 col-xl-4">
+            <div class="cyber-card">
+              <h5 class="mb-3 text-white"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> risk.tier.distribution</h5>
+              <div id="chart-risk-tier" style="height: 250px;"></div>
+            </div>
+          </div>
+          <div class="col-12 col-xl-4">
+            <div class="cyber-card">
+              <h5 class="mb-3 text-white"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> risk.score.density</h5>
+              <div id="chart-risk-density" style="height: 250px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- PAGE 2: ANALYTICS CENTERS (SINGLE MODEL FILTER VIEW) -->
+      <div id="page-analytics-centers" style="display: none;">
+        
+        <!-- VISIBLE UIUX STYLE MODEL FILTER BAR -->
+        <div class="cyber-card mb-4 bg-black border-secondary">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+            <div class="d-flex align-items-center gap-2">
+              <i class="fa-solid fa-chart-line text-success"></i>
+              <span class="fw-bold text-white" style="font-family: var(--font-headings); letter-spacing: 0.5px;">ANALYTICS COMMAND: CHOOSE TARGET MODEL VIEW</span>
+            </div>
+            
+            <div class="btn-group bg-black p-1 rounded border border-success" role="group" id="analytics-model-selector" style="box-shadow: var(--glow-shadow);">
+              <button type="button" class="btn btn-dark active" onclick="GlobalState.selectAnalyticsModel('LightGBM')">LightGBM Deep Dive</button>
+              <button type="button" class="btn btn-dark" onclick="GlobalState.selectAnalyticsModel('CatBoost')">CatBoost Deep Dive</button>
+              <button type="button" class="btn btn-dark" onclick="GlobalState.selectAnalyticsModel('XGBoost')">XGBoost Deep Dive</button>
+              <button type="button" class="btn btn-dark" onclick="GlobalState.selectAnalyticsModel('Isolation Forest')">Isolation Forest</button>
+            </div>
+
+            <!-- Compliance Operations Dropdown (renamed from Command Actions) -->
+            <div class="dropdown">
+              <button class="btn btn-sm btn-cyber dropdown-toggle small" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-family: var(--font-mono); font-size: 0.75rem; border-radius: 4px;">
+                <i class="fa-solid fa-gears"></i> Compliance Operations
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark bg-dark border-secondary" style="font-family: var(--font-mono); font-size: 0.8rem;">
+                <li><a class="dropdown-item" href="#" onclick="window.print(); return false;"><i class="fa-solid fa-print text-primary"></i> Export Model Audit (PDF)</a></li>
+                <li><a class="dropdown-item" href="#" onclick="GlobalState.triggerExecutiveSummary(); return false;"><i class="fa-solid fa-chart-line text-success"></i> Model Performance Summary</a></li>
+                <li><hr class="dropdown-divider border-secondary"></li>
+                <li><a class="dropdown-item text-danger" href="#" onclick="GlobalState.resetFilters(); return false;"><i class="fa-solid fa-rotate-left"></i> Reset Models</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section: LightGBM Deep Dive -->
+        <section id="lightgbm" style="display: block;">
+          <div class="section-header d-flex justify-content-between align-items-center">
+            <div>
+              <h2 class="section-title"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> analytics.centers.lightgbm</h2>
+              <p class="section-subtitle">Attributions and performance metric curves</p>
+            </div>
+            <span class="badge badge-status status-champ">CHAMPION</span>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-12 col-lg-5">
+              <div class="cyber-card mb-4">
+                <h5 class="mb-3">Classification Report</h5>
+                <div class="table-responsive mt-3">
+                  <table class="table table-dark table-hover table-sm align-middle small">
+                    <thead>
+                      <tr>
+                        <th>Class</th>
+                        <th>Precision</th>
+                        <th>Recall</th>
+                        <th>F1-Score</th>
+                        <th>Support</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Non-Mule (0)</td>
+                        <td>0.984</td>
+                        <td>0.988</td>
+                        <td>0.986</td>
+                        <td>8,728</td>
+                      </tr>
+                      <tr class="table-danger" style="--bs-table-bg: rgba(220, 38, 38, 0.15)">
+                        <td>Mule (1)</td>
+                        <td>0.821</td>
+                        <td>0.793</td>
+                        <td>0.807</td>
+                        <td>354</td>
+                      </tr>
+                      <tr class="fw-bold">
+                        <td>Weighted Avg</td>
+                        <td>0.971</td>
+                        <td>0.972</td>
+                        <td>0.971</td>
+                        <td>9,082</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="cyber-card">
+                <h5 class="mb-3">Feature Importance (Top 10)</h5>
+                <div id="chart-lgbm-fi" style="height: 200px;"></div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-7">
+              <div class="cyber-card">
+                <h5 class="mb-4">Model Validation Curves</h5>
+                <div class="row g-2">
+                  <div class="col-6 text-center"><h6 class="small">ROC Curve</h6><img src="reports/model_performance/lightgbm/visualizations/roc_curve.png" class="img-fluid rounded border border-secondary" alt="LightGBM ROC Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">PR Curve</h6><img src="reports/model_performance/lightgbm/visualizations/pr_curve.png" class="img-fluid rounded border border-secondary" alt="LightGBM PR Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">Calibration Curve</h6><img src="reports/model_performance/lightgbm/visualizations/calibration_curve.png" class="img-fluid rounded border border-secondary" alt="LightGBM Calibration Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">Lift Chart</h6><img src="reports/model_performance/lightgbm/visualizations/lift_chart.png" class="img-fluid rounded border border-secondary" alt="LightGBM Lift Chart"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: CatBoost Deep Dive -->
+        <section id="catboost" style="display: none;">
+          <div class="section-header d-flex justify-content-between align-items-center">
+            <div>
+              <h2 class="section-title"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> analytics.centers.catboost</h2>
+              <p class="section-subtitle">Symmetric decision tree modeling stats</p>
+            </div>
+            <span class="badge badge-status status-chall">CHALLENGER</span>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-12 col-lg-5">
+              <div class="cyber-card mb-4">
+                <h5 class="mb-3">Classification Report</h5>
+                <div class="table-responsive mt-3">
+                  <table class="table table-dark table-hover table-sm align-middle small">
+                    <thead>
+                      <tr>
+                        <th>Class</th>
+                        <th>Precision</th>
+                        <th>Recall</th>
+                        <th>F1-Score</th>
+                        <th>Support</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Non-Mule (0)</td>
+                        <td>0.981</td>
+                        <td>0.985</td>
+                        <td>0.983</td>
+                        <td>8,728</td>
+                      </tr>
+                      <tr class="table-danger" style="--bs-table-bg: rgba(234, 88, 12, 0.15)">
+                        <td>Mule (1)</td>
+                        <td>0.807</td>
+                        <td>0.778</td>
+                        <td>0.792</td>
+                        <td>354</td>
+                      </tr>
+                      <tr class="fw-bold">
+                        <td>Weighted Avg</td>
+                        <td>0.968</td>
+                        <td>0.968</td>
+                        <td>0.968</td>
+                        <td>9,082</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="cyber-card">
+                <h5 class="mb-3">Feature Importance (Top 10)</h5>
+                <div id="chart-cat-fi" style="height: 200px;"></div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-7">
+              <div class="cyber-card">
+                <h5 class="mb-4">Model Validation Curves</h5>
+                <div class="row g-2">
+                  <div class="col-6 text-center"><h6 class="small">ROC Curve</h6><img src="reports/model_performance/catboost/visualizations/roc_curve.png" class="img-fluid rounded border border-secondary" alt="CatBoost ROC Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">PR Curve</h6><img src="reports/model_performance/catboost/visualizations/pr_curve.png" class="img-fluid rounded border border-secondary" alt="CatBoost PR Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">Calibration Curve</h6><img src="reports/model_performance/catboost/visualizations/calibration_curve.png" class="img-fluid rounded border border-secondary" alt="CatBoost Calibration Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">Lift Chart</h6><img src="reports/model_performance/catboost/visualizations/lift_chart.png" class="img-fluid rounded border border-secondary" alt="CatBoost Lift Chart"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: XGBoost Deep Dive -->
+        <section id="xgboost" style="display: none;">
+          <div class="section-header d-flex justify-content-between align-items-center">
+            <div>
+              <h2 class="section-title"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> analytics.centers.xgboost</h2>
+              <p class="section-subtitle">Extreme gradient boosting validation results</p>
+            </div>
+            <span class="badge badge-status status-chall">CHALLENGER</span>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-12 col-lg-5">
+              <div class="cyber-card mb-4">
+                <h5 class="mb-3">Classification Report</h5>
+                <div class="table-responsive mt-3">
+                  <table class="table table-dark table-hover table-sm align-middle small">
+                    <thead>
+                      <tr>
+                        <th>Class</th>
+                        <th>Precision</th>
+                        <th>Recall</th>
+                        <th>F1-Score</th>
+                        <th>Support</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Non-Mule (0)</td>
+                        <td>0.978</td>
+                        <td>0.982</td>
+                        <td>0.980</td>
+                        <td>8,728</td>
+                      </tr>
+                      <tr class="table-danger" style="--bs-table-bg: rgba(124, 58, 237, 0.15)">
+                        <td>Mule (1)</td>
+                        <td>0.795</td>
+                        <td>0.763</td>
+                        <td>0.779</td>
+                        <td>354</td>
+                      </tr>
+                      <tr class="fw-bold">
+                        <td>Weighted Avg</td>
+                        <td>0.963</td>
+                        <td>0.964</td>
+                        <td>0.963</td>
+                        <td>9,082</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="cyber-card">
+                <h5 class="mb-3">Feature Importance (Top 10)</h5>
+                <div id="chart-xgb-fi" style="height: 200px;"></div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-7">
+              <div class="cyber-card">
+                <h5 class="mb-4">Model Validation Curves</h5>
+                <div class="row g-2">
+                  <div class="col-6 text-center"><h6 class="small">ROC Curve</h6><img src="reports/model_evaluation/xgboost/XGBoost%20ROC%20Curve.png" class="img-fluid rounded border border-secondary" alt="XGBoost ROC Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">PR Curve</h6><img src="reports/model_evaluation/xgboost/XGBoost%20Precision%20Recall%20Curve.png" class="img-fluid rounded border border-secondary" alt="XGBoost PR Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">Calibration Curve</h6><img src="reports/model_evaluation/xgboost/XGBoost%20Calibration%20Curve.png" class="img-fluid rounded border border-secondary" alt="XGBoost Calibration Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">Gain Chart</h6><img src="reports/model_evaluation/xgboost/XGBoost%20Gain%20Chart.png" class="img-fluid rounded border border-secondary" alt="XGBoost Gain Chart"></div>
+                  <div class="col-12 text-center mt-3"><h6 class="small">Lift Chart</h6><img src="reports/model_evaluation/xgboost/XGBoost%20Lift%20Chart.png" class="img-fluid rounded border border-secondary" style="max-height: 200px;" alt="XGBoost Lift Chart"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: Isolation Forest -->
+        <section id="isolation-forest" style="display: none;">
+          <div class="section-header d-flex justify-content-between align-items-center">
+            <div>
+              <h2 class="section-title"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> analytics.centers.isolationforest</h2>
+              <p class="section-subtitle">Unsupervised anomaly targeting tracking</p>
+            </div>
+            <span class="badge badge-status status-monitor">MONITORING</span>
+          </div>
+
+          <div class="row g-4 mb-4">
+            <div class="col-6 col-md-3">
+              <div class="cyber-card text-center">
+                <div class="kpi-value text-warning">3.9%</div>
+                <div class="kpi-label mt-2" style="font-family: var(--font-mono); font-size: 0.75rem;">Contamination Rate</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="cyber-card text-center">
+                <div class="kpi-value text-white">-0.142</div>
+                <div class="kpi-label mt-2" style="font-family: var(--font-mono); font-size: 0.75rem;">Anomaly Score Boundary</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="cyber-card text-center">
+                <div class="kpi-value text-danger">387</div>
+                <div class="kpi-label mt-2" style="font-family: var(--font-mono); font-size: 0.75rem;">Anomalies Detected</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="cyber-card text-center">
+                <div class="kpi-value text-success">74.1%</div>
+                <div class="kpi-label mt-2" style="font-family: var(--font-mono); font-size: 0.75rem;">Positive Accuracy Alignment</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-12 col-lg-8">
+              <div class="cyber-card">
+                <h5 class="mb-4">Anomaly Signal Distribution & Projections (Real Proof)</h5>
+                <div class="row g-2">
+                  <div class="col-4 text-center"><h6 class="small">ROC Curve</h6><img src="reports/model_performance/isolation_forest/visualizations/roc_curve.png" class="img-fluid rounded border border-secondary" alt="Isolation Forest ROC"></div>
+                  <div class="col-4 text-center"><h6 class="small">PR Curve</h6><img src="reports/model_performance/isolation_forest/visualizations/pr_curve.png" class="img-fluid rounded border border-secondary" alt="Isolation Forest PR"></div>
+                  <div class="col-4 text-center"><h6 class="small">Score Distribution</h6><img src="reports/model_evaluation/isolation_forest/isolation_forest_score_distribution.png" class="img-fluid rounded border border-secondary" alt="Score Distribution"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-4">
+              <div class="cyber-card h-100 d-flex flex-column justify-content-center">
+                <h5>Ensemble Contribution</h5>
+                <p class="text-muted small mt-3">
+                  Unsupervised metrics identify structural shifts without target labels. Attributes are integrated at 15% aggregate weighting.
+                </p>
+                <div class="mt-2">
+                  <label class="small text-muted mb-1" style="font-family: var(--font-mono); font-size: 0.7rem;">Ensemble Blend Weights</label>
+                  <div class="progress" style="height: 10px; background-color: rgba(255,255,255,0.05)">
+                    <div class="progress-bar bg-accent" style="width: 15%">15%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+
+      <!-- PAGE 3: RISK INTELLIGENCE -->
+      <div id="page-risk-intelligence" style="display: none;">
+        
+        <!-- Sticky Sub-Control Bar for parameters -->
+        <div class="cyber-card mb-4 bg-black border-secondary py-3">
+          <div class="d-flex flex-column justify-content-center align-items-center gap-3">
+            <div class="d-flex align-items-center gap-2">
+              <i class="fa-solid fa-sliders text-success"></i>
+              <span class="fw-bold text-white small" style="font-family: var(--font-headings);">SURVEILLANCE FILTERS & CRITERIA</span>
+            </div>
+            
+            <div class="d-flex flex-wrap gap-3 justify-content-center align-items-center">
+              <div class="filter-group">
+                <div class="btn-group btn-group-sm bg-black p-1 rounded border border-secondary" role="group" id="btn-group-risk">
+                  <button type="button" class="btn btn-dark active" onclick="GlobalState.updateFilter('riskLevel', 'ALL')">ALL RISK</button>
+                </div>
+              </div>
+              <div class="filter-group">
+                <div class="btn-group btn-group-sm bg-black p-1 rounded border border-secondary" role="group" id="btn-group-type">
+                  <button type="button" class="btn btn-dark active" onclick="GlobalState.updateFilter('accountType', 'Suspicious')">SUSPECT</button>
+                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('accountType', 'Mule')">MULE</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section id="risk-engine">
+          <div class="section-header">
+            <h2 class="section-title"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> risk.intelligence.engine</h2>
+            <p class="section-subtitle">Surveillance priority list and profiles</p>
+          </div>
+
+          <div class="row g-4 mb-4">
+            <div class="col-12 col-lg-8">
+              <div class="cyber-card">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <h5 class="text-white"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> SURVEILLANCE QUEUE</h5>
+                </div>
+                <div id="riskGrid" class="ag-theme-balham-dark" style="height: 350px; width: 100%;"></div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-4">
+              <div class="cyber-card h-100 detail-panel d-flex flex-column justify-content-between">
+                <div>
+                  <h5 class="border-bottom border-secondary pb-2"><i class="fa-solid fa-fingerprint text-danger"></i> Target Assessment</h5>
+                  <div id="risk-profile-content" class="mt-3">
+                    <div class="alert alert-info bg-dark border-secondary text-center">Select an account in the queue table for detailed risk attributions.</div>
+                  </div>
+                </div>
+                <div id="risk-gauge" style="height: 160px; margin-top: 15px;"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: SHAP Explainability -->
+        <section id="explainability">
+          <div class="section-header">
+            <h2 class="section-title"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> risk.intelligence.explainability</h2>
+            <p class="section-subtitle">Local feature attributions for target cases</p>
+          </div>
+
+          <div class="row g-4">
+            <!-- Left Column: Decision Drivers Panel -->
+            <div class="col-12 col-lg-7">
+              <div class="cyber-card h-100">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <h5 class="text-white"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> DECISION DRIVERS</h5>
+                  <div>
+                    <select class="form-select form-select-sm bg-dark text-white border-secondary" id="shap-account-selector" onchange="updateSHAPWaterfall(this.value)" style="font-family: var(--font-mono); font-size: 0.75rem;">
+                      <!-- Loaded dynamically -->
+                    </select>
+                  </div>
+                </div>
+                
+                <!-- Custom Decision Drivers UI -->
+                <div id="decision-drivers-panel">
+                  <!-- Loaded dynamically by JS -->
+                </div>
+              </div>
+            </div>
+            
+            <!-- Right Column: Investigation Summary -->
+            <div class="col-12 col-lg-5">
+              <div class="cyber-card h-100">
+                <h5 class="mb-4 text-white"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> INVESTIGATION SUMMARY</h5>
+                <div id="shap-nlp-explanation">
+                  <!-- Loaded dynamically by JS -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+
+      <!-- PAGE 4: GOVERNANCE -->
+      <div id="page-governance" style="display: none;">
+        
+        <!-- Section: Champion Framework -->
+        <section id="champion-framework">
+          <div class="section-header">
+            <h2 class="section-title"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> governance.champion.lifecycle</h2>
+            <p class="section-subtitle">Champion framework promotions, approval workflows, and audit trails</p>
+          </div>
+
+          <div class="row g-4 mb-4">
+            <!-- Left Panel: Deployed Champion Status -->
+            <div class="col-12 col-xl-4">
+              <div class="cyber-card h-100 text-center d-flex flex-column justify-content-between py-4">
+                <div>
+                  <i class="fa-solid fa-shield-halved text-success" style="font-size: 3.5rem; filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.3));"></i>
+                  <h3 class="mt-3 text-white fw-bold">LightGBM v1.3</h3>
+                  <p class="text-success small fw-bold" style="font-family: var(--font-mono);">CHAMPION DEPLOYED</p>
+                </div>
+                
+                <div id="chart-champion-gauge" style="height: 180px;"></div>
+                
+                <div class="border-top border-secondary pt-3 mt-2">
+                  <span class="badge bg-success px-3 py-2" style="font-family: var(--font-mono); font-size: 0.8rem; box-shadow: var(--glow-shadow);">AML AUDIT STATUS: PASSED</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Panel: Stepper & Timeline UI -->
+            <div class="col-12 col-xl-8">
+              <div class="cyber-card h-100">
+                <h5 class="mb-4 text-white"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> MODEL APPROVAL WORKFLOW</h5>
+                
+                <!-- Stepper UI -->
+                <div class="d-flex justify-content-between align-items-center mb-5 position-relative px-2">
+                  <div class="position-absolute top-50 start-0 translate-y-middle w-100 bg-secondary" style="height: 2px; z-index: 1;">
+                    <div class="bg-success" style="height: 2px; width: 100%;"></div>
+                  </div>
+                  
+                  <div class="text-center position-relative" style="z-index: 2; width: 20%;">
+                    <div class="rounded-circle bg-success text-dark fw-bold d-inline-flex align-items-center justify-content-center mb-2" style="width: 32px; height: 32px; box-shadow: 0 0 8px var(--success);">
+                      <i class="fa-solid fa-check" style="font-size: 0.8rem;"></i>
+                    </div>
+                    <div class="small text-white fw-bold" style="font-size: 0.75rem;">1. Preprocess</div>
+                    <div class="small text-muted" style="font-size: 0.65rem; font-family: var(--font-mono);">Passed Variance</div>
+                  </div>
+                  
+                  <div class="text-center position-relative" style="z-index: 2; width: 20%;">
+                    <div class="rounded-circle bg-success text-dark fw-bold d-inline-flex align-items-center justify-content-center mb-2" style="width: 32px; height: 32px; box-shadow: 0 0 8px var(--success);">
+                      <i class="fa-solid fa-check" style="font-size: 0.8rem;"></i>
+                    </div>
+                    <div class="small text-white fw-bold" style="font-size: 0.75rem;">2. Leakage</div>
+                    <div class="small text-muted" style="font-size: 0.65rem; font-family: var(--font-mono);">0% Leakage</div>
+                  </div>
+
+                  <div class="text-center position-relative" style="z-index: 2; width: 20%;">
+                    <div class="rounded-circle bg-success text-dark fw-bold d-inline-flex align-items-center justify-content-center mb-2" style="width: 32px; height: 32px; box-shadow: 0 0 8px var(--success);">
+                      <i class="fa-solid fa-check" style="font-size: 0.8rem;"></i>
+                    </div>
+                    <div class="small text-white fw-bold" style="font-size: 0.75rem;">3. Backtest</div>
+                    <div class="small text-muted" style="font-size: 0.65rem; font-family: var(--font-mono);">F1: 0.857</div>
+                  </div>
+
+                  <div class="text-center position-relative" style="z-index: 2; width: 20%;">
+                    <div class="rounded-circle bg-success text-dark fw-bold d-inline-flex align-items-center justify-content-center mb-2" style="width: 32px; height: 32px; box-shadow: 0 0 8px var(--success);">
+                      <i class="fa-solid fa-check" style="font-size: 0.8rem;"></i>
+                    </div>
+                    <div class="small text-white fw-bold" style="font-size: 0.75rem;">4. Compliance</div>
+                    <div class="small text-muted" style="font-size: 0.65rem; font-family: var(--font-mono);">Audit Signed</div>
+                  </div>
+
+                  <div class="text-center position-relative" style="z-index: 2; width: 20%;">
+                    <div class="rounded-circle bg-success text-dark fw-bold d-inline-flex align-items-center justify-content-center mb-2" style="width: 32px; height: 32px; box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); border: 2px solid #FFF;">
+                      <i class="fa-solid fa-ranking-star" style="font-size: 0.8rem;"></i>
+                    </div>
+                    <div class="small text-success fw-bold" style="font-size: 0.75rem;">5. Deployed</div>
+                    <div class="small text-muted" style="font-size: 0.65rem; font-family: var(--font-mono);">Champion v1.3</div>
+                  </div>
+                </div>
+
+                <!-- Model Audit Trail / Chronology -->
+                <h6 class="text-muted fw-bold mb-3 mt-4" style="font-family: var(--font-mono); font-size: 0.75rem;">// MODEL AUDIT TRAIL & CHRONOLOGY</h6>
+                
+                <div class="timeline-container ps-3 border-start border-secondary position-relative ms-2">
+                  <div class="timeline-event mb-3 position-relative">
+                    <div class="position-absolute rounded-circle bg-success" style="width: 10px; height: 10px; left: -18px; top: 6px; box-shadow: 0 0 6px var(--success);"></div>
+                    <div class="d-flex justify-content-between align-items-center small">
+                      <span class="fw-bold text-white">LightGBM v1.3 Deployed (Champion)</span>
+                      <span class="text-muted" style="font-family: var(--font-mono);">Oct 2024</span>
+                    </div>
+                    <p class="small text-muted mb-0">F1 score increased to 0.857. Features selection validated by the audit board.</p>
+                  </div>
+
+                  <div class="timeline-event mb-3 position-relative">
+                    <div class="position-absolute rounded-circle bg-warning" style="width: 10px; height: 10px; left: -18px; top: 6px; box-shadow: 0 0 6px var(--warning);"></div>
+                    <div class="d-flex justify-content-between align-items-center small">
+                      <span class="fw-bold text-white">CatBoost v1.1 Promoted (Challenger)</span>
+                      <span class="text-muted" style="font-family: var(--font-mono);">Jul 2024</span>
+                    </div>
+                    <p class="small text-muted mb-0">Evaluated on the production validation dataset. Backtest F1: 0.831.</p>
+                  </div>
+
+                  <div class="timeline-event mb-3 position-relative">
+                    <div class="position-absolute rounded-circle bg-secondary" style="width: 10px; height: 10px; left: -18px; top: 6px;"></div>
+                    <div class="d-flex justify-content-between align-items-center small">
+                      <span class="fw-bold text-white">XGBoost v1.0 Promoted (Challenger)</span>
+                      <span class="text-muted" style="font-family: var(--font-mono);">Apr 2024</span>
+                    </div>
+                    <p class="small text-muted mb-0">Extreme gradient boosting baseline established. Validation F1: 0.818.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: Data Quality -->
+        <section id="data-quality">
+          <div class="section-header">
+            <h2 class="section-title"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> governance.data.quality</h2>
+            <p class="section-subtitle">Feature stability indexes, leakage verifications, and variance filtering</p>
+          </div>
+
+          <div class="row g-4">
+            <!-- Leakage Detection & Scorecard -->
+            <div class="col-12 col-md-4">
+              <div class="cyber-card h-100 d-flex flex-column justify-content-between">
+                <div>
+                  <h5 class="mb-4 text-white"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> DATA STABILITY</h5>
+                  <div class="p-3 rounded border border-secondary text-center mb-3" style="background: rgba(255,255,255,0.015);">
+                    <div class="small text-muted" style="font-family: var(--font-mono);">DATA QUALITY SCORE</div>
+                    <div class="kpi-value text-success my-2" style="font-size: 2.5rem;">81.7<span style="font-size: 1.2rem; color: var(--text-muted);"> / 100</span></div>
+                    <div class="progress mt-2" style="height: 8px; background-color: rgba(255,255,255,0.05)">
+                      <div class="progress-bar bg-success" style="width: 81.7%"></div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="p-3 rounded border border-success mb-3" style="background: rgba(16, 185, 129, 0.05);">
+                  <div class="d-flex align-items-center gap-2 text-success mb-2">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <strong class="small" style="font-family: var(--font-mono);">LEAKAGE DETECTION</strong>
+                  </div>
+                  <div class="small text-white-50">
+                    Target variable leakage scanning completed. Mutual information bounds verified. <strong>No leakage detected.</strong>
+                  </div>
+                </div>
+
+                <div class="text-muted small" style="font-family: var(--font-mono); font-size: 0.65rem;">
+                  Last scan: 2026-06-15T03:53 | Database rows: 9,082
+                </div>
+              </div>
+            </div>
+
+            <!-- Feature Selection Journey -->
+            <div class="col-12 col-md-8">
+              <div class="cyber-card h-100">
+                <h5 class="mb-4 text-white"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> FEATURE SELECTION JOURNEY</h5>
+                
+                <div class="row g-3">
+                  <!-- Feature 1 -->
+                  <div class="col-12 col-md-6">
+                    <div class="p-3 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong class="text-white small" style="font-family: var(--font-mono);">net_community_mule_ratio</strong>
+                        <span class="badge bg-success">SELECTED</span>
+                      </div>
+                      <div class="row g-2 text-muted small" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                        <div class="col-6">Mutual Info: <strong class="text-white">0.247</strong></div>
+                        <div class="col-6">Variance: <strong class="text-white">1.089</strong></div>
+                      </div>
+                      <div class="progress mt-2" style="height: 4px; background-color: rgba(255,255,255,0.05)">
+                        <div class="progress-bar bg-success" style="width: 80%"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Feature 2 -->
+                  <div class="col-12 col-md-6">
+                    <div class="p-3 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong class="text-white small" style="font-family: var(--font-mono);">velocity_ratio_7d_30d</strong>
+                        <span class="badge bg-success">SELECTED</span>
+                      </div>
+                      <div class="row g-2 text-muted small" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                        <div class="col-6">Mutual Info: <strong class="text-white">0.201</strong></div>
+                        <div class="col-6">Variance: <strong class="text-white">0.942</strong></div>
+                      </div>
+                      <div class="progress mt-2" style="height: 4px; background-color: rgba(255,255,255,0.05)">
+                        <div class="progress-bar bg-success" style="width: 70%"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Feature 3 -->
+                  <div class="col-12 col-md-6">
+                    <div class="p-3 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong class="text-white small" style="font-family: var(--font-mono);">counterparty_mule_count</strong>
+                        <span class="badge bg-success">SELECTED</span>
+                      </div>
+                      <div class="row g-2 text-muted small" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                        <div class="col-6">Mutual Info: <strong class="text-white">0.189</strong></div>
+                        <div class="col-6">Variance: <strong class="text-white">1.201</strong></div>
+                      </div>
+                      <div class="progress mt-2" style="height: 4px; background-color: rgba(255,255,255,0.05)">
+                        <div class="progress-bar bg-success" style="width: 65%"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Feature 4 -->
+                  <div class="col-12 col-md-6">
+                    <div class="p-3 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong class="text-white small" style="font-family: var(--font-mono);">dormancy_days_before_spike</strong>
+                        <span class="badge bg-success">SELECTED</span>
+                      </div>
+                      <div class="row g-2 text-muted small" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                        <div class="col-6">Mutual Info: <strong class="text-white">0.174</strong></div>
+                        <div class="col-6">Variance: <strong class="text-white">0.812</strong></div>
+                      </div>
+                      <div class="progress mt-2" style="height: 4px; background-color: rgba(255,255,255,0.05)">
+                        <div class="progress-bar bg-success" style="width: 60%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <footer class="py-4 text-center mt-5" style="background: rgba(11, 15, 25, 0.75); border-top: 1px solid rgba(255, 255, 255, 0.05)">
+        <p class="mb-0 text-muted small">
+          Mule Account Detection Platform v1.3 | Classification: <strong>CONFIDENTIAL / PROPRIETARY</strong>
+        </p>
+        <p class="mb-0 text-muted small mt-1">
+          Built with Bootstrap, Plotly.js, and AG Grid. © 2026 Financial Crime command Unit.
+        </p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Evidence Repository Modal -->
+  <div class="modal fade" id="evidenceModal" tabindex="-1" aria-labelledby="evidenceModalLabel" aria-hidden="true" style="z-index: 2100;">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content bg-dark text-white border-secondary" style="background-color: #0B0F19 !important; border: 1px solid rgba(16, 185, 129, 0.3) !important;">
+        <div class="modal-header border-secondary">
+          <h5 class="modal-title" id="evidenceModalLabel"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> Repository Files</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="evidence-modal-body" style="max-height: 450px; overflow-y: auto;">
+          <!-- Loaded dynamically -->
+        </div>
+        <div class="modal-footer border-secondary">
+          <button type="button" class="btn btn-outline-secondary btn-sm text-white border-secondary" data-bs-dismiss="modal" style="font-family: var(--font-mono);">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case Dossier Modal -->
+  <div class="modal fade" id="caseDossierModal" tabindex="-1" aria-labelledby="caseDossierModalLabel" aria-hidden="true" style="z-index: 2200;">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content bg-dark text-white border-danger" style="background-color: #0B0F19 !important; border: 1px solid rgba(239, 68, 68, 0.35) !important; box-shadow: 0 0 20px rgba(239, 68, 68, 0.15);">
+        <div class="modal-header border-danger">
+          <h5 class="modal-title" id="caseDossierModalLabel"><span style="color: var(--danger); font-family: var(--font-mono);">//</span> INVESTIGATION DOSSIER: <span id="dossier-account-id">ACC_0001</span></h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="case-dossier-modal-body" style="max-height: 75vh; overflow-y: auto;">
+          <!-- Loaded dynamically by JS -->
+        </div>
+        <div class="modal-footer border-danger d-flex justify-content-between">
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-danger btn-sm" onclick="resolveCase('BLOCK')" style="font-family: var(--font-mono); font-size: 0.75rem;">[ BLOCK ACCOUNT ]</button>
+            <button type="button" class="btn btn-outline-warning btn-sm text-warning" onclick="resolveCase('ESCALATE')" style="font-family: var(--font-mono); font-size: 0.75rem;">[ ESCALATE CASE ]</button>
+            <button type="button" class="btn btn-outline-success btn-sm text-success" onclick="resolveCase('DISMISS')" style="font-family: var(--font-mono); font-size: 0.75rem;">[ DISMISS ALERT ]</button>
+          </div>
+          <button type="button" class="btn btn-outline-secondary btn-sm text-white border-secondary" data-bs-dismiss="modal" style="font-family: var(--font-mono); font-size: 0.75rem;">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.24.1/plotly.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ag-grid-community@31.0.0/dist/ag-grid-community.min.js"></script>
+  
+  <script src="assets/js/dashboard.js"></script>
+</body>
+</html>
