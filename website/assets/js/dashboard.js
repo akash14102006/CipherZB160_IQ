@@ -121,7 +121,7 @@
             </div>
             <div class="d-flex align-items-center gap-3">
               <span class="badge bg-black border border-secondary text-muted" style="font-family: var(--font-mono); font-size: 0.65rem;">${f.size}</span>
-              <a class="btn btn-sm btn-cyber py-1 px-3" href="${f.path.startsWith('website/') ? f.path.substring(8) : f.path}" target="_blank" style="font-family: var(--font-mono); font-size: 0.7rem;">[ OPEN ]</a>
+              <a class="btn btn-sm btn-cyber py-1 px-3" href="https://drive.google.com/drive/u/0/folders/1wJtB1NzfdnRnzERzAllFfuQahAqy3RyS" target="_blank" style="font-family: var(--font-mono); font-size: 0.7rem;">[ DRIVE ]</a>
             </div>
           </div>
         `;

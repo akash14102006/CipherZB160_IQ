@@ -152,8 +152,6 @@
             actionButtons = `<button class="btn btn-sm btn-outline-primary" style="font-size: 0.7rem; font-family: var(--font-mono);" onclick="openLightbox('${f.path}', '${f.name}')"><i class="fa-solid fa-expand me-1"></i> VIEW</button>`;
           } else if (isDataset) {
             actionButtons = `<button class="btn btn-sm btn-outline-success" style="font-size: 0.7rem; font-family: var(--font-mono);" onclick="alert('Data preview triggered.\\nAG Grid visualization coming soon.')"><i class="fa-solid fa-eye me-1"></i> PREVIEW (25)</button>`;
-          } else {
-            actionButtons = `<button class="btn btn-sm btn-outline-info" style="font-size: 0.7rem; font-family: var(--font-mono);" onclick="window.open('https://drive.google.com/drive/u/0/folders/1wJtB1NzfdnRnzERzAllFfuQahAqy3RyS', '_blank')"><i class="fa-brands fa-google-drive me-1"></i> DRIVE</button>`;
           }
 
           return `
@@ -167,6 +165,7 @@
                   </div>
                   <div class="d-flex flex-column gap-2 align-items-end">
                     ${actionButtons}
+                    <button class="btn btn-sm btn-outline-info" style="font-size: 0.7rem; font-family: var(--font-mono);" onclick="window.open('https://drive.google.com/drive/u/0/folders/1wJtB1NzfdnRnzERzAllFfuQahAqy3RyS', '_blank')"><i class="fa-brands fa-google-drive me-1"></i> DRIVE</button>
                     <button class="btn btn-sm btn-outline-secondary" style="font-size: 0.7rem; font-family: var(--font-mono);" onclick="window.open('${githubLink}', '_blank')"><i class="fa-brands fa-github me-1"></i> GITHUB</button>
                   </div>
                 </div>
