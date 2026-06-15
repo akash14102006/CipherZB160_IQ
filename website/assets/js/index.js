@@ -861,115 +861,257 @@
           plot_bgcolor: 'rgba(0,0,0,0)',
           font: { color: '#F1F5F9', size: 9 },
           margin: { t: 30, b: 35, l: 35, r: 15 },
-          xaxis: { range: [0, 1], title: 'Risk Score / Probability' },
+          xaxis: { range: [0, 1], title: { text: 'Risk Score / Probability', font: { color: '#94A3B8' } } },
           yaxis: { showgrid: false },
           annotations: [{
             x: 0.5, y: 0.5,
-            text: "Production Dataset Not Loaded",
+            text: 'Production Dataset Not Loaded',
             showarrow: false,
-            font: { color: '#EF4444', size: 14, weight: 'bold' }
+            font: { color: '#EF4444', size: 14 }
           }]
-        });
+        }, { displayModeBar: false });
         return;
       }
 
       const scores = dataInput.map(d => d.risk_score);
       const sum = scores.reduce((a, b) => a + b, 0);
       const mean = scores.length > 0 ? sum / scores.length : 0;
-      
       const sorted = [...scores].sort((a, b) => a - b);
-      const median = sorted.length > 0 ? (sorted.length % 2 === 0 ? (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2 : sorted[Math.floor(sorted.length / 2)]) : 0;
+      const median = sorted.length > 0
+        ? (sorted.length % 2 === 0
+            ? (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2
+            : sorted[Math.floor(sorted.length / 2)])
+        : 0;
 
-      const trace = {
-        x: scores,
+      // ── 4 Colour-Segmented Traces ──────────────────────────────────────────────
+      const low      = scores.filter(s => s <  0.30);
+      const medium   = scores.filter(s => s >= 0.30 && s < 0.60);
+      const high     = scores.filter(s => s >= 0.60 && s < 0.85);
+      const critical = scores.filter(s => s >= 0.85);
+
+      const makeTrace = (vals, name, color, opacity = 0.75) => ({
+        x: vals,
         type: 'histogram',
-        name: 'Risk Distribution',
+        name,
         nbinsx: 30,
+        opacity,
         marker: {
-          color: '#10B981',
-          opacity: 0.6,
-          line: {
-            color: '#10B981',
-            width: 1
-          }
-        }
-      };
+          color,
+          line: { color, width: 0.5 }
+        },
+        hovertemplate: `<b>${name}</b><br>Count: %{y}<extra></extra>`
+      });
+
+      const traces = [
+        makeTrace(low,      'Low Risk',      '#10B981'),   // emerald
+        makeTrace(medium,   'Medium Risk',   '#F59E0B'),   // amber
+        makeTrace(high,     'High Risk',     '#F97316'),   // orange
+        makeTrace(critical, 'Critical Risk', '#EF4444')    // red
+      ];
+
+      // ── Background zone shapes ──────────────────────────────────────────────────
+      const zones = [
+        { x0: 0,    x1: 0.30, color: 'rgba(16,185,129,0.04)',  label: 'LOW'      },
+        { x0: 0.30, x1: 0.60, color: 'rgba(245,158,11,0.04)',  label: 'MEDIUM'   },
+        { x0: 0.60, x1: 0.85, color: 'rgba(249,115,22,0.05)',  label: 'HIGH'     },
+        { x0: 0.85, x1: 1.00, color: 'rgba(239,68,68,0.07)',   label: 'CRITICAL' }
+      ];
 
       const shapes = [
+        // Zone background fills
+        ...zones.map(z => ({
+          type: 'rect',
+          x0: z.x0, x1: z.x1,
+          y0: 0, y1: 1, yref: 'paper',
+          fillcolor: z.color,
+          line: { width: 0 },
+          layer: 'below'
+        })),
+        // Mean vertical line
         {
           type: 'line',
-          x0: mean, x1: mean,
-          y0: 0, y1: 1,
-          yref: 'paper',
+          x0: mean, x1: mean, y0: 0, y1: 1, yref: 'paper',
           line: { color: '#06B6D4', width: 2, dash: 'dash' }
         },
+        // Median vertical line
         {
           type: 'line',
-          x0: median, x1: median,
-          y0: 0, y1: 1,
-          yref: 'paper',
+          x0: median, x1: median, y0: 0, y1: 1, yref: 'paper',
           line: { color: '#D946EF', width: 2, dash: 'dash' }
         },
+        // Threshold markers
         {
           type: 'line',
-          x0: 0.60, x1: 0.60,
-          y0: 0, y1: 1,
-          yref: 'paper',
-          line: { color: '#F59E0B', width: 1.5, dash: 'dot' }
+          x0: 0.60, x1: 0.60, y0: 0, y1: 1, yref: 'paper',
+          line: { color: '#F97316', width: 1.5, dash: 'dot' }
         },
         {
           type: 'line',
-          x0: 0.85, x1: 0.85,
-          y0: 0, y1: 1,
-          yref: 'paper',
+          x0: 0.85, x1: 0.85, y0: 0, y1: 1, yref: 'paper',
           line: { color: '#EF4444', width: 1.5, dash: 'dot' }
         }
       ];
 
       const annotations = [
-        {
-          x: mean, y: 0.95, yref: 'paper',
-          text: `Mean: ${mean.toFixed(3)}`,
-          showarrow: false,
-          font: { color: '#06B6D4', size: 9 },
-          xanchor: 'left', yanchor: 'top'
-        },
-        {
-          x: median, y: 0.85, yref: 'paper',
-          text: `Median: ${median.toFixed(3)}`,
-          showarrow: false,
-          font: { color: '#D946EF', size: 9 },
-          xanchor: 'left', yanchor: 'top'
-        },
-        {
-          x: 0.60, y: 0.75, yref: 'paper',
-          text: 'High (0.60)',
-          showarrow: false,
-          font: { color: '#F59E0B', size: 8 },
-          xanchor: 'right', yanchor: 'top'
-        },
-        {
-          x: 0.85, y: 0.65, yref: 'paper',
-          text: 'Critical (0.85)',
-          showarrow: false,
-          font: { color: '#EF4444', size: 8 },
-          xanchor: 'right', yanchor: 'top'
-        }
+        { x: mean,   y: 0.97, yref: 'paper', text: `μ ${mean.toFixed(3)}`,
+          showarrow: false, font: { color: '#06B6D4', size: 8 }, xanchor: 'left' },
+        { x: median, y: 0.88, yref: 'paper', text: `M ${median.toFixed(3)}`,
+          showarrow: false, font: { color: '#D946EF', size: 8 }, xanchor: 'left' },
+        { x: 0.60, y: 0.78, yref: 'paper', text: 'High 0.60',
+          showarrow: false, font: { color: '#F97316', size: 8 }, xanchor: 'right' },
+        { x: 0.85, y: 0.68, yref: 'paper', text: 'Critical 0.85',
+          showarrow: false, font: { color: '#EF4444', size: 8 }, xanchor: 'right' }
       ];
 
       const layout = {
+        barmode: 'stack',
         paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: 'rgba(0,0,0,0)',
         font: { color: '#F1F5F9', size: 9 },
-        margin: { t: 30, b: 35, l: 35, r: 15 },
-        xaxis: { range: [0, 1], title: 'Risk Score / Probability' },
-        yaxis: { showgrid: true, gridcolor: 'rgba(255,255,255,0.05)', title: 'Frequency' },
-        shapes: shapes,
-        annotations: annotations,
-        showlegend: false
+        margin: { t: 30, b: 40, l: 40, r: 15 },
+        xaxis: {
+          range: [0, 1],
+          title: { text: 'Risk Score', font: { color: '#94A3B8', size: 9 } },
+          tickcolor: 'rgba(255,255,255,0.2)',
+          gridcolor: 'rgba(255,255,255,0.04)',
+          zeroline: false
+        },
+        yaxis: {
+          title: { text: 'Accounts', font: { color: '#94A3B8', size: 9 } },
+          gridcolor: 'rgba(255,255,255,0.06)',
+          zeroline: false
+        },
+        shapes,
+        annotations,
+        showlegend: true,
+        legend: {
+          orientation: 'h',
+          x: 0, y: -0.22,
+          font: { size: 8, color: '#94A3B8' },
+          bgcolor: 'rgba(0,0,0,0)'
+        }
       };
 
-      Plotly.newPlot(plotDiv, [trace], layout, {responsive: true});
+      Plotly.newPlot(plotDiv, traces, layout, { responsive: true, displayModeBar: false });
+    };
+
+    // ── Enterprise Dark PDF Export ────────────────────────────────────────────────
+    window.exportDarkPDF = () => {
+      // Inject dark print stylesheet
+      const styleId = 'cipher-print-style';
+      const existing = document.getElementById(styleId);
+      if (existing) existing.remove();
+
+      const style = document.createElement('style');
+      style.id = styleId;
+      style.media = 'print';
+      style.textContent = `
+        @page {
+          size: A4 portrait;
+          margin: 12mm 10mm 12mm 10mm;
+        }
+
+        /* ── Reset ── */
+        * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+        /* ── Page background ── */
+        html, body {
+          background: #020817 !important;
+          color: #E2E8F0 !important;
+          font-family: 'Courier New', monospace;
+          font-size: 9pt;
+        }
+
+        /* ── Hide navigation, modals, offcanvases, buttons, footers ── */
+        .navbar, .modal, .offcanvas, .btn, footer, #main-footer,
+        .cyber-btn, .scroll-progress-bar, .nav-tabs, .tab-pane:not(.active),
+        [class*='dropdown'], .filter-panel-sidebar, #filter-chips-container,
+        .page-section:not(#page-platform-overview) { display: none !important; }
+
+        /* ── Show only platform overview for print ── */
+        #page-platform-overview { display: block !important; }
+
+        /* ── Cards ── */
+        .cyber-card, .card, [class*='card'] {
+          background: #0D1B2E !important;
+          border: 1px solid rgba(0,229,176,0.25) !important;
+          border-radius: 6px !important;
+          break-inside: avoid;
+          margin-bottom: 8pt;
+          padding: 8pt;
+        }
+
+        /* ── KPI Metric tiles ── */
+        .metric-value, [class*='metric'] {
+          color: #00E5B0 !important;
+          font-size: 18pt;
+          font-weight: bold;
+        }
+        .metric-label { color: #64748B !important; font-size: 7pt; }
+
+        /* ── Tables ── */
+        table { width: 100%; border-collapse: collapse; }
+        thead { background: #0A1628 !important; }
+        th { color: #00E5B0 !important; font-size: 7pt; padding: 4pt 6pt; border-bottom: 1px solid rgba(0,229,176,0.3); }
+        td { color: #CBD5E1 !important; font-size: 7.5pt; padding: 3pt 6pt; border-bottom: 1px solid rgba(255,255,255,0.06); }
+        tr:nth-child(even) td { background: rgba(255,255,255,0.025) !important; }
+
+        /* ── Badges ── */
+        .badge { padding: 2pt 5pt; border-radius: 3pt; font-size: 6.5pt; }
+        .bg-danger  { background: #EF4444 !important; color: #fff !important; }
+        .bg-warning { background: #F59E0B !important; color: #000 !important; }
+        .bg-success { background: #10B981 !important; color: #fff !important; }
+        .bg-info    { background: #3B82F6 !important; color: #fff !important; }
+
+        /* ── Text colours ── */
+        .text-white   { color: #F1F5F9 !important; }
+        .text-muted   { color: #64748B !important; }
+        .text-success { color: #10B981 !important; }
+        .text-danger  { color: #EF4444 !important; }
+        .text-warning { color: #F59E0B !important; }
+        .text-primary, [style*='color: var(--primary)'] { color: #00E5B0 !important; }
+
+        /* ── Report header watermark ── */
+        body::before {
+          content: 'CIPHERZB160 IQ  |  ENTERPRISE FRAUD INTELLIGENCE  |  CONFIDENTIAL';
+          display: block;
+          text-align: center;
+          font-size: 6.5pt;
+          color: rgba(0,229,176,0.5);
+          letter-spacing: 3px;
+          margin-bottom: 6pt;
+          padding-bottom: 4pt;
+          border-bottom: 1px solid rgba(0,229,176,0.2);
+        }
+
+        /* ── Plotly charts: show at fixed height ── */
+        .js-plotly-plot, .plot-container {
+          max-height: 160pt !important;
+          overflow: hidden;
+          break-inside: avoid;
+        }
+
+        /* ── Grid cells ── */
+        .ag-root-wrapper { background: #0D1B2E !important; border: 1px solid rgba(0,229,176,0.15) !important; }
+        .ag-header { background: #0A1628 !important; }
+        .ag-header-cell-text { color: #00E5B0 !important; font-size: 7pt; }
+        .ag-cell { color: #CBD5E1 !important; font-size: 7.5pt; border-color: rgba(255,255,255,0.05) !important; }
+        .ag-row-even { background: rgba(255,255,255,0.02) !important; }
+        .ag-row-odd  { background: transparent !important; }
+
+        /* ── Page break hints ── */
+        .print-break-before { break-before: page; }
+        .print-break-avoid  { break-inside: avoid; }
+      `;
+
+      document.head.appendChild(style);
+
+      // Small delay to let styles apply, then print
+      setTimeout(() => {
+        window.print();
+        // Remove after print dialog closes
+        setTimeout(() => style.remove(), 1500);
+      }, 150);
     };
 
     const renderMiniCurves = (prefix, aucVal, color) => {
