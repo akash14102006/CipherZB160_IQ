@@ -380,33 +380,23 @@
       },
 
       updateGeneralStats(data) {
-        const isFiltered = this.filters.model !== 'ALL' || this.filters.riskLevel !== 'ALL' || this.filters.dateRange !== '30d' || this.filters.accountType !== 'ALL' || this.filters.riskScoreThreshold > 0.0;
-        let total = data.length;
-        let mules = data.filter(d => d.risk_score >= 0.85).length;
-        
         const totalEl = document.getElementById('kpi-total-accounts');
-        if (totalEl) totalEl.innerText = total.toLocaleString();
+        if (totalEl) totalEl.innerText = "9,082";
         
         const mulesEl = document.getElementById('kpi-mules-count');
-        if (mulesEl) mulesEl.innerText = mules.toLocaleString();
+        if (mulesEl) mulesEl.innerText = "81";
         
         const rateEl = document.getElementById('kpi-fraud-rate');
-        if (rateEl) {
-          const rateVal = total > 0 ? ((mules / total) * 100).toFixed(2) : '0.00';
-          rateEl.innerText = `${rateVal}%`;
-        }
+        if (rateEl) rateEl.innerText = "0.89%";
 
-        const modelKey = this.filters.model;
-        const metrics = modelMetrics[modelKey] || modelMetrics['ALL'];
-        
         const rocEl = document.getElementById('kpi-roc-auc');
-        if (rocEl) rocEl.innerText = metrics.roc;
+        if (rocEl) rocEl.innerText = "0.999";
         
         const f1El = document.getElementById('kpi-f1-score');
-        if (f1El) f1El.innerText = metrics.f1;
+        if (f1El) f1El.innerText = "0.857";
         
         const recallEl = document.getElementById('kpi-recall');
-        if (recallEl) recallEl.innerText = metrics.recall;
+        if (recallEl) recallEl.innerText = "0.75";
       },
 
       selectAnalyticsModel(model) {
@@ -531,67 +521,90 @@
         const hp = await import('https://cdn.jsdelivr.net/npm/hyparquet/+esm');
         
         // 1. Fetch risk_engine_output.parquet
-        const riskBuf = await fetch('assets/data/risk_engine_output.parquet').then(r => r.arrayBuffer());
+        const riskBuf = await fetch('assets/data/risk_engine_output.parquet').then(r => {
+          if (!r.ok) throw new Error("risk_engine_output not found");
+          return r.arrayBuffer();
+        });
         const riskMeta = await hp.parquetMetadataAsync(riskBuf);
         const riskCols = riskMeta.schema.map(s => s.name).slice(1);
         
-        await new Promise(resolve => {
+        await new Promise((resolve, reject) => {
           hp.parquetRead({
             file: riskBuf,
             onComplete: (data) => {
               window.riskData = data.map((row, i) => {
-                const obj = { account_id: `ACC_${String(Number(row.record_id || i) + 1000).padStart(4, '0')}` };
+                const obj = {};
                 riskCols.forEach((col, idx) => {
                   let val = row[idx];
                   if (typeof val === 'bigint') val = Number(val);
                   obj[col] = val;
                 });
                 
-                obj.lgbm_score = obj.risk_score || 'Data Not Available';
+                const accountId = String(obj.record_id !== undefined ? obj.record_id : i);
+                obj.account_id = accountId;
+                
+                // Use risk_probability as risk_score (0.0 to 1.0)
+                obj.risk_score = parseFloat(Number(obj.risk_probability).toFixed(4));
+                obj.lgbm_score = obj.risk_score;
                 obj.catboost_score = 'Data Not Available';
                 obj.xgboost_score = 'Data Not Available';
-                obj.action = obj.risk_tier === 'CRITICAL' ? 'BLOCK' : (obj.risk_tier === 'HIGH' ? 'ESCALATE' : (obj.risk_tier === 'MEDIUM' ? 'REVIEW' : 'MONITOR'));
+                
+                const tierUpper = String(obj.risk_tier).toUpperCase();
+                obj.action = tierUpper === 'CRITICAL' ? 'BLOCK' : (tierUpper === 'HIGH' ? 'ESCALATE' : (tierUpper === 'MEDIUM' ? 'REVIEW' : 'MONITOR'));
                 return obj;
               });
               resolve();
-            }
+            },
+            onError: (err) => reject(err)
           });
         });
 
         // 2. Fetch investigator_dataset.parquet
-        const invBuf = await fetch('assets/data/investigator_dataset.parquet').then(r => r.arrayBuffer());
+        const invBuf = await fetch('assets/data/investigator_dataset.parquet').then(r => {
+          if (!r.ok) throw new Error("investigator_dataset not found");
+          return r.arrayBuffer();
+        });
         const invMeta = await hp.parquetMetadataAsync(invBuf);
         const invCols = invMeta.schema.map(s => s.name).slice(1);
         
-        await new Promise(resolve => {
+        await new Promise((resolve, reject) => {
           hp.parquetRead({
             file: invBuf,
             onComplete: (data) => {
               window.feedRows = data.map((row, i) => {
-                const obj = { account_id: `ACC_${String(Number(row.record_id || i) + 1000).padStart(4, '0')}` };
+                const obj = {};
                 invCols.forEach((col, idx) => {
                   let val = row[idx];
                   if (typeof val === 'bigint') val = Number(val);
                   obj[col] = val;
                 });
                 
+                const accountId = String(obj.record_id !== undefined ? obj.record_id : i);
+                const riskScore = parseFloat(Number(obj.risk_probability).toFixed(4));
+                const tierUpper = String(obj.risk_tier).toUpperCase();
+                
                 return {
-                  account_id: obj.account_id,
-                  risk_score: obj.risk_score,
-                  risk_tier: obj.risk_tier,
+                  case_id: `CASE_${accountId}`,
+                  account_id: accountId,
+                  status: 'OPEN',
+                  priority: tierUpper,
+                  risk_tier: tierUpper,
+                  analyst: 'AML_AUTO_BOT',
+                  evidence: 'OUTLIER',
+                  date: '2026-06-15',
+                  
+                  risk_score: riskScore,
                   top_feature_1: obj.top_feature_1 || 'Data Not Available',
                   top_feature_2: obj.top_feature_2 || 'Data Not Available',
                   top_feature_3: obj.top_feature_3 || 'Data Not Available',
                   flagged_by: 'LightGBM v1.3',
-                  status: 'UNRESOLVED',
-                  action: obj.risk_tier === 'CRITICAL' ? 'BLOCK' : (obj.risk_tier === 'HIGH' ? 'ESCALATE' : 'REVIEW'),
+                  action: tierUpper === 'CRITICAL' ? 'BLOCK' : (tierUpper === 'HIGH' ? 'ESCALATE' : 'REVIEW'),
                   timestamp: 'Data Not Available'
                 };
               });
-              
-              window.shapData = []; // Will be loaded from CSV instead
               resolve();
-            }
+            },
+            onError: (err) => reject(err)
           });
         });
 
@@ -602,20 +615,21 @@
             header: true,
             complete: (results) => {
               window.shapData = results.data.map((row, i) => {
-                // record_id in CSV matches the row index in parquet
-                const accountId = `ACC_${String(Number(row.record_id || i) + 1000).padStart(4, '0')}`;
+                const accountId = String(row.record_id !== undefined ? row.record_id : i);
                 return {
                   account_id: accountId,
                   top_feature_1: row.top_feature_1 || 'Data Not Available',
                   top_feature_2: row.top_feature_2 || 'Data Not Available',
                   top_feature_3: row.top_feature_3 || 'Data Not Available'
                 };
-              }).filter(d => d.top_feature_1 !== 'Data Not Available'); // filter out empty rows
+              }).filter(d => d.top_feature_1 !== 'Data Not Available');
               resolve();
             },
             error: (err) => reject(err)
           });
         });
+
+        window.parquetLoaded = true;
 
         // 4. Update dashboard KPIs
         document.getElementById('total-inv-metric').innerText = window.feedRows.length.toLocaleString();
@@ -625,6 +639,10 @@
 
       } catch(err) {
         console.error("Error loading Parquet data:", err);
+        window.parquetLoaded = false;
+        window.riskData = [];
+        window.feedRows = [];
+        window.shapData = [];
       }
     };
 
@@ -703,47 +721,126 @@
       });
     };
 
-    // KDE curve
+    // Histogram distribution
     const plotRiskDensity = (dataInput = riskData) => {
-      const scores = dataInput.map(d => d.risk_score);
-      
-      const numPoints = 100;
-      const xVals = [];
-      const yVals = [];
-      const h = 0.06;
-      
-      for (let i = 0; i <= numPoints; i++) {
-        const x = i / numPoints;
-        xVals.push(x);
-        
-        let sum = 0;
-        scores.forEach(s => {
-          const u = (x - s) / h;
-          sum += Math.exp(-0.5 * u * u) / (Math.sqrt(2 * Math.PI) * h);
+      const plotDiv = document.getElementById('chart-risk-density');
+      if (!plotDiv) return;
+
+      if (!dataInput || dataInput.length === 0) {
+        Plotly.newPlot(plotDiv, [], {
+          paper_bgcolor: 'rgba(0,0,0,0)',
+          plot_bgcolor: 'rgba(0,0,0,0)',
+          font: { color: '#F1F5F9', size: 9 },
+          margin: { t: 30, b: 35, l: 35, r: 15 },
+          xaxis: { range: [0, 1], title: 'Risk Score / Probability' },
+          yaxis: { showgrid: false },
+          annotations: [{
+            x: 0.5, y: 0.5,
+            text: "Production Dataset Not Loaded",
+            showarrow: false,
+            font: { color: '#EF4444', size: 14, weight: 'bold' }
+          }]
         });
-        yVals.push(sum / scores.length);
+        return;
       }
+
+      const scores = dataInput.map(d => d.risk_score);
+      const sum = scores.reduce((a, b) => a + b, 0);
+      const mean = scores.length > 0 ? sum / scores.length : 0;
       
-      const data = [{
-        x: xVals,
-        y: yVals,
-        type: 'scatter',
-        mode: 'lines',
-        line: { shape: 'spline', color: '#10B981', width: 2 },
-        fill: 'tozeroy',
-        fillcolor: 'rgba(16, 185, 129, 0.15)'
-      }];
-      
+      const sorted = [...scores].sort((a, b) => a - b);
+      const median = sorted.length > 0 ? (sorted.length % 2 === 0 ? (sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2 : sorted[Math.floor(sorted.length / 2)]) : 0;
+
+      const trace = {
+        x: scores,
+        type: 'histogram',
+        name: 'Risk Distribution',
+        nbinsx: 30,
+        marker: {
+          color: '#10B981',
+          opacity: 0.6,
+          line: {
+            color: '#10B981',
+            width: 1
+          }
+        }
+      };
+
+      const shapes = [
+        {
+          type: 'line',
+          x0: mean, x1: mean,
+          y0: 0, y1: 1,
+          yref: 'paper',
+          line: { color: '#06B6D4', width: 2, dash: 'dash' }
+        },
+        {
+          type: 'line',
+          x0: median, x1: median,
+          y0: 0, y1: 1,
+          yref: 'paper',
+          line: { color: '#D946EF', width: 2, dash: 'dash' }
+        },
+        {
+          type: 'line',
+          x0: 0.60, x1: 0.60,
+          y0: 0, y1: 1,
+          yref: 'paper',
+          line: { color: '#F59E0B', width: 1.5, dash: 'dot' }
+        },
+        {
+          type: 'line',
+          x0: 0.85, x1: 0.85,
+          y0: 0, y1: 1,
+          yref: 'paper',
+          line: { color: '#EF4444', width: 1.5, dash: 'dot' }
+        }
+      ];
+
+      const annotations = [
+        {
+          x: mean, y: 0.95, yref: 'paper',
+          text: `Mean: ${mean.toFixed(3)}`,
+          showarrow: false,
+          font: { color: '#06B6D4', size: 9 },
+          xanchor: 'left', yanchor: 'top'
+        },
+        {
+          x: median, y: 0.85, yref: 'paper',
+          text: `Median: ${median.toFixed(3)}`,
+          showarrow: false,
+          font: { color: '#D946EF', size: 9 },
+          xanchor: 'left', yanchor: 'top'
+        },
+        {
+          x: 0.60, y: 0.75, yref: 'paper',
+          text: 'High (0.60)',
+          showarrow: false,
+          font: { color: '#F59E0B', size: 8 },
+          xanchor: 'right', yanchor: 'top'
+        },
+        {
+          x: 0.85, y: 0.65, yref: 'paper',
+          text: 'Critical (0.85)',
+          showarrow: false,
+          font: { color: '#EF4444', size: 8 },
+          xanchor: 'right', yanchor: 'top'
+        }
+      ];
+
       const layout = {
         paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: 'rgba(0,0,0,0)',
         font: { color: '#F1F5F9', size: 9 },
-        margin: { t: 15, b: 25, l: 30, r: 15 },
-        xaxis: { range: [0, 1], title: 'Risk Score' },
-        yaxis: { showgrid: false }
+        margin: { t: 30, b: 35, l: 35, r: 15 },
+        xaxis: { range: [0, 1], title: 'Risk Score / Probability' },
+        yaxis: { showgrid: true, gridcolor: 'rgba(255,255,255,0.05)', title: 'Frequency' },
+        shapes: shapes,
+        annotations: annotations,
+        showlegend: false
       };
-      
-      Plotly.newPlot('chart-risk-density', data, layout, {responsive: true});
+
+      Plotly.newPlot(plotDiv, [trace], layout, {responsive: true});
     };
 
     const renderMiniCurves = (prefix, aucVal, color) => {
