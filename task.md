@@ -1,274 +1,443 @@
-Problem 1 — Wrong Landing Experience
+# EVIDENCE REPOSITORY REBUILD
 
-Current:
+Current implementation is incorrect.
 
-Open Dashboard
-        ↓
-Overview Page
-        ↓
-Hero Text
-        ↓
-Few KPI Cards
+The Evidence Repository currently behaves as a static dashboard card collection.
 
-This feels like:
+This creates a demo feeling.
 
-College Project
-Hackathon Demo
-Portfolio Dashboard
+I want Evidence Repository to become a REAL ENTERPRISE EVIDENCE MANAGEMENT CENTER.
 
-not:
+==================================================
+OBJECTIVE
+==================================================
 
-Palantir Gotham
-Mastercard Fraud Center
-Visa Risk Intelligence
-HSBC AML Platform
-Problem 2 — Filters Are Floating Without Context
+Every repository card must open REAL project evidence.
 
-Current top bar:
+No placeholders.
 
-All Models
-All Risk Levels
-Suspicious
-Training
-7 Days
+No duplicated analytics.
 
-Problems:
+No static content.
 
-no visual grouping
-no hierarchy
-no context
-looks like random dropdowns
-wastes top screen real estate
-judges won't know why filters exist
-Better Architecture
+Only actual artifacts from the project repository.
 
-Instead of:
+Repository:
 
-Landing
-   ↓
-Overview
+https://github.com/akash14102006/CipherZB160-IQ
+
+==================================================
+EVIDENCE REPOSITORY ARCHITECTURE
+==================================================
+
+Evidence Repository
+
+├── Reports
+├── Visualizations
+├── Datasets
+├── Models
+├── Audit Files
+└── SHAP Explanations
+
+Each module must open a dedicated Evidence Drawer.
+
+Not another dashboard section.
+
+Not another page reload.
 
 Use:
 
-Landing
-   ↓
-Mission Control
-   ↓
-Analytics Centers
-Landing Page (WOW Page)
+Slide Over Panel
 
-Inspired by:
+or
 
-Graphify
-Palantir
-Bloomberg
-CrowdStrike Falcon
-Mastercard Cyber Fusion
-Full Screen Landing
-┌─────────────────────────────────────────────┐
-│ MULESURVEIL                                 │
-├─────────────────────────────────────────────┤
-│                                             │
-│   Mule Account Detection & Classification   │
-│                                             │
-│   Enterprise Fraud Intelligence Platform    │
-│                                             │
-│   [ Launch Intelligence Center ]            │
-│                                             │
-│   Models Trained: 4                         │
-│   Accounts Analysed: 9,082                  │
-│   Fraud Accounts: 81                        │
-│                                             │
-└─────────────────────────────────────────────┘
+Right Side Investigation Drawer
 
-NO filters.
+or
 
-NO dropdowns.
+Modal Repository Explorer
 
-NO charts.
+==================================================
+REPORTS MODULE
+==================================================
 
-Only:
+When user clicks:
 
-Mission
-Scale
-Impact
-Launch Button
-After Click
+Reports
 
 Open:
 
-Mission Control Center
+Repository Evidence Browser
 
-NOT Overview.
+Source:
 
-Mission Control Layout
-┌────────────────────────────────────────────┐
-│ MULESURVEIL                                │
-├────────────────────────────────────────────┤
-│ Executive KPIs                             │
-├────────────────────────────────────────────┤
-│ Fraud Heatmap                              │
-│ Risk Distribution                          │
-│ Model Leaderboard                          │
-├────────────────────────────────────────────┤
-│ Intelligence Centers                       │
-├────────────────────────────────────────────┤
-│ LightGBM      CatBoost                     │
-│ XGBoost       Isolation Forest             │
-│ Risk Engine   Explainability               │
-└────────────────────────────────────────────┘
-Remove Top Dropdown Filters
+/reports
 
-Instead use:
+Display:
 
-┌────────────────────────────────────┐
-│ Intelligence Filters               │
-├────────────────────────────────────┤
-│ Model                              │
-│ ○ All                              │
-│ ○ LightGBM                         │
-│ ○ CatBoost                         │
-│ ○ XGBoost                          │
-│ ○ Isolation Forest                 │
-├────────────────────────────────────┤
-│ Risk Tier                          │
-│ ○ Low                              │
-│ ○ Medium                           │
-│ ○ High                             │
-│ ○ Critical                         │
-├────────────────────────────────────┤
-│ Date Range                         │
-└────────────────────────────────────┘
+lightgbm_metrics.csv
+lightgbm_classification_report.csv
+catboost_metrics.csv
+catboost_classification_report.csv
+xgboost_metrics.csv
+xgboost_classification_report.csv
+isolation_forest_metrics.csv
 
-Collapsible left intelligence panel.
+champion_model_report.csv
 
-This is what banks do.
+enterprise_model_comparison.csv
 
-Navigation Style
+model_governance_report.csv
 
-Current:
+etc
 
-Overview
-Models
-LightGBM
-CatBoost
-...
+For every file show:
 
-Too many menus.
+File Name
+File Type
+Created Date
+File Size
 
-Use:
+Open Button
 
-Mission Control
+Download Button
 
-Analytics Centers
-    ├── LightGBM
-    ├── CatBoost
-    ├── XGBoost
-    ├── Isolation Forest
+GitHub Button
 
-Risk Intelligence
-    ├── Risk Engine
-    ├── Explainability
+GitHub button must open:
 
-Governance
-    ├── Champion
-    ├── Data Quality
+actual GitHub file
 
-Cleaner.
+not dashboard content
 
-Replace Emojis
+==================================================
+VISUALIZATIONS MODULE
+==================================================
 
-Never use:
+Source:
 
-🚀
-🔥
-⚠️
-📈
-📊
-🎯
+/reports
+
+Only image files
+
+Display:
+
+lightgbm_roc_curve.png
+lightgbm_pr_curve.png
+lightgbm_calibration_curve.png
+lightgbm_lift_chart.png
+
+catboost_roc_curve.png
+catboost_pr_curve.png
+catboost_calibration_curve.png
+catboost_lift_chart.png
+
+xgboost_roc_curve.png
+xgboost_pr_curve.png
+xgboost_calibration_curve.png
+xgboost_lift_chart.png
+
+isolation_forest_roc_curve.png
+isolation_forest_pr_curve.png
+isolation_forest_score_distribution.png
+
+etc
+
+Open:
+
+Image Gallery Viewer
 
 Use:
 
-Font Awesome Pro
+Lightbox
 
-fa-shield-halved
-fa-chart-line
-fa-network-wired
-fa-brain
-fa-magnifying-glass
-fa-triangle-exclamation
-fa-scale-balanced
-fa-fingerprint
-fa-diagram-project
-fa-ranking-star
+Zoom
 
-Looks enterprise.
+Fullscreen
 
-KPI Cards
+Download
 
-Current:
+Open in GitHub
 
-74
-97.2%
-0.847
-0.963
+==================================================
+DATASETS MODULE
+==================================================
 
-Weak.
+Source:
 
-Use:
+/data
 
-TOTAL ACCOUNTS
-9,082
+Display:
 
-MULE ACCOUNTS
-81
+enterprise_training_dataset_v1.parquet
+champion_dataset_v1.parquet
+investigator_dataset.parquet
+risk_engine_output.parquet
 
-CHAMPION MODEL
-LightGBM
-
-ROC AUC
-0.999
-
-F1 SCORE
-0.857
-
-RECALL
-0.75
-
-Large cards.
-
-Status badges.
-
-Trend indicators.
-
-Enterprise Components You Should Add
-Intelligence Cards
-LightGBM
-Champion
-ROC 0.999
-CatBoost
-Challenger
-ROC 0.998
-XGBoost
-Challenger
-ROC 0.997
-Evidence Repository
+train.parquet
+test.parquet
+validation.parquet
 
 Show:
 
-Reports
-Visualizations
-Models
-Datasets
+Rows
+Columns
+File Size
 
-with file counts.
+Preview Button
 
-Fraud Investigation Feed
-Latest High Risk Accounts
+Preview must load first 25 records
+
+AG Grid
+
+Scrollable
+
+Searchable
+
+==================================================
+MODELS MODULE
+==================================================
+
+Source:
+
+/models
+
+Display ONLY REAL MODEL FILES
+
+lightgbm_model.txt
+
+catboost_model.cbm
+
+xgboost_model.json
+
+isolation_forest.pkl
+
+champion_model.txt
+
+For each model show:
+
+Model Name
+
+Version
+
+Framework
+
+Created Date
+
+File Size
+
+Champion Status
+
+Open GitHub
+
+Download
+
+==================================================
+MODEL SPECIFIC EVIDENCE
+==================================================
+
+IMPORTANT
+
+When user is inside:
+
+LightGBM Deep Dive
+
+Evidence Repository must ONLY show:
+
+LightGBM files
+
+Example:
+
+lightgbm_metrics.csv
+
+lightgbm_roc_curve.png
+
+lightgbm_pr_curve.png
+
+lightgbm_calibration_curve.png
+
+lightgbm_feature_importance.csv
+
+NOT CatBoost
+
+NOT XGBoost
+
+NOT Isolation Forest
+
+==================================================
+CATBOOST
+==================================================
+
+Only:
+
+catboost_metrics.csv
+
+catboost_roc_curve.png
+
+catboost_pr_curve.png
+
+catboost_calibration_curve.png
+
+catboost_feature_importance.csv
+
+catboost_model.cbm
+
+==================================================
+XGBOOST
+==================================================
+
+Only:
+
+xgboost_metrics.csv
+
+xgboost_roc_curve.png
+
+xgboost_pr_curve.png
+
+xgboost_calibration_curve.png
+
+xgboost_feature_importance.csv
+
+xgboost_model.json
+
+==================================================
+ISOLATION FOREST
+==================================================
+
+Only:
+
+isolation_forest_metrics.csv
+
+isolation_forest_roc_curve.png
+
+isolation_forest_pr_curve.png
+
+isolation_forest_score_distribution.png
+
+isolation_forest.pkl
+
+==================================================
+FIX CURRENT BUG
+==================================================
+
+Current state:
+
+LightGBM
+
+CatBoost
+
+XGBoost
+
+all display identical content.
+
+This is incorrect.
+
+Every model page must dynamically load its own files.
+
+No shared charts.
+
+No duplicated images.
+
+No hardcoded content.
+
+==================================================
+INVESTIGATION QUEUE
+==================================================
+
+Current state:
+
+Empty panel.
+
+Unacceptable.
+
+Load:
+
+investigator_dataset.parquet
+
+Display:
+
+Case ID
 
 Account ID
-Risk
-Model
-Timestamp
 
-Looks operationalcag
+Status
+
+Priority
+
+Risk Tier
+
+Assigned Analyst
+
+Evidence Count
+
+Investigation Date
+
+Use:
+
+AG Grid Enterprise
+
+Sorting
+
+Filtering
+
+Search
+
+Pagination
+
+Row Click
+
+==================================================
+ROW CLICK ACTION
+==================================================
+
+Open:
+
+Investigation Drawer
+
+Display:
+
+Account Details
+
+Risk Score
+
+Risk Tier
+
+Model Scores
+
+Evidence Files
+
+SHAP Explanation
+
+Investigation Notes
+
+==================================================
+GITHUB INTEGRATION
+==================================================
+
+Every Evidence Card must have:
+
+Open GitHub
+
+Button
+
+Must redirect to actual repository path
+
+Examples:
+
+Models
+
+https://github.com/akash14102006/CipherZB160-IQ/tree/main/models
+
+Reports
+
+https://github.com/akash14102006/CipherZB160-IQ/tree/main/reports
+
+Data
+
+https://github.com/akash14102006/CipherZB160-IQ/tree/main/data
+
+==================================================
+RESULT
+==================================================
+
+Transform Evidence Repository from a static card section into a true enterprise evidence management system that exposes all real project artifacts, reports, datasets, visualizations, models, audit files, and SHAP evidence directly from the repository and dynamically filters evidence based on the currently selected model.
