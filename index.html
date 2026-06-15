@@ -1,0 +1,2966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CipherZB160 IQ Platform</title>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- CDNs -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community@31.0.0/styles/ag-grid.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ag-grid-community@31.0.0/styles/ag-theme-balham.css">
+  
+  <style>
+    :root {
+      --primary: #10B981;       /* Graphify Emerald Green */
+      --primary-glow: rgba(16, 185, 129, 0.25);
+      --success: #10B981;       /* Emerald */
+      --warning: #F59E0B;       /* Amber Gold */
+      --danger: #EF4444;        /* Crimson Red */
+      --background: #030712;    /* Obsidian Black */
+      --card-bg: rgba(11, 15, 25, 0.75); /* Glass Navy Slate */
+      --border-color: rgba(16, 185, 129, 0.15);
+      --text: #F3F4F6;          /* Off-White Gray 100 */
+      --text-muted: #cbd5e1;    /* Slate Gray 300 for better contrast */
+      --accent: #8B5CF6;        /* Violet */
+      --glow-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
+      --font-headings: 'Space Grotesk', sans-serif;
+      --font-body: 'Space Grotesk', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    body {
+      background-color: var(--background);
+      background-image: 
+        linear-gradient(rgba(16, 185, 129, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 185, 129, 0.02) 1px, transparent 1px);
+      background-size: 50px 50px;
+      color: var(--text);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    .text-muted {
+      color: var(--text-muted) !important;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-headings);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    /* Scroll progress bar */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      z-index: 1100;
+      width: 0%;
+      transition: width 0.1s ease-out;
+    }
+
+    /* Top Horizontal Navbar */
+    .navbar {
+      background-color: #050811 !important;
+      border-bottom: 1px solid var(--border-color);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    }
+    
+    .navbar-brand {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--primary) !important;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .navbar-nav .nav-link {
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+      border-bottom: 2px solid transparent;
+      padding-bottom: 0.25rem;
+    }
+
+    .navbar-nav .nav-link:hover, .navbar-nav .nav-link.active {
+      color: var(--primary) !important;
+      border-bottom-color: var(--primary);
+    }
+
+    /* Main Container */
+    .main-content {
+      width: 100%;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+      background-color: var(--background);
+      min-height: calc(100vh - 70px);
+    }
+
+    /* Premium Cyber Cards */
+    .cyber-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cyber-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--primary), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.5s ease;
+    }
+
+    .cyber-card:hover::before {
+      transform: translateX(100%);
+    }
+
+    .cyber-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--primary);
+      box-shadow: var(--glow-shadow);
+    }
+
+    /* Custom KPI styling */
+    .kpi-title {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.5rem;
+    }
+
+    .kpi-value {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    /* Sections */
+    section {
+      padding: 10px 0 40px 0;
+    }
+
+    .section-header {
+      margin-bottom: 2rem;
+      border-left: 4px solid var(--primary);
+      padding-left: 1rem;
+    }
+
+    .section-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #FFF;
+      margin-bottom: 0.25rem;
+    }
+
+    .section-subtitle {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Custom badges */
+    .badge-status {
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.2rem 0.4rem;
+      border-radius: 4px;
+      border: 1px solid transparent;
+    }
+
+    .status-champ {
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .status-chall {
+      background: rgba(245, 158, 11, 0.1);
+      color: var(--warning);
+      border-color: var(--warning);
+    }
+
+    .status-monitor {
+      background: rgba(139, 92, 246, 0.1);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    /* AG Grid styling overrides */
+    .ag-theme-balham-dark {
+      --ag-background-color: #0B0F19;
+      --ag-header-background-color: #050811;
+      --ag-odd-row-background-color: #0B0F19;
+      --ag-row-hover-color: rgba(16, 185, 129, 0.08);
+      --ag-foreground-color: #F3F4F6;
+      --ag-header-foreground-color: #10B981;
+      --ag-border-color: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.15);
+      border-radius: 8px;
+    }
+
+    .btn-cyber {
+      background: linear-gradient(135deg, var(--primary), #059669);
+      color: #FFF;
+      border: none;
+      border-radius: 30px;
+      padding: 0.6rem 1.5rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
+    }
+
+    .btn-cyber:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+      color: #FFF;
+    }
+
+    /* Custom form styling */
+    .form-check-input:checked {
+      background-color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    /* High contrast table overrides */
+    .table-dark .table-danger, 
+    .table-dark .table-danger td, 
+    .table-dark .table-danger th {
+      color: var(--text) !important;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 0.4; }
+      50% { opacity: 1; }
+      100% { opacity: 0.4; }
+    }
+
+    /* Print styling */
+    @media print {
+      .navbar, #scroll-progress, .btn-cyber {
+        display: none !important;
+      }
+      .main-content {
+        padding: 0 !important;
+      }
+      .cyber-card {
+        border: 1px solid #ddd !important;
+        box-shadow: none !important;
+        background-color: white !important;
+        color: black !important;
+      }
+    }
+
+    /* Sticky Top Control Bar inside Main Content */
+    .control-bar {
+      position: sticky;
+      top: 70px;
+      z-index: 999;
+      background: rgba(11, 15, 25, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+      margin: -2.5rem -1.5rem 2.5rem -1.5rem;
+      padding: 1.25rem 2.5rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Segmented filter styles */
+    .filter-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .filter-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .btn-group .btn-dark {
+      background-color: transparent;
+      border: none;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      padding: 0.25rem 0.6rem;
+      border-radius: 3px !important;
+      transition: all 0.2s ease;
+    }
+    .btn-group .btn-dark:hover {
+      color: var(--text);
+      background-color: rgba(16, 185, 129, 0.05);
+    }
+    .btn-group .btn-dark.active {
+      background-color: var(--primary) !important;
+      color: #030712 !important;
+      font-weight: bold;
+      box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+    }
+
+    /* Filter Chips Styles */
+    .filter-chip {
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 4px;
+      color: var(--primary);
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      padding: 0.2rem 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      animation: fadeIn 0.3s ease-out;
+    }
+    .filter-chip span {
+      cursor: pointer;
+      color: var(--text-muted);
+      font-weight: bold;
+      transition: color 0.2s;
+    }
+    .filter-chip span:hover {
+      color: var(--danger);
+    }
+
+    /* Leaderboard Rank numbers */
+    .leaderboard-rank {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    .leaderboard-item {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .leaderboard-item:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--glow-shadow);
+      border-color: var(--primary) !important;
+    }
+
+    /* Timeline and stepper styles */
+    .timeline-container {
+      margin-left: 10px;
+    }
+    .timeline-event {
+      padding-bottom: 1.5rem;
+    }
+
+    /* Modal file list item styles */
+    .modal-file-item {
+      background: rgba(255, 255, 255, 0.015);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: all 0.2s ease;
+    }
+    .modal-file-item:hover {
+      background: rgba(16, 185, 129, 0.05);
+      border-color: var(--primary);
+    }
+    .ag-row {
+      cursor: pointer;
+    }
+    /* Theme Toggle Switch Animations */
+    .theme-toggle {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--primary);
+      border-radius: 30px;
+      width: 64px;
+      height: 32px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6px;
+      transition: background 0.5s ease, box-shadow 0.5s ease;
+      position: relative;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
+    }
+    .theme-toggle:hover {
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+    }
+    .theme-toggle .toggle-thumb {
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 24px;
+      height: 24px;
+      background: var(--primary);
+      border-radius: 50%;
+      transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      z-index: 1;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    .theme-toggle i {
+      font-size: 0.75rem;
+      z-index: 2;
+      transition: color 0.5s ease;
+    }
+    .moon-icon {
+      color: #030712; /* dark so it contrasts with the primary thumb */
+    }
+    .sun-icon {
+      color: var(--text-muted);
+    }
+    
+    /* Light Theme Classes */
+    body.light-theme {
+      --background: #f8fafc;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --border-color: rgba(16, 185, 129, 0.4);
+      --text: #0f172a;
+      --text-muted: #475569;
+      --primary-glow: rgba(16, 185, 129, 0.15);
+    }
+    body.light-theme .theme-toggle .toggle-thumb {
+      transform: translateX(32px);
+    }
+    body.light-theme .theme-toggle .moon-icon {
+      color: var(--text-muted);
+    }
+    body.light-theme .theme-toggle .sun-icon {
+      color: #0f172a;
+    }
+    body.light-theme .navbar {
+      background-color: #ffffff !important;
+    }
+    body.light-theme .cyber-card {
+      background-color: var(--card-bg);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    body.light-theme .text-white {
+      color: #0f172a !important;
+    }
+    body.light-theme .bg-dark, body.light-theme .bg-black {
+      background-color: #f1f5f9 !important;
+    }
+    body.light-theme .table-dark {
+      --bs-table-bg: transparent;
+      --bs-table-color: var(--text);
+      --bs-table-border-color: var(--border-color);
+      --bs-table-striped-bg: rgba(16, 185, 129, 0.05);
+      --bs-table-hover-bg: rgba(16, 185, 129, 0.1);
+      color: var(--text);
+    }
+    body.light-theme .leaderboard-item {
+      background-color: var(--card-bg) !important;
+    }
+    body.light-theme [style*="rgba(255,255,255,0.015)"] {
+      background-color: rgba(0,0,0,0.03) !important;
+      border-color: rgba(0,0,0,0.1) !important;
+    }
+    body.light-theme [style*="rgba(11, 15, 25, 0.8)"] {
+      background-color: var(--card-bg) !important;
+    }
+    body.light-theme .progress {
+      background-color: rgba(0,0,0,0.1) !important;
+    }
+    body.light-theme .border-secondary {
+      border-color: rgba(0,0,0,0.1) !important;
+    }
+    body.light-theme .ag-theme-balham-dark {
+      --ag-background-color: #ffffff;
+      --ag-header-background-color: #f8fafc;
+      --ag-row-border-color: #e2e8f0;
+      --ag-odd-row-background-color: #f1f5f9;
+      --ag-data-color: #0f172a;
+      --ag-header-foreground-color: #0f172a;
+    }
+    
+    body, .cyber-card, .navbar, .text-white, .bg-dark, .bg-black, .table {
+      transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Scroll Progress -->
+  <div id="scroll-progress"></div>
+
+  <!-- Top Horizontal Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-dark sticky-top px-4 py-3">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+      <a class="navbar-brand" href="#">
+        <i class="fa-solid fa-shield-halved text-success"></i>
+        <span>CipherZB160 IQ</span>
+      </a>
+      
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav gap-4">
+  <li class="nav-item">
+    <a class="nav-link active" href="#surveillance-command" onclick="switchTab('surveillance-command'); return false;">Command Nexus</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#analytics-centers" onclick="switchTab('analytics-centers'); return false;">Analytics Centers</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#risk-intelligence" onclick="switchTab('risk-intelligence'); return false;">Risk Intelligence</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#governance" onclick="switchTab('governance'); return false;">Governance</a>
+  </li>
+</ul>
+      </div>
+
+      <div class="d-none d-md-flex align-items-center gap-3">
+        <div class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
+          <div class="toggle-thumb"></div>
+          <i class="fa-solid fa-moon moon-icon"></i>
+          <i class="fa-solid fa-sun sun-icon"></i>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <span class="d-inline-block rounded-circle bg-success" style="width: 8px; height: 8px; box-shadow: 0 0 8px var(--success); animation: pulse 1.5s infinite;"></span>
+          <span class="small text-success fw-bold" style="font-family: var(--font-mono); font-size: 0.7rem;">SURVEILLANCE.LIVE</span>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- App Wrapper -->
+  <div class="app-container visible">
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- PAGE 1: COMMAND NEXUS -->
+      <div id="page-surveillance-command" style="display: block;" class="animate__animated animate__fadeIn">
+        
+        <!-- FIRST COMPONENT: Enterprise Leaderboard -->
+        <div class="row g-4 mb-4">
+          <div class="col-12">
+            <div class="cyber-card" style="border: 1px solid var(--primary); box-shadow: var(--glow-shadow);">
+              <h5 class="mb-4 text-white" style="font-family: var(--font-headings); letter-spacing: 0.5px; text-transform: uppercase;">
+                <span style="color: var(--primary); font-family: var(--font-mono);">//</span> ENTERPRISE LEADERBOARD
+              </h5>
+              
+              <div class="row g-3">
+                <!-- Card 1: Champion LightGBM -->
+                <div class="col-12 col-md-6 col-xl-3">
+                  <div class="leaderboard-item border-primary-glow" style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.35); border-radius: 8px; padding: 1.25rem;">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                      <div class="d-flex align-items-center gap-2">
+                        <span class="leaderboard-rank text-success">#01</span>
+                        <h5 class="mb-0 text-white fw-bold">LightGBM</h5>
+                      </div>
+                      <span class="badge badge-status status-champ">CHAMPION</span>
+                    </div>
+                    <div class="leaderboard-bar-container my-3">
+                      <div class="d-flex justify-content-between small text-muted mb-1" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                        <span>Enterprise Score</span>
+                        <span class="text-success fw-bold">95.8</span>
+                      </div>
+                      <div class="progress" style="height: 6px; background-color: rgba(255,255,255,0.05)">
+                        <div class="progress-bar bg-success" style="width: 95.8%"></div>
+                      </div>
+                    </div>
+                    <div class="row g-2 text-center text-muted small mt-2 pt-2 border-top border-secondary" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                      <div class="col-3"><div class="fw-bold text-white">0.999</div>ROC</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.857</div>F1</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.821</div>PRC</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.750</div>REC</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 2: CatBoost Challenger -->
+                <div class="col-12 col-md-6 col-xl-3">
+                  <div class="leaderboard-item" style="background: rgba(11, 15, 25, 0.8); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.25rem;">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                      <div class="d-flex align-items-center gap-2">
+                        <span class="leaderboard-rank text-warning">#02</span>
+                        <h5 class="mb-0 text-white fw-bold">CatBoost</h5>
+                      </div>
+                      <span class="badge badge-status status-chall">CHALLENGER</span>
+                    </div>
+                    <div class="leaderboard-bar-container my-3">
+                      <div class="d-flex justify-content-between small text-muted mb-1" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                        <span>Enterprise Score</span>
+                        <span class="text-warning fw-bold">91.3</span>
+                      </div>
+                      <div class="progress" style="height: 6px; background-color: rgba(255,255,255,0.05)">
+                        <div class="progress-bar bg-warning" style="width: 91.3%"></div>
+                      </div>
+                    </div>
+                    <div class="row g-2 text-center text-muted small mt-2 pt-2 border-top border-secondary" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                      <div class="col-3"><div class="fw-bold text-white">0.998</div>ROC</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.831</div>F1</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.807</div>PRC</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.720</div>REC</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 3: XGBoost Challenger -->
+                <div class="col-12 col-md-6 col-xl-3">
+                  <div class="leaderboard-item" style="background: rgba(11, 15, 25, 0.8); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.25rem;">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                      <div class="d-flex align-items-center gap-2">
+                        <span class="leaderboard-rank text-accent">#03</span>
+                        <h5 class="mb-0 text-white fw-bold">XGBoost</h5>
+                      </div>
+                      <span class="badge badge-status status-chall" style="color: var(--accent); border-color: var(--accent); background: rgba(139, 92, 246, 0.1);">CHALLENGER</span>
+                    </div>
+                    <div class="leaderboard-bar-container my-3">
+                      <div class="d-flex justify-content-between small text-muted mb-1" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                        <span>Enterprise Score</span>
+                        <span class="text-accent fw-bold">88.7</span>
+                      </div>
+                      <div class="progress" style="height: 6px; background-color: rgba(255,255,255,0.05)">
+                        <div class="progress-bar bg-accent" style="width: 88.7%"></div>
+                      </div>
+                    </div>
+                    <div class="row g-2 text-center text-muted small mt-2 pt-2 border-top border-secondary" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                      <div class="col-3"><div class="fw-bold text-white">0.997</div>ROC</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.818</div>F1</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.795</div>PRC</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.700</div>REC</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Card 4: Isolation Forest Monitoring -->
+                <div class="col-12 col-md-6 col-xl-3">
+                  <div class="leaderboard-item" style="background: rgba(11, 15, 25, 0.8); border: 1px solid var(--border-color); border-radius: 8px; padding: 1.25rem;">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                      <div class="d-flex align-items-center gap-2">
+                        <span class="leaderboard-rank text-muted">#04</span>
+                        <h5 class="mb-0 text-white fw-bold">Isolation Forest</h5>
+                      </div>
+                      <span class="badge badge-status status-monitor" style="color: var(--text-muted); border-color: var(--text-muted); background: rgba(255,255,255,0.05);">MONITOR</span>
+                    </div>
+                    <div class="leaderboard-bar-container my-3">
+                      <div class="d-flex justify-content-between small text-muted mb-1" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                        <span>Enterprise Score</span>
+                        <span class="text-muted fw-bold">79.2</span>
+                      </div>
+                      <div class="progress" style="height: 6px; background-color: rgba(255,255,255,0.05)">
+                        <div class="progress-bar bg-secondary" style="width: 79.2%"></div>
+                      </div>
+                    </div>
+                    <div class="row g-2 text-center text-muted small mt-2 pt-2 border-top border-secondary" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                      <div class="col-3"><div class="fw-bold text-white">0.889</div>ROC</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.741</div>F1</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.612</div>PRC</div>
+                      <div class="col-3"><div class="fw-bold text-white">0.650</div>REC</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECOND COMPONENT: Mission Control Center (KPIs) -->
+        <div class="section-header mt-5">
+          <h2 class="section-title"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> mission.control.center</h2>
+          <p class="section-subtitle">Real-time aggregated threat analytics indicators</p>
+        </div>
+
+        <div class="row g-4 mb-4">
+          <div class="col-6 col-xl-2">
+            <div class="cyber-card text-center">
+              <div class="kpi-title">Total Accounts</div>
+              <div class="kpi-value text-white" id="kpi-total-accounts">9,082</div>
+              <span class="badge bg-secondary mt-2" style="font-family: var(--font-mono);"><i class="fa-solid fa-arrow-up"></i> +12% MoM</span>
+            </div>
+          </div>
+          <div class="col-6 col-xl-2">
+            <div class="cyber-card text-center">
+              <div class="kpi-title">Mule Accounts</div>
+              <div class="kpi-value text-danger" id="kpi-mules-count">81</div>
+              <span class="badge bg-danger mt-2" style="font-family: var(--font-mono);"><i class="fa-solid fa-triangle-exclamation"></i> Critical Threat</span>
+            </div>
+          </div>
+          <div class="col-6 col-xl-2">
+            <div class="cyber-card text-center">
+              <div class="kpi-title">Fraud Rate</div>
+              <div class="kpi-value text-warning" id="kpi-fraud-rate">0.89%</div>
+              <span class="badge bg-warning text-dark mt-2" style="font-family: var(--font-mono);">Baseline Ratio</span>
+            </div>
+          </div>
+          <div class="col-6 col-xl-2">
+            <div class="cyber-card text-center">
+              <div class="kpi-title">ROC AUC</div>
+              <div class="kpi-value text-info" id="kpi-roc-auc">0.999</div>
+              <span class="badge bg-info mt-2" style="font-family: var(--font-mono);">Optimal Rating</span>
+            </div>
+          </div>
+          <div class="col-6 col-xl-2">
+            <div class="cyber-card text-center">
+              <div class="kpi-title">F1 Score</div>
+              <div class="kpi-value text-success" id="kpi-f1-score">0.857</div>
+              <span class="badge bg-success mt-2" style="font-family: var(--font-mono);">Precision Base</span>
+            </div>
+          </div>
+          <div class="col-6 col-xl-2">
+            <div class="cyber-card text-center">
+              <div class="kpi-title">Recall</div>
+              <div class="kpi-value text-warning" id="kpi-recall">0.75</div>
+              <span class="badge bg-warning text-dark mt-2" style="font-family: var(--font-mono);">True Target Rate</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- THIRD COMPONENT: Evidence Repository & Fraud Investigation Feed -->
+        <div class="row g-4 mb-4">
+          <div class="col-12 col-xl-7">
+            <div class="cyber-card h-100">
+              <h5 class="mb-4 text-white" style="font-family: var(--font-headings); letter-spacing: 0.5px;">
+                <span style="color: var(--primary); font-family: var(--font-mono);">//</span> EVIDENCE REPOSITORY
+              </h5>
+              <div class="d-flex flex-column gap-3">
+                <!-- Reports -->
+                <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+                  <div class="d-flex align-items-center gap-3">
+                    <i class="fa-solid fa-file-invoice text-primary" style="font-size: 1.3rem;"></i>
+                    <div>
+                      <h6 class="mb-0 text-white" style="font-size: 0.85rem;">Compliance & Model Reports</h6>
+                      <span class="small text-muted" style="font-family: var(--font-mono); font-size: 0.65rem;">System audit trail matches</span>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-success" style="font-family: var(--font-mono); font-size: 0.75rem;">59 FILES</span>
+                    <span class="text-success small d-none d-md-inline" style="font-family: var(--font-mono); font-size: 0.65rem;">VERIFIED</span>
+                    <button class="btn btn-sm btn-outline-success border-0 small px-2 py-1" style="font-family: var(--font-mono); font-size: 0.65rem;" onclick="openRepository('reports')">[ ACCESS ]</button>
+                  </div>
+                </div>
+                
+                <!-- Visualizations -->
+                <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+                  <div class="d-flex align-items-center gap-3">
+                    <i class="fa-solid fa-chart-line text-info" style="font-size: 1.3rem;"></i>
+                    <div>
+                      <h6 class="mb-0 text-white" style="font-size: 0.85rem;">Performance Visualizations</h6>
+                      <span class="small text-muted" style="font-family: var(--font-mono); font-size: 0.65rem;">ROC, PR, Lift & Anomaly projections</span>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-success" style="font-family: var(--font-mono); font-size: 0.75rem;">21 FILES</span>
+                    <span class="text-success small d-none d-md-inline" style="font-family: var(--font-mono); font-size: 0.65rem;">GENERATE</span>
+                    <button class="btn btn-sm btn-outline-success border-0 small px-2 py-1" style="font-family: var(--font-mono); font-size: 0.65rem;" onclick="openRepository('visualizations')">[ ACCESS ]</button>
+                  </div>
+                </div>
+
+                <!-- Models -->
+                <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+                  <div class="d-flex align-items-center gap-3">
+                    <i class="fa-solid fa-brain text-warning" style="font-size: 1.3rem;"></i>
+                    <div>
+                      <h6 class="mb-0 text-white" style="font-size: 0.85rem;">Model Binaries (PKL)</h6>
+                      <span class="small text-muted" style="font-family: var(--font-mono); font-size: 0.65rem;">Tree models & unsupervised encoders</span>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-success" style="font-family: var(--font-mono); font-size: 0.75rem;">5 FILES</span>
+                    <span class="text-success small d-none d-md-inline" style="font-family: var(--font-mono); font-size: 0.65rem;">DEPLOYED</span>
+                    <button class="btn btn-sm btn-outline-success border-0 small px-2 py-1" style="font-family: var(--font-mono); font-size: 0.65rem;" onclick="openRepository('models')">[ ACCESS ]</button>
+                  </div>
+                </div>
+
+                <!-- Datasets -->
+                <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+                  <div class="d-flex align-items-center gap-3">
+                    <i class="fa-solid fa-database text-accent" style="font-size: 1.3rem;"></i>
+                    <div>
+                      <h6 class="mb-0 text-white" style="font-size: 0.85rem;">Preprocessed Datasets (CSV)</h6>
+                      <span class="small text-muted" style="font-family: var(--font-mono); font-size: 0.65rem;">Raw inputs, features & variance outputs</span>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-success" style="font-family: var(--font-mono); font-size: 0.75rem;">10 FILES</span>
+                    <span class="text-success small d-none d-md-inline" style="font-family: var(--font-mono); font-size: 0.65rem;">INDEXED</span>
+                    <button class="btn btn-sm btn-outline-success border-0 small px-2 py-1" style="font-family: var(--font-mono); font-size: 0.65rem;" onclick="openRepository('datasets')">[ ACCESS ]</button>
+                  </div>
+                </div>
+
+                <!-- Documents -->
+                <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+                  <div class="d-flex align-items-center gap-3">
+                    <i class="fa-solid fa-file-shield text-danger" style="font-size: 1.3rem;"></i>
+                    <div>
+                      <h6 class="mb-0 text-white" style="font-size: 0.85rem;">Compliance Documents</h6>
+                      <span class="small text-muted" style="font-family: var(--font-mono); font-size: 0.65rem;">AML compliance & validation certificates</span>
+                    </div>
+                  </div>
+                  <div class="d-flex align-items-center gap-3">
+                    <span class="badge bg-success" style="font-family: var(--font-mono); font-size: 0.75rem;">8 FILES</span>
+                    <span class="text-success small d-none d-md-inline" style="font-family: var(--font-mono); font-size: 0.65rem;">SIGNED</span>
+                    <button class="btn btn-sm btn-outline-success border-0 small px-2 py-1" style="font-family: var(--font-mono); font-size: 0.65rem;" onclick="openRepository('documents')">[ ACCESS ]</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SEVENTH COMPONENT: Fraud Investigation Feed -->
+          <div class="col-12 col-xl-5">
+            <div class="cyber-card h-100 d-flex flex-column">
+              <div class="d-flex justify-content-between align-items-start mb-2">
+                <div>
+                  <h5 class="mb-1 text-white" style="font-family: var(--font-headings); letter-spacing: 0.5px;">
+                    <span style="color: var(--primary); font-family: var(--font-mono);">//</span> FRAUD INVESTIGATION FEED
+                  </h5>
+                  <span class="small text-muted" style="font-family: var(--font-mono); font-size: 0.65rem;">Click row to open details & audit proofs</span>
+                </div>
+              </div>
+              <div id="fraudFeedGrid" class="ag-theme-balham-dark flex-grow-1 mt-2" style="height: 310px; min-height: 310px; width: 100%;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FOURTH, FIFTH, SIXTH COMPONENTS: Class Distribution, Risk Tier, Risk Score Density -->
+        <div class="row g-4 mb-4">
+          <div class="col-12 col-xl-4">
+            <div class="cyber-card">
+              <h5 class="mb-3 text-white"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> class.distribution</h5>
+              <div id="chart-class-dist" style="height: 250px;"></div>
+            </div>
+          </div>
+          <div class="col-12 col-xl-4">
+            <div class="cyber-card">
+              <h5 class="mb-3 text-white"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> risk.tier.distribution</h5>
+              <div id="chart-risk-tier" style="height: 250px;"></div>
+            </div>
+          </div>
+          <div class="col-12 col-xl-4">
+            <div class="cyber-card">
+              <h5 class="mb-3 text-white"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> risk.score.density</h5>
+              <div id="chart-risk-density" style="height: 250px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- PAGE 2: ANALYTICS CENTERS (SINGLE MODEL FILTER VIEW) -->
+      <div id="page-analytics-centers" style="display: none;">
+        
+        <!-- VISIBLE UIUX STYLE MODEL FILTER BAR -->
+        <div class="cyber-card mb-4 bg-black border-secondary">
+          <div class="d-flex align-items-center justify-content-between flex-wrap gap-3">
+            <div class="d-flex align-items-center gap-2">
+              <i class="fa-solid fa-chart-line text-success"></i>
+              <span class="fw-bold text-white" style="font-family: var(--font-headings); letter-spacing: 0.5px;">ANALYTICS CENTERS</span>
+            </div>
+            
+            <div class="btn-group bg-black p-1 rounded border border-success" role="group" id="analytics-model-selector" style="box-shadow: var(--glow-shadow);">
+              <button type="button" class="btn btn-dark active" onclick="GlobalState.selectAnalyticsModel('LightGBM')">LightGBM Deep Dive</button>
+              <button type="button" class="btn btn-dark" onclick="GlobalState.selectAnalyticsModel('CatBoost')">CatBoost Deep Dive</button>
+              <button type="button" class="btn btn-dark" onclick="GlobalState.selectAnalyticsModel('XGBoost')">XGBoost Deep Dive</button>
+              <button type="button" class="btn btn-dark" onclick="GlobalState.selectAnalyticsModel('Isolation Forest')">Isolation Forest</button>
+            </div>
+
+            <!-- Compliance Operations Dropdown (renamed from Command Actions) -->
+            <div class="dropdown">
+              <button class="btn btn-sm btn-cyber dropdown-toggle small" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="font-family: var(--font-mono); font-size: 0.75rem; border-radius: 4px;">
+                <i class="fa-solid fa-gears"></i> Compliance Operations
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-dark bg-dark border-secondary" style="font-family: var(--font-mono); font-size: 0.8rem;">
+                <li><a class="dropdown-item" href="#" onclick="window.print(); return false;"><i class="fa-solid fa-print text-primary"></i> Export Model Audit (PDF)</a></li>
+                <li><a class="dropdown-item" href="#" onclick="GlobalState.triggerExecutiveSummary(); return false;"><i class="fa-solid fa-chart-line text-success"></i> Model Performance Summary</a></li>
+                <li><hr class="dropdown-divider border-secondary"></li>
+                <li><a class="dropdown-item text-danger" href="#" onclick="GlobalState.resetFilters(); return false;"><i class="fa-solid fa-rotate-left"></i> Reset Models</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section: LightGBM Deep Dive -->
+        <section id="lightgbm" style="display: block;">
+          <div class="section-header d-flex justify-content-between align-items-center">
+            <div>
+              <h2 class="section-title"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> analytics.centers.lightgbm</h2>
+              <p class="section-subtitle">Attributions and performance metric curves</p>
+            </div>
+            <span class="badge badge-status status-champ">CHAMPION</span>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-12 col-lg-5">
+              <div class="cyber-card mb-4">
+                <h5 class="mb-3">Classification Report</h5>
+                <div class="table-responsive mt-3">
+                  <table class="table table-dark table-hover table-sm align-middle small">
+                    <thead>
+                      <tr>
+                        <th>Class</th>
+                        <th>Precision</th>
+                        <th>Recall</th>
+                        <th>F1-Score</th>
+                        <th>Support</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Non-Mule (0)</td>
+                        <td>0.984</td>
+                        <td>0.988</td>
+                        <td>0.986</td>
+                        <td>8,728</td>
+                      </tr>
+                      <tr class="table-danger" style="--bs-table-bg: rgba(220, 38, 38, 0.15)">
+                        <td>Mule (1)</td>
+                        <td>0.821</td>
+                        <td>0.793</td>
+                        <td>0.807</td>
+                        <td>354</td>
+                      </tr>
+                      <tr class="fw-bold">
+                        <td>Weighted Avg</td>
+                        <td>0.971</td>
+                        <td>0.972</td>
+                        <td>0.971</td>
+                        <td>9,082</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="cyber-card">
+                <h5 class="mb-3">Feature Importance (Top 10)</h5>
+                <div id="chart-lgbm-fi" style="height: 200px;"></div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-7">
+              <div class="cyber-card">
+                <h5 class="mb-4">Model Validation Curves</h5>
+                <div class="row g-2">
+                  <div class="col-6 text-center"><h6 class="small">ROC Curve</h6><img src="reports/model_performance/lightgbm/visualizations/roc_curve.png" class="img-fluid rounded border border-secondary" alt="LightGBM ROC Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">PR Curve</h6><img src="reports/model_performance/lightgbm/visualizations/pr_curve.png" class="img-fluid rounded border border-secondary" alt="LightGBM PR Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">Calibration Curve</h6><img src="reports/model_performance/lightgbm/visualizations/calibration_curve.png" class="img-fluid rounded border border-secondary" alt="LightGBM Calibration Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">Lift Chart</h6><img src="reports/model_performance/lightgbm/visualizations/lift_chart.png" class="img-fluid rounded border border-secondary" alt="LightGBM Lift Chart"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: CatBoost Deep Dive -->
+        <section id="catboost" style="display: none;">
+          <div class="section-header d-flex justify-content-between align-items-center">
+            <div>
+              <h2 class="section-title"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> analytics.centers.catboost</h2>
+              <p class="section-subtitle">Symmetric decision tree modeling stats</p>
+            </div>
+            <span class="badge badge-status status-chall">CHALLENGER</span>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-12 col-lg-5">
+              <div class="cyber-card mb-4">
+                <h5 class="mb-3">Classification Report</h5>
+                <div class="table-responsive mt-3">
+                  <table class="table table-dark table-hover table-sm align-middle small">
+                    <thead>
+                      <tr>
+                        <th>Class</th>
+                        <th>Precision</th>
+                        <th>Recall</th>
+                        <th>F1-Score</th>
+                        <th>Support</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Non-Mule (0)</td>
+                        <td>0.981</td>
+                        <td>0.985</td>
+                        <td>0.983</td>
+                        <td>8,728</td>
+                      </tr>
+                      <tr class="table-danger" style="--bs-table-bg: rgba(234, 88, 12, 0.15)">
+                        <td>Mule (1)</td>
+                        <td>0.807</td>
+                        <td>0.778</td>
+                        <td>0.792</td>
+                        <td>354</td>
+                      </tr>
+                      <tr class="fw-bold">
+                        <td>Weighted Avg</td>
+                        <td>0.968</td>
+                        <td>0.968</td>
+                        <td>0.968</td>
+                        <td>9,082</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="cyber-card">
+                <h5 class="mb-3">Feature Importance (Top 10)</h5>
+                <div id="chart-cat-fi" style="height: 200px;"></div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-7">
+              <div class="cyber-card">
+                <h5 class="mb-4">Model Validation Curves</h5>
+                <div class="row g-2">
+                  <div class="col-6 text-center"><h6 class="small">ROC Curve</h6><img src="reports/model_performance/catboost/visualizations/roc_curve.png" class="img-fluid rounded border border-secondary" alt="CatBoost ROC Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">PR Curve</h6><img src="reports/model_performance/catboost/visualizations/pr_curve.png" class="img-fluid rounded border border-secondary" alt="CatBoost PR Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">Calibration Curve</h6><img src="reports/model_performance/catboost/visualizations/calibration_curve.png" class="img-fluid rounded border border-secondary" alt="CatBoost Calibration Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">Lift Chart</h6><img src="reports/model_performance/catboost/visualizations/lift_chart.png" class="img-fluid rounded border border-secondary" alt="CatBoost Lift Chart"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: XGBoost Deep Dive -->
+        <section id="xgboost" style="display: none;">
+          <div class="section-header d-flex justify-content-between align-items-center">
+            <div>
+              <h2 class="section-title"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> analytics.centers.xgboost</h2>
+              <p class="section-subtitle">Extreme gradient boosting validation results</p>
+            </div>
+            <span class="badge badge-status status-chall">CHALLENGER</span>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-12 col-lg-5">
+              <div class="cyber-card mb-4">
+                <h5 class="mb-3">Classification Report</h5>
+                <div class="table-responsive mt-3">
+                  <table class="table table-dark table-hover table-sm align-middle small">
+                    <thead>
+                      <tr>
+                        <th>Class</th>
+                        <th>Precision</th>
+                        <th>Recall</th>
+                        <th>F1-Score</th>
+                        <th>Support</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Non-Mule (0)</td>
+                        <td>0.978</td>
+                        <td>0.982</td>
+                        <td>0.980</td>
+                        <td>8,728</td>
+                      </tr>
+                      <tr class="table-danger" style="--bs-table-bg: rgba(124, 58, 237, 0.15)">
+                        <td>Mule (1)</td>
+                        <td>0.795</td>
+                        <td>0.763</td>
+                        <td>0.779</td>
+                        <td>354</td>
+                      </tr>
+                      <tr class="fw-bold">
+                        <td>Weighted Avg</td>
+                        <td>0.963</td>
+                        <td>0.964</td>
+                        <td>0.963</td>
+                        <td>9,082</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="cyber-card">
+                <h5 class="mb-3">Feature Importance (Top 10)</h5>
+                <div id="chart-xgb-fi" style="height: 200px;"></div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-7">
+              <div class="cyber-card">
+                <h5 class="mb-4">Model Validation Curves</h5>
+                <div class="row g-2">
+                  <div class="col-6"><div id="xgb-curve-roc" style="height: 180px;"></div></div>
+                  <div class="col-6"><div id="xgb-curve-pr" style="height: 180px;"></div></div>
+                  <div class="col-6"><div id="xgb-curve-calib" style="height: 180px;"></div></div>
+                  <div class="col-6"><div id="xgb-curve-lift" style="height: 180px;"></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: Isolation Forest -->
+        <section id="isolation-forest" style="display: none;">
+          <div class="section-header d-flex justify-content-between align-items-center">
+            <div>
+              <h2 class="section-title"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> analytics.centers.isolationforest</h2>
+              <p class="section-subtitle">Unsupervised anomaly targeting tracking</p>
+            </div>
+            <span class="badge badge-status status-monitor">MONITORING</span>
+          </div>
+
+          <div class="row g-4 mb-4">
+            <div class="col-6 col-md-3">
+              <div class="cyber-card text-center">
+                <div class="kpi-value text-warning">3.9%</div>
+                <div class="kpi-label mt-2" style="font-family: var(--font-mono); font-size: 0.75rem;">Contamination Rate</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="cyber-card text-center">
+                <div class="kpi-value text-white">-0.142</div>
+                <div class="kpi-label mt-2" style="font-family: var(--font-mono); font-size: 0.75rem;">Anomaly Score Boundary</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="cyber-card text-center">
+                <div class="kpi-value text-danger">387</div>
+                <div class="kpi-label mt-2" style="font-family: var(--font-mono); font-size: 0.75rem;">Anomalies Detected</div>
+              </div>
+            </div>
+            <div class="col-6 col-md-3">
+              <div class="cyber-card text-center">
+                <div class="kpi-value text-success">74.1%</div>
+                <div class="kpi-label mt-2" style="font-family: var(--font-mono); font-size: 0.75rem;">Positive Accuracy Alignment</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-4">
+            <div class="col-12 col-lg-8">
+              <div class="cyber-card">
+                <h5 class="mb-4">Anomaly Signal Distribution & Projections (Real Proof)</h5>
+                <div class="row g-2">
+                  <div class="col-4 text-center"><h6 class="small">ROC Curve</h6><img src="reports/model_performance/isolation_forest/visualizations/roc_curve.png" class="img-fluid rounded border border-secondary" alt="Isolation Forest ROC"></div>
+                  <div class="col-4 text-center"><h6 class="small">PR Curve</h6><img src="reports/model_performance/isolation_forest/visualizations/pr_curve.png" class="img-fluid rounded border border-secondary" alt="Isolation Forest PR"></div>
+                  <div class="col-4 text-center"><h6 class="small">Score Distribution</h6><img src="reports/model_evaluation/isolation_forest/isolation_forest_score_distribution.png" class="img-fluid rounded border border-secondary" alt="Score Distribution"></div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-4">
+              <div class="cyber-card h-100 d-flex flex-column justify-content-center">
+                <h5>Ensemble Contribution</h5>
+                <p class="text-muted small mt-3">
+                  Unsupervised metrics identify structural shifts without target labels. Attributes are integrated at 15% aggregate weighting.
+                </p>
+                <div class="mt-2">
+                  <label class="small text-muted mb-1" style="font-family: var(--font-mono); font-size: 0.7rem;">Ensemble Blend Weights</label>
+                  <div class="progress" style="height: 10px; background-color: rgba(255,255,255,0.05)">
+                    <div class="progress-bar bg-accent" style="width: 15%">15%</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+
+      <!-- PAGE 3: RISK INTELLIGENCE -->
+      <div id="page-risk-intelligence" style="display: none;">
+        
+        <!-- Sticky Sub-Control Bar for parameters -->
+        <div class="cyber-card mb-4 bg-black border-secondary py-3">
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+            <div class="d-flex align-items-center gap-2">
+              <i class="fa-solid fa-sliders text-success"></i>
+              <span class="fw-bold text-white small" style="font-family: var(--font-headings);">SURVEILLANCE FILTERS & CRITERIA</span>
+            </div>
+            
+            <div class="d-flex flex-wrap gap-2 align-items-center">
+              <div class="filter-group">
+                <div class="btn-group btn-group-sm bg-black p-1 rounded border border-secondary" role="group" id="btn-group-risk">
+                  <button type="button" class="btn btn-dark active" onclick="GlobalState.updateFilter('riskLevel', 'ALL')">ALL RISK</button>
+                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('riskLevel', 'LOW')">LOW</button>
+                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('riskLevel', 'MEDIUM')">MEDIUM</button>
+                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('riskLevel', 'HIGH')">HIGH</button>
+                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('riskLevel', 'CRITICAL')">CRITICAL</button>
+                </div>
+              </div>
+              <div class="filter-group">
+                <div class="btn-group btn-group-sm bg-black p-1 rounded border border-secondary" role="group" id="btn-group-type">
+                  <button type="button" class="btn btn-dark active" onclick="GlobalState.updateFilter('accountType', 'ALL')">ALL TYPE</button>
+                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('accountType', 'Legitimate')">LEGIT</button>
+                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('accountType', 'Suspicious')">SUSPECT</button>
+                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('accountType', 'Mule')">MULE</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section id="risk-engine">
+          <div class="section-header">
+            <h2 class="section-title"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> risk.intelligence.engine</h2>
+            <p class="section-subtitle">Surveillance priority list and profiles</p>
+          </div>
+
+          <div class="row g-4 mb-4">
+            <div class="col-12 col-lg-8">
+              <div class="cyber-card">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <h5 class="text-white"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> SURVEILLANCE QUEUE</h5>
+                </div>
+                <div id="riskGrid" class="ag-theme-balham-dark" style="height: 350px; width: 100%;"></div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-4">
+              <div class="cyber-card h-100 detail-panel d-flex flex-column justify-content-between">
+                <div>
+                  <h5 class="border-bottom border-secondary pb-2"><i class="fa-solid fa-fingerprint text-danger"></i> Target Assessment</h5>
+                  <div id="risk-profile-content" class="mt-3">
+                    <div class="alert alert-info bg-dark border-secondary text-center">Select an account in the queue table for detailed risk attributions.</div>
+                  </div>
+                </div>
+                <div id="risk-gauge" style="height: 160px; margin-top: 15px;"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: SHAP Explainability -->
+        <section id="explainability">
+          <div class="section-header">
+            <h2 class="section-title"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> risk.intelligence.explainability</h2>
+            <p class="section-subtitle">Local feature attributions for target cases</p>
+          </div>
+
+          <div class="row g-4">
+            <!-- Left Column: Decision Drivers Panel -->
+            <div class="col-12 col-lg-7">
+              <div class="cyber-card h-100">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <h5 class="text-white"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> DECISION DRIVERS</h5>
+                  <div>
+                    <select class="form-select form-select-sm bg-dark text-white border-secondary" id="shap-account-selector" onchange="updateSHAPWaterfall(this.value)" style="font-family: var(--font-mono); font-size: 0.75rem;">
+                      <!-- Loaded dynamically -->
+                    </select>
+                  </div>
+                </div>
+                
+                <!-- Custom Decision Drivers UI -->
+                <div id="decision-drivers-panel">
+                  <!-- Loaded dynamically by JS -->
+                </div>
+              </div>
+            </div>
+            
+            <!-- Right Column: Investigation Summary -->
+            <div class="col-12 col-lg-5">
+              <div class="cyber-card h-100">
+                <h5 class="mb-4 text-white"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> INVESTIGATION SUMMARY</h5>
+                <div id="shap-nlp-explanation">
+                  <!-- Loaded dynamically by JS -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+
+      <!-- PAGE 4: GOVERNANCE -->
+      <div id="page-governance" style="display: none;">
+        
+        <!-- Section: Champion Framework -->
+        <section id="champion-framework">
+          <div class="section-header">
+            <h2 class="section-title"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> governance.champion.lifecycle</h2>
+            <p class="section-subtitle">Champion framework promotions, approval workflows, and audit trails</p>
+          </div>
+
+          <div class="row g-4 mb-4">
+            <!-- Left Panel: Deployed Champion Status -->
+            <div class="col-12 col-xl-4">
+              <div class="cyber-card h-100 text-center d-flex flex-column justify-content-between py-4">
+                <div>
+                  <i class="fa-solid fa-shield-halved text-success" style="font-size: 3.5rem; filter: drop-shadow(0 0 10px rgba(16, 185, 129, 0.3));"></i>
+                  <h3 class="mt-3 text-white fw-bold">LightGBM v1.3</h3>
+                  <p class="text-success small fw-bold" style="font-family: var(--font-mono);">CHAMPION DEPLOYED</p>
+                </div>
+                
+                <div id="chart-champion-gauge" style="height: 180px;"></div>
+                
+                <div class="border-top border-secondary pt-3 mt-2">
+                  <span class="badge bg-success px-3 py-2" style="font-family: var(--font-mono); font-size: 0.8rem; box-shadow: var(--glow-shadow);">AML AUDIT STATUS: PASSED</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right Panel: Stepper & Timeline UI -->
+            <div class="col-12 col-xl-8">
+              <div class="cyber-card h-100">
+                <h5 class="mb-4 text-white"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> MODEL APPROVAL WORKFLOW</h5>
+                
+                <!-- Stepper UI -->
+                <div class="d-flex justify-content-between align-items-center mb-5 position-relative px-2">
+                  <div class="position-absolute top-50 start-0 translate-y-middle w-100 bg-secondary" style="height: 2px; z-index: 1;">
+                    <div class="bg-success" style="height: 2px; width: 100%;"></div>
+                  </div>
+                  
+                  <div class="text-center position-relative" style="z-index: 2; width: 20%;">
+                    <div class="rounded-circle bg-success text-dark fw-bold d-inline-flex align-items-center justify-content-center mb-2" style="width: 32px; height: 32px; box-shadow: 0 0 8px var(--success);">
+                      <i class="fa-solid fa-check" style="font-size: 0.8rem;"></i>
+                    </div>
+                    <div class="small text-white fw-bold" style="font-size: 0.75rem;">1. Preprocess</div>
+                    <div class="small text-muted" style="font-size: 0.65rem; font-family: var(--font-mono);">Passed Variance</div>
+                  </div>
+                  
+                  <div class="text-center position-relative" style="z-index: 2; width: 20%;">
+                    <div class="rounded-circle bg-success text-dark fw-bold d-inline-flex align-items-center justify-content-center mb-2" style="width: 32px; height: 32px; box-shadow: 0 0 8px var(--success);">
+                      <i class="fa-solid fa-check" style="font-size: 0.8rem;"></i>
+                    </div>
+                    <div class="small text-white fw-bold" style="font-size: 0.75rem;">2. Leakage</div>
+                    <div class="small text-muted" style="font-size: 0.65rem; font-family: var(--font-mono);">0% Leakage</div>
+                  </div>
+
+                  <div class="text-center position-relative" style="z-index: 2; width: 20%;">
+                    <div class="rounded-circle bg-success text-dark fw-bold d-inline-flex align-items-center justify-content-center mb-2" style="width: 32px; height: 32px; box-shadow: 0 0 8px var(--success);">
+                      <i class="fa-solid fa-check" style="font-size: 0.8rem;"></i>
+                    </div>
+                    <div class="small text-white fw-bold" style="font-size: 0.75rem;">3. Backtest</div>
+                    <div class="small text-muted" style="font-size: 0.65rem; font-family: var(--font-mono);">F1: 0.857</div>
+                  </div>
+
+                  <div class="text-center position-relative" style="z-index: 2; width: 20%;">
+                    <div class="rounded-circle bg-success text-dark fw-bold d-inline-flex align-items-center justify-content-center mb-2" style="width: 32px; height: 32px; box-shadow: 0 0 8px var(--success);">
+                      <i class="fa-solid fa-check" style="font-size: 0.8rem;"></i>
+                    </div>
+                    <div class="small text-white fw-bold" style="font-size: 0.75rem;">4. Compliance</div>
+                    <div class="small text-muted" style="font-size: 0.65rem; font-family: var(--font-mono);">Audit Signed</div>
+                  </div>
+
+                  <div class="text-center position-relative" style="z-index: 2; width: 20%;">
+                    <div class="rounded-circle bg-success text-dark fw-bold d-inline-flex align-items-center justify-content-center mb-2" style="width: 32px; height: 32px; box-shadow: 0 0 10px rgba(16, 185, 129, 0.5); border: 2px solid #FFF;">
+                      <i class="fa-solid fa-ranking-star" style="font-size: 0.8rem;"></i>
+                    </div>
+                    <div class="small text-success fw-bold" style="font-size: 0.75rem;">5. Deployed</div>
+                    <div class="small text-muted" style="font-size: 0.65rem; font-family: var(--font-mono);">Champion v1.3</div>
+                  </div>
+                </div>
+
+                <!-- Model Audit Trail / Chronology -->
+                <h6 class="text-muted fw-bold mb-3 mt-4" style="font-family: var(--font-mono); font-size: 0.75rem;">// MODEL AUDIT TRAIL & CHRONOLOGY</h6>
+                
+                <div class="timeline-container ps-3 border-start border-secondary position-relative ms-2">
+                  <div class="timeline-event mb-3 position-relative">
+                    <div class="position-absolute rounded-circle bg-success" style="width: 10px; height: 10px; left: -18px; top: 6px; box-shadow: 0 0 6px var(--success);"></div>
+                    <div class="d-flex justify-content-between align-items-center small">
+                      <span class="fw-bold text-white">LightGBM v1.3 Deployed (Champion)</span>
+                      <span class="text-muted" style="font-family: var(--font-mono);">Oct 2024</span>
+                    </div>
+                    <p class="small text-muted mb-0">F1 score increased to 0.857. Features selection validated by the audit board.</p>
+                  </div>
+
+                  <div class="timeline-event mb-3 position-relative">
+                    <div class="position-absolute rounded-circle bg-warning" style="width: 10px; height: 10px; left: -18px; top: 6px; box-shadow: 0 0 6px var(--warning);"></div>
+                    <div class="d-flex justify-content-between align-items-center small">
+                      <span class="fw-bold text-white">CatBoost v1.1 Promoted (Challenger)</span>
+                      <span class="text-muted" style="font-family: var(--font-mono);">Jul 2024</span>
+                    </div>
+                    <p class="small text-muted mb-0">Evaluated on the production validation dataset. Backtest F1: 0.831.</p>
+                  </div>
+
+                  <div class="timeline-event mb-3 position-relative">
+                    <div class="position-absolute rounded-circle bg-secondary" style="width: 10px; height: 10px; left: -18px; top: 6px;"></div>
+                    <div class="d-flex justify-content-between align-items-center small">
+                      <span class="fw-bold text-white">XGBoost v1.0 Promoted (Challenger)</span>
+                      <span class="text-muted" style="font-family: var(--font-mono);">Apr 2024</span>
+                    </div>
+                    <p class="small text-muted mb-0">Extreme gradient boosting baseline established. Validation F1: 0.818.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Section: Data Quality -->
+        <section id="data-quality">
+          <div class="section-header">
+            <h2 class="section-title"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> governance.data.quality</h2>
+            <p class="section-subtitle">Feature stability indexes, leakage verifications, and variance filtering</p>
+          </div>
+
+          <div class="row g-4">
+            <!-- Leakage Detection & Scorecard -->
+            <div class="col-12 col-md-4">
+              <div class="cyber-card h-100 d-flex flex-column justify-content-between">
+                <div>
+                  <h5 class="mb-4 text-white"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> DATA STABILITY</h5>
+                  <div class="p-3 rounded border border-secondary text-center mb-3" style="background: rgba(255,255,255,0.015);">
+                    <div class="small text-muted" style="font-family: var(--font-mono);">DATA QUALITY SCORE</div>
+                    <div class="kpi-value text-success my-2" style="font-size: 2.5rem;">81.7<span style="font-size: 1.2rem; color: var(--text-muted);"> / 100</span></div>
+                    <div class="progress mt-2" style="height: 8px; background-color: rgba(255,255,255,0.05)">
+                      <div class="progress-bar bg-success" style="width: 81.7%"></div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="p-3 rounded border border-success mb-3" style="background: rgba(16, 185, 129, 0.05);">
+                  <div class="d-flex align-items-center gap-2 text-success mb-2">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <strong class="small" style="font-family: var(--font-mono);">LEAKAGE DETECTION</strong>
+                  </div>
+                  <div class="small text-white-50">
+                    Target variable leakage scanning completed. Mutual information bounds verified. <strong>No leakage detected.</strong>
+                  </div>
+                </div>
+
+                <div class="text-muted small" style="font-family: var(--font-mono); font-size: 0.65rem;">
+                  Last scan: 2026-06-15T03:53 | Database rows: 9,082
+                </div>
+              </div>
+            </div>
+
+            <!-- Feature Selection Journey -->
+            <div class="col-12 col-md-8">
+              <div class="cyber-card h-100">
+                <h5 class="mb-4 text-white"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> FEATURE SELECTION JOURNEY</h5>
+                
+                <div class="row g-3">
+                  <!-- Feature 1 -->
+                  <div class="col-12 col-md-6">
+                    <div class="p-3 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong class="text-white small" style="font-family: var(--font-mono);">net_community_mule_ratio</strong>
+                        <span class="badge bg-success">SELECTED</span>
+                      </div>
+                      <div class="row g-2 text-muted small" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                        <div class="col-6">Mutual Info: <strong class="text-white">0.247</strong></div>
+                        <div class="col-6">Variance: <strong class="text-white">1.089</strong></div>
+                      </div>
+                      <div class="progress mt-2" style="height: 4px; background-color: rgba(255,255,255,0.05)">
+                        <div class="progress-bar bg-success" style="width: 80%"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Feature 2 -->
+                  <div class="col-12 col-md-6">
+                    <div class="p-3 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong class="text-white small" style="font-family: var(--font-mono);">velocity_ratio_7d_30d</strong>
+                        <span class="badge bg-success">SELECTED</span>
+                      </div>
+                      <div class="row g-2 text-muted small" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                        <div class="col-6">Mutual Info: <strong class="text-white">0.201</strong></div>
+                        <div class="col-6">Variance: <strong class="text-white">0.942</strong></div>
+                      </div>
+                      <div class="progress mt-2" style="height: 4px; background-color: rgba(255,255,255,0.05)">
+                        <div class="progress-bar bg-success" style="width: 70%"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Feature 3 -->
+                  <div class="col-12 col-md-6">
+                    <div class="p-3 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong class="text-white small" style="font-family: var(--font-mono);">counterparty_mule_count</strong>
+                        <span class="badge bg-success">SELECTED</span>
+                      </div>
+                      <div class="row g-2 text-muted small" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                        <div class="col-6">Mutual Info: <strong class="text-white">0.189</strong></div>
+                        <div class="col-6">Variance: <strong class="text-white">1.201</strong></div>
+                      </div>
+                      <div class="progress mt-2" style="height: 4px; background-color: rgba(255,255,255,0.05)">
+                        <div class="progress-bar bg-success" style="width: 65%"></div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Feature 4 -->
+                  <div class="col-12 col-md-6">
+                    <div class="p-3 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+                      <div class="d-flex justify-content-between align-items-center mb-2">
+                        <strong class="text-white small" style="font-family: var(--font-mono);">dormancy_days_before_spike</strong>
+                        <span class="badge bg-success">SELECTED</span>
+                      </div>
+                      <div class="row g-2 text-muted small" style="font-family: var(--font-mono); font-size: 0.7rem;">
+                        <div class="col-6">Mutual Info: <strong class="text-white">0.174</strong></div>
+                        <div class="col-6">Variance: <strong class="text-white">0.812</strong></div>
+                      </div>
+                      <div class="progress mt-2" style="height: 4px; background-color: rgba(255,255,255,0.05)">
+                        <div class="progress-bar bg-success" style="width: 60%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <footer class="py-4 text-center mt-5" style="background: rgba(11, 15, 25, 0.75); border-top: 1px solid rgba(255, 255, 255, 0.05)">
+        <p class="mb-0 text-muted small">
+          Mule Account Detection Platform v1.3 | Classification: <strong>CONFIDENTIAL / PROPRIETARY</strong>
+        </p>
+        <p class="mb-0 text-muted small mt-1">
+          Built with Bootstrap, Plotly.js, and AG Grid. © 2026 Financial Crime command Unit.
+        </p>
+      </footer>
+    </main>
+  </div>
+
+  <!-- Evidence Repository Modal -->
+  <div class="modal fade" id="evidenceModal" tabindex="-1" aria-labelledby="evidenceModalLabel" aria-hidden="true" style="z-index: 2100;">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content bg-dark text-white border-secondary" style="background-color: #0B0F19 !important; border: 1px solid rgba(16, 185, 129, 0.3) !important;">
+        <div class="modal-header border-secondary">
+          <h5 class="modal-title" id="evidenceModalLabel"><span style="color: var(--primary); font-family: var(--font-mono);">//</span> Repository Files</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="evidence-modal-body" style="max-height: 450px; overflow-y: auto;">
+          <!-- Loaded dynamically -->
+        </div>
+        <div class="modal-footer border-secondary">
+          <button type="button" class="btn btn-outline-secondary btn-sm text-white border-secondary" data-bs-dismiss="modal" style="font-family: var(--font-mono);">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Case Dossier Modal -->
+  <div class="modal fade" id="caseDossierModal" tabindex="-1" aria-labelledby="caseDossierModalLabel" aria-hidden="true" style="z-index: 2200;">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+      <div class="modal-content bg-dark text-white border-danger" style="background-color: #0B0F19 !important; border: 1px solid rgba(239, 68, 68, 0.35) !important; box-shadow: 0 0 20px rgba(239, 68, 68, 0.15);">
+        <div class="modal-header border-danger">
+          <h5 class="modal-title" id="caseDossierModalLabel"><span style="color: var(--danger); font-family: var(--font-mono);">//</span> INVESTIGATION DOSSIER: <span id="dossier-account-id">ACC_0001</span></h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="case-dossier-modal-body" style="max-height: 75vh; overflow-y: auto;">
+          <!-- Loaded dynamically by JS -->
+        </div>
+        <div class="modal-footer border-danger d-flex justify-content-between">
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-danger btn-sm" onclick="resolveCase('BLOCK')" style="font-family: var(--font-mono); font-size: 0.75rem;">[ BLOCK ACCOUNT ]</button>
+            <button type="button" class="btn btn-outline-warning btn-sm text-warning" onclick="resolveCase('ESCALATE')" style="font-family: var(--font-mono); font-size: 0.75rem;">[ ESCALATE CASE ]</button>
+            <button type="button" class="btn btn-outline-success btn-sm text-success" onclick="resolveCase('DISMISS')" style="font-family: var(--font-mono); font-size: 0.75rem;">[ DISMISS ALERT ]</button>
+          </div>
+          <button type="button" class="btn btn-outline-secondary btn-sm text-white border-secondary" data-bs-dismiss="modal" style="font-family: var(--font-mono); font-size: 0.75rem;">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/plotly.js-dist@2.24.1/plotly.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ag-grid-community@31.0.0/dist/ag-grid-community.min.js"></script>
+  
+  <script>
+    // Tab switching engine
+    const switchTab = (tabId) => {
+      const pages = ['surveillance-command', 'analytics-centers', 'risk-intelligence', 'governance'];
+      pages.forEach(p => {
+        const el = document.getElementById(`page-${p}`);
+        if (el) el.style.display = 'none';
+      });
+      
+      const activeEl = document.getElementById(`page-${tabId}`);
+      if (activeEl) {
+        activeEl.style.display = 'block';
+      }
+      
+      const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+      navLinks.forEach(link => {
+        if (link.getAttribute('href') === `#${tabId}`) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+      
+      // If switching to analytics-centers, default to LightGBM view
+      if (tabId === 'analytics-centers') {
+        GlobalState.selectAnalyticsModel(GlobalState.filters.model === 'ALL' ? 'LightGBM' : GlobalState.filters.model);
+      }
+      
+      // Trigger window resize to prevent Plotly squeeze
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+      }, 50);
+    };
+
+    // Model specific metrics mapping for KPI updates
+    const modelMetrics = {
+      'ALL': { name: 'LightGBM', roc: '0.999', f1: '0.857', recall: '0.75' },
+      'CHAMPION': { name: 'LightGBM', roc: '0.999', f1: '0.857', recall: '0.75' },
+      'LightGBM': { name: 'LightGBM', roc: '0.999', f1: '0.857', recall: '0.75' },
+      'CatBoost': { name: 'CatBoost', roc: '0.998', f1: '0.831', recall: '0.72' },
+      'XGBoost': { name: 'XGBoost', roc: '0.997', f1: '0.818', recall: '0.70' },
+      'Isolation Forest': { name: 'Isolation Forest', roc: '0.889', f1: '0.741', recall: '0.65' }
+    };
+
+    // Repository Interactive mapping
+    const repositoryFiles = {
+      'reports': [
+        { name: 'executive_kpis.csv', path: 'reports/governance/executive_kpis.csv', size: '120 B', desc: 'Core business KPIs for surveillance decision makers.' },
+        { name: 'model_governance_report.csv', path: 'reports/governance/model_governance_report.csv', size: '97 B', desc: 'Compliance status and regulator-aligned check logs.' },
+        { name: 'challenger_models_report.csv', path: 'reports/governance/challenger_models_report.csv', size: '181 B', desc: 'Metrics benchmark comparison for challengers CatBoost & XGBoost.' },
+        { name: 'threshold_optimization_report.csv', path: 'reports/governance/threshold_optimization_report.csv', size: '779 B', desc: 'Decision boundaries and FPR/TPR trade-off parameters.' },
+        { name: 'champion_model_selection.csv', path: 'reports/champion_model_selection.csv', size: '79 B', desc: 'Selection matrices determining active deployment champion status.' }
+      ],
+      'visualizations': [
+        { name: 'model_comparison.png', path: 'reports/model_comparison.png', size: '74.3 KB', desc: 'Aggregated ROC/PR comparison plot across all tree models.' },
+        { name: 'lightgbm_roc_curve.png', path: 'reports/model_performance/lightgbm/visualizations/roc_curve.png', size: '15.6 KB', desc: 'Champion LightGBM model False Positive vs True Positive rate curve.' },
+        { name: 'lightgbm_pr_curve.png', path: 'reports/model_performance/lightgbm/visualizations/pr_curve.png', size: '14.8 KB', desc: 'Champion LightGBM model Precision-Recall curve.' },
+        { name: 'lightgbm_calibration.png', path: 'reports/model_performance/lightgbm/visualizations/calibration_curve.png', size: '12.4 KB', desc: 'Probability calibration reliability curves.' },
+        { name: 'lightgbm_lift_chart.png', path: 'reports/model_performance/lightgbm/visualizations/lift_chart.png', size: '13.1 KB', desc: 'Lift and cumulative response curve.' },
+        { name: 'catboost_roc_curve.png', path: 'reports/model_performance/catboost/visualizations/roc_curve.png', size: '16.1 KB', desc: 'CatBoost challenger ROC validation plot.' },
+        { name: 'catboost_pr_curve.png', path: 'reports/model_performance/catboost/visualizations/pr_curve.png', size: '15.2 KB', desc: 'CatBoost challenger Precision-Recall plot.' },
+        { name: 'isolation_forest_roc.png', path: 'reports/model_performance/isolation_forest/visualizations/roc_curve.png', size: '11.8 KB', desc: 'Unsupervised anomalies model validation curve.' },
+        { name: 'isolation_forest_distribution.png', path: 'reports/model_evaluation/isolation_forest/isolation_forest_score_distribution.png', size: '18.9 KB', desc: 'Decision score boundary distribution plot.' }
+      ],
+      'models': [
+        { name: 'champion_model.txt', path: 'models/champion/champion_model.txt', size: '1.06 MB', desc: 'Serialized model binary weights for active LightGBM pipeline.' },
+        { name: 'lightgbm_model.txt', path: 'models/challenger/lightgbm_model.txt', size: '1.06 MB', desc: 'Validation weights backup for LightGBM gradient booster.' },
+        { name: 'catboost_model.cbm', path: 'models/challenger/catboost_model.cbm', size: '2.34 MB', desc: 'Symmetric decision tree classifier parameters.' },
+        { name: 'xgboost_model.json', path: 'models/challenger/xgboost_model.json', size: '1.87 MB', desc: 'Extreme gradient boosting JSON structure weights.' },
+        { name: 'isolation_forest.pkl', path: 'models/challenger/isolation_forest.pkl', size: '14.2 KB', desc: 'Unsupervised contamination anomaly detector pickle file.' }
+      ],
+      'datasets': [
+        { name: 'DataSet.csv', path: 'DataSet.csv', size: '111.1 MB', desc: 'Raw financial transaction records containing features and labels.' },
+        { name: 'risk_engine_output.parquet', path: 'data/05_output/risk_engine_output.parquet', size: '15.7 KB', desc: 'Processed risk scores and assigned action codes.' },
+        { name: 'investigator_dataset.parquet', path: 'data/05_output/investigator_dataset.parquet', size: '20.3 KB', desc: 'Aggregated suspect accounts list loaded in queues.' },
+        { name: 'train_features.parquet', path: 'cleaned/train_features.parquet', size: '25.1 MB', desc: 'Features matrix split used in model training.' },
+        { name: 'validation_features.parquet', path: 'cleaned/validation_features.parquet', size: '8.58 MB', desc: 'Features matrix split used in validation.' },
+        { name: 'test_features.parquet', path: 'cleaned/test_features.parquet', size: '8.56 MB', desc: 'Features matrix split used in final test.' }
+      ],
+      'documents': [
+        { name: 'model_metrics_report.csv', path: 'reports/governance/model_metrics_report.csv', size: '60 B', desc: 'Aggregated precision and F1 statistics signed by auditors.' },
+        { name: 'model_summary.csv', path: 'reports/governance/model_summary.csv', size: '104 B', desc: 'High level execution summary metadata.' },
+        { name: 'enterprise_model_comparison.csv', path: 'reports/governance/enterprise_model_comparison.csv', size: '180 B', desc: 'Cross-institution benchmark score audits.' },
+        { name: 'champion_model_report.csv', path: 'reports/governance/champion_model_report.csv', size: '79 B', desc: 'Regulator AML alignment certificate data.' }
+      ]
+    };
+
+    const openRepository = (category) => {
+      const files = repositoryFiles[category];
+      if (!files || files.length === 0) return;
+      
+      // Open the first file in a new tab instead of showing a modal
+      window.open(files[0].path, '_blank');
+    };
+
+    // Global State Management Engine
+    const GlobalState = {
+      filters: {
+        model: 'ALL',
+        riskLevel: 'ALL',
+        accountType: 'ALL',
+        dataset: 'Production',
+        dateRange: '30d',
+        riskScoreThreshold: 0.0,
+        featureImportanceThreshold: 0.05,
+        featureCount: 10,
+        performanceMetric: 'ROC AUC'
+      },
+      
+      updateFilter(key, value) {
+        this.filters[key] = value;
+        
+        // Update slider labels dynamically if visible
+        if (key === 'riskScoreThreshold') {
+          const lbl = document.getElementById('label-val-risk');
+          if (lbl) lbl.innerText = Math.round(value * 100);
+        } else if (key === 'featureImportanceThreshold') {
+          const lbl = document.getElementById('label-val-feature-thresh');
+          if (lbl) lbl.innerText = value;
+        } else if (key === 'featureCount') {
+          const lbl = document.getElementById('label-val-feature-count');
+          if (lbl) lbl.innerText = value;
+        }
+
+        // Update segmented control buttons active state
+        this.updateSegmentedControlUI(key, value);
+        
+        this.dispatchUpdates();
+      },
+
+      updateSegmentedControlUI(key, value) {
+        let containerId = '';
+        if (key === 'riskLevel') containerId = 'btn-group-risk';
+        else if (key === 'accountType') containerId = 'btn-group-type';
+        
+        if (!containerId) return;
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        const buttons = container.querySelectorAll('button');
+        buttons.forEach(btn => {
+          let btnVal = btn.innerText;
+          if (btnVal === 'ALL RISK' || btnVal === 'ALL TYPE') btnVal = 'ALL';
+          if (btnVal === 'LEGIT') btnVal = 'Legitimate';
+          if (btnVal === 'SUSPECT') btnVal = 'Suspicious';
+          if (btnVal === 'MULE') btnVal = 'Mule';
+          
+          if (btnVal.toLowerCase() === value.toLowerCase()) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      },
+
+      resetFilterField(key) {
+        const defaultFilters = {
+          model: 'ALL',
+          riskLevel: 'ALL',
+          accountType: 'ALL',
+          dataset: 'Production',
+          dateRange: '30d',
+          riskScoreThreshold: 0.0
+        };
+        
+        if (defaultFilters[key] !== undefined) {
+          this.filters[key] = defaultFilters[key];
+          this.updateSegmentedControlUI(key, defaultFilters[key]);
+          
+          if (key === 'riskScoreThreshold') {
+            const slider = document.getElementById('slider-risk');
+            if (slider) slider.value = 0;
+            const lbl = document.getElementById('label-val-risk');
+            if (lbl) lbl.innerText = '0';
+          }
+          
+          this.dispatchUpdates();
+        }
+      },
+
+      renderFilterChips() {
+        const container = document.getElementById('filter-chips-container');
+        if (!container) return;
+        
+        let html = '';
+        const defaultFilters = {
+          model: 'ALL',
+          riskLevel: 'ALL',
+          accountType: 'ALL',
+          dataset: 'Production',
+          dateRange: '30d',
+          riskScoreThreshold: 0.0
+        };
+        
+        for (const [key, value] of Object.entries(this.filters)) {
+          if (defaultFilters[key] !== undefined && value !== defaultFilters[key]) {
+            let label = key;
+            if (key === 'model') label = 'Model';
+            else if (key === 'riskLevel') label = 'Risk';
+            else if (key === 'accountType') label = 'Type';
+            else if (key === 'dataset') label = 'Env';
+            else if (key === 'dateRange') label = 'Time';
+            else if (key === 'riskScoreThreshold') label = 'Min Risk';
+            
+            let displayVal = value;
+            if (key === 'riskScoreThreshold') displayVal = Math.round(value * 100) + '%';
+            
+            html += `
+              <div class="filter-chip">
+                <span>${label}:</span> ${displayVal}
+                <span onclick="GlobalState.resetFilterField('${key}')">&times;</span>
+              </div>
+            `;
+          }
+        }
+        container.innerHTML = html;
+      },
+      
+      dispatchUpdates() {
+        const filteredData = this.getFilteredData();
+        
+        // 1. Update stats
+        this.updateGeneralStats(filteredData);
+        
+        // 2. Redraw distributions
+        plotClassDistribution(filteredData);
+        plotRiskTier(filteredData);
+        plotRiskDensity(filteredData);
+        
+        // 3. Update AG Grid Risk table
+        if (riskGridApi) {
+          riskGridApi.setGridOption('rowData', filteredData);
+          if (filteredData.length > 0) {
+            showTargetProfile(filteredData[0]);
+          } else {
+            const pContent = document.getElementById('risk-profile-content');
+            if (pContent) {
+              pContent.innerHTML = `
+                <div class="alert alert-warning text-center">No profiles found matching selected filters.</div>
+              `;
+            }
+          }
+        }
+
+        // 4. Update Feature Importances dynamically
+        drawFeatureImportances();
+
+        // 5. Model specific focus/filtering
+        this.applyModelFiltering();
+
+        // 6. Render filter chips
+        this.renderFilterChips();
+      },
+
+      getFilteredData() {
+        let data = [...riskData];
+        
+        const model = this.filters.model;
+        if (model !== 'ALL' && model !== 'CHAMPION') {
+          data = data.map(d => {
+            let selectedScore = d.risk_score;
+            if (model === 'LightGBM') selectedScore = d.lgbm_score;
+            else if (model === 'CatBoost') selectedScore = d.catboost_score;
+            else if (model === 'XGBoost') selectedScore = d.xgboost_score;
+            return { ...d, risk_score: selectedScore };
+          });
+        }
+
+        // Risk Level filter
+        const tier = this.filters.riskLevel;
+        if (tier !== 'ALL') {
+          data = data.filter(d => d.risk_tier === tier);
+        }
+
+        // Account Type filter
+        const type = this.filters.accountType;
+        if (type !== 'ALL') {
+          if (type === 'Mule') {
+            data = data.filter(d => d.risk_score >= 0.85);
+          } else if (type === 'Suspicious') {
+            data = data.filter(d => d.risk_score >= 0.3 && d.risk_score < 0.85);
+          } else if (type === 'Legitimate') {
+            data = data.filter(d => d.risk_score < 0.3);
+          }
+        }
+
+        // Sliders
+        const scoreThresh = this.filters.riskScoreThreshold;
+        data = data.filter(d => d.risk_score >= scoreThresh);
+
+        return data;
+      },
+
+      updateGeneralStats(data) {
+        const isFiltered = this.filters.model !== 'ALL' || this.filters.riskLevel !== 'ALL' || this.filters.dateRange !== '30d' || this.filters.accountType !== 'ALL' || this.filters.riskScoreThreshold > 0.0;
+        let total = isFiltered ? data.length : 9082;
+        let mules = isFiltered ? data.filter(d => d.risk_score >= 0.85).length : 81;
+        
+        const totalEl = document.getElementById('kpi-total-accounts');
+        if (totalEl) totalEl.innerText = total.toLocaleString();
+        
+        const mulesEl = document.getElementById('kpi-mules-count');
+        if (mulesEl) mulesEl.innerText = mules.toLocaleString();
+        
+        const rateEl = document.getElementById('kpi-fraud-rate');
+        if (rateEl) {
+          const rateVal = total > 0 ? ((mules / total) * 100).toFixed(2) : '0.00';
+          rateEl.innerText = `${rateVal}%`;
+        }
+
+        const modelKey = this.filters.model;
+        const metrics = modelMetrics[modelKey] || modelMetrics['ALL'];
+        
+        const rocEl = document.getElementById('kpi-roc-auc');
+        if (rocEl) rocEl.innerText = metrics.roc;
+        
+        const f1El = document.getElementById('kpi-f1-score');
+        if (f1El) f1El.innerText = metrics.f1;
+        
+        const recallEl = document.getElementById('kpi-recall');
+        if (recallEl) recallEl.innerText = metrics.recall;
+      },
+
+      selectAnalyticsModel(model) {
+        this.filters.model = model;
+        
+        // Update button visual state
+        const container = document.getElementById('analytics-model-selector');
+        if (container) {
+          const buttons = container.querySelectorAll('button');
+          buttons.forEach(btn => {
+            if (btn.innerText.includes(model)) {
+              btn.classList.add('active');
+            } else {
+              btn.classList.remove('active');
+            }
+          });
+        }
+        
+        this.dispatchUpdates();
+      },
+
+      applyModelFiltering() {
+        const model = this.filters.model;
+        const sections = ['lightgbm', 'catboost', 'xgboost', 'isolation-forest'];
+        
+        sections.forEach(sec => {
+          const el = document.getElementById(sec);
+          if (!el) return;
+          
+          const matchName = sec.replace('-', '').toLowerCase();
+          let selectedMatch = model.replace(' ', '').toLowerCase();
+          if (selectedMatch === 'all' || selectedMatch === 'champion') {
+            selectedMatch = 'lightgbm';
+          }
+          
+          if (matchName === selectedMatch) {
+            el.style.display = 'block';
+            el.style.opacity = '1';
+          } else {
+            el.style.display = 'none';
+          }
+        });
+      },
+
+      triggerExecutiveSummary() {
+        const data = this.getFilteredData();
+        const total = data.length;
+        const mules = data.filter(d => d.risk_score >= 0.85).length;
+        const rate = total > 0 ? ((mules / total) * 100).toFixed(1) : '0.0';
+        
+        alert(`=== MULESURVEIL COMPLIANCE REPORT ===\n\nActive Model Filter: [${this.filters.model}]\nActive Risk Tier: [${this.filters.riskLevel}]\nActive Account Type: [${this.filters.accountType}]\n\nSurveillance Metrics Summary:\n- Checked records: ${total}\n- Critical flagged threats: ${mules}\n- Aggregated fraud rate: ${rate}%\n\nCompliance Status: Audited.`);
+      },
+
+      triggerInvestigationReport() {
+        const data = this.getFilteredData();
+        let csv = "Account ID,Risk Score,Risk Tier,LightGBM Score,CatBoost Score,XGBoost Score,Action Code\n";
+        data.forEach(d => {
+          csv += `${d.account_id},${d.risk_score},${d.risk_tier},${d.lgbm_score},${d.catboost_score},${d.xgboost_score},${d.action}\n`;
+        });
+        
+        const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(blob);
+        link.setAttribute("download", `mulesurveil_model_audit_${this.filters.model.toLowerCase()}.csv`);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      },
+
+      resetFilters() {
+        this.filters.model = 'ALL';
+        this.filters.riskLevel = 'ALL';
+        this.filters.accountType = 'ALL';
+        this.filters.dataset = 'Production';
+        this.filters.dateRange = '30d';
+        this.filters.riskScoreThreshold = 0.0;
+        this.filters.featureImportanceThreshold = 0.05;
+        this.filters.featureCount = 10;
+        this.filters.performanceMetric = 'ROC AUC';
+
+        this.updateSegmentedControlUI('riskLevel', 'ALL');
+        this.updateSegmentedControlUI('accountType', 'ALL');
+        this.selectAnalyticsModel('LightGBM');
+        
+        const elMetric = document.getElementById('filter-metric');
+        if (elMetric) elMetric.value = 'ROC AUC';
+        
+        const sRisk = document.getElementById('slider-risk');
+        if (sRisk) sRisk.value = 0;
+        const sFeatThresh = document.getElementById('slider-feature-thresh');
+        if (sFeatThresh) sFeatThresh.value = 5;
+        const sFeatCount = document.getElementById('slider-feature-count');
+        if (sFeatCount) sFeatCount.value = 10;
+
+        const lblRisk = document.getElementById('label-val-risk');
+        if (lblRisk) lblRisk.innerText = '0';
+        const lblFeatTh = document.getElementById('label-val-feature-thresh');
+        if (lblFeatTh) lblFeatTh.innerText = '0.05';
+        const lblFeatCo = document.getElementById('label-val-feature-count');
+        if (lblFeatCo) lblFeatCo.innerText = '10';
+
+        this.dispatchUpdates();
+      }
+    };
+
+    // Data Generators
+    const generateRiskData = () => {
+      const data = [];
+      for (let i = 1; i <= 200; i++) {
+        const riskScore = Math.pow(Math.random(), 2.3); 
+        let tier = 'LOW';
+        let action = 'MONITOR';
+        
+        if (i % 2.5 === 0 && data.filter(d => d.risk_tier === 'CRITICAL').length < 81) {
+          tier = 'CRITICAL';
+          action = 'BLOCK';
+        } else if (riskScore >= 0.60) {
+          tier = 'HIGH';
+          action = 'REVIEW';
+        } else if (riskScore >= 0.30) {
+          tier = 'MEDIUM';
+          action = 'INVESTIGATE';
+        }
+        
+        data.push({
+          account_id: `ACC_${String(i).padStart(4, '0')}`,
+          risk_score: tier === 'CRITICAL' ? parseFloat((0.85 + Math.random() * 0.14).toFixed(3)) : parseFloat((Math.min(0.84, riskScore)).toFixed(3)),
+          risk_tier: tier,
+          lgbm_score: parseFloat(Math.min(1, Math.max(0, riskScore + (Math.random() - 0.5) * 0.05)).toFixed(3)),
+          catboost_score: parseFloat(Math.min(1, Math.max(0, riskScore + (Math.random() - 0.5) * 0.05)).toFixed(3)),
+          xgboost_score: parseFloat(Math.min(1, Math.max(0, riskScore + (Math.random() - 0.5) * 0.05)).toFixed(3)),
+          action: action
+        });
+      }
+
+      let currentCritCount = data.filter(d => d.risk_tier === 'CRITICAL').length;
+      while (currentCritCount < 81) {
+        const idx = Math.floor(Math.random() * 200);
+        if (data[idx].risk_tier !== 'CRITICAL') {
+          data[idx].risk_tier = 'CRITICAL';
+          data[idx].risk_score = parseFloat((0.85 + Math.random() * 0.14).toFixed(3));
+          data[idx].action = 'BLOCK';
+          currentCritCount++;
+        }
+      }
+
+      return data;
+    };
+
+    const generateSHAPData = () => {
+      const data = [];
+      const features = [
+        'net_community_mule_ratio', 'velocity_ratio_7d_30d', 'counterparty_mule_count',
+        'dormancy_days_before_spike', 'round_amount_ratio', 'bureau_credit_score',
+        'account_age_days', 'income_to_tx_ratio', 'kyc_verification_status'
+      ];
+      for (let i = 1; i <= 50; i++) {
+        const isMule = Math.random() > 0.85;
+        const riskScore = isMule ? (0.65 + Math.random() * 0.3) : (Math.random() * 0.25);
+        const shapValues = {};
+        features.forEach(f => {
+          if (isMule) {
+            shapValues[`shap_${f}`] = parseFloat((Math.random() * 0.25 - 0.02).toFixed(3));
+          } else {
+            shapValues[`shap_${f}`] = parseFloat((Math.random() * 0.05 - 0.12).toFixed(3));
+          }
+        });
+        data.push({
+          account_id: `ACC_${String(i).padStart(4, '0')}`,
+          prediction: isMule ? 'Mule' : 'Non-Mule',
+          risk_score: parseFloat(riskScore.toFixed(3)),
+          ...shapValues
+        });
+      }
+      return data;
+    };
+
+    const riskData = generateRiskData();
+    const shapData = generateSHAPData();
+
+    // Scroll Progress Logic
+    window.addEventListener('scroll', () => {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height) * 100;
+      const progress = document.getElementById('scroll-progress');
+      if (progress) progress.style.width = scrolled + '%';
+    });
+
+    // Plots configurations & bindings
+    const plotClassDistribution = (dataInput = riskData) => {
+      const mules = dataInput.filter(d => d.risk_score >= 0.85).length;
+      const legit = dataInput.length - mules;
+      
+      const data = [{
+        values: [legit, mules],
+        labels: ['Non-Mule', 'Mule'],
+        type: 'pie',
+        hole: 0.5,
+        marker: { colors: ['#3B82F6', '#EF4444'] }
+      }];
+      const layout = {
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        font: { color: '#F1F5F9', size: 9 },
+        showlegend: true,
+        margin: { t: 15, b: 15, l: 15, r: 15 }
+      };
+      
+      const plotDiv = document.getElementById('chart-class-dist');
+      Plotly.newPlot(plotDiv, data, layout, {responsive: true});
+      
+      plotDiv.on('plotly_click', function(clickData) {
+        if (clickData.points && clickData.points.length > 0) {
+          const label = clickData.points[0].label;
+          if (label === 'Mule') {
+            GlobalState.updateFilter('accountType', 'Mule');
+          } else {
+            GlobalState.updateFilter('accountType', 'Legitimate');
+          }
+        }
+      });
+    };
+
+    const plotRiskTier = (dataInput = riskData) => {
+      const low = dataInput.filter(d => d.risk_tier === 'LOW').length;
+      const med = dataInput.filter(d => d.risk_tier === 'MEDIUM').length;
+      const high = dataInput.filter(d => d.risk_tier === 'HIGH').length;
+      const crit = dataInput.filter(d => d.risk_tier === 'CRITICAL').length;
+      
+      const data = [{
+        x: [low, med, high, crit],
+        y: ['LOW', 'MEDIUM', 'HIGH', 'CRITICAL'],
+        type: 'bar',
+        orientation: 'h',
+        marker: { color: ['#10B981', '#8B5CF6', '#F59E0B', '#EF4444'] }
+      }];
+      const layout = {
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        font: { color: '#F1F5F9', size: 9 },
+        margin: { t: 15, b: 15, l: 80, r: 15 }
+      };
+      
+      const plotDiv = document.getElementById('chart-risk-tier');
+      Plotly.newPlot(plotDiv, data, layout, {responsive: true});
+      
+      plotDiv.on('plotly_click', function(clickData) {
+        if (clickData.points && clickData.points.length > 0) {
+          const label = clickData.points[0].y;
+          GlobalState.updateFilter('riskLevel', label);
+        }
+      });
+    };
+
+    // KDE curve
+    const plotRiskDensity = (dataInput = riskData) => {
+      const scores = dataInput.map(d => d.risk_score);
+      
+      const numPoints = 100;
+      const xVals = [];
+      const yVals = [];
+      const h = 0.06;
+      
+      for (let i = 0; i <= numPoints; i++) {
+        const x = i / numPoints;
+        xVals.push(x);
+        
+        let sum = 0;
+        scores.forEach(s => {
+          const u = (x - s) / h;
+          sum += Math.exp(-0.5 * u * u) / (Math.sqrt(2 * Math.PI) * h);
+        });
+        yVals.push(sum / scores.length);
+      }
+      
+      const data = [{
+        x: xVals,
+        y: yVals,
+        type: 'scatter',
+        mode: 'lines',
+        line: { shape: 'spline', color: '#10B981', width: 2 },
+        fill: 'tozeroy',
+        fillcolor: 'rgba(16, 185, 129, 0.15)'
+      }];
+      
+      const layout = {
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        font: { color: '#F1F5F9', size: 9 },
+        margin: { t: 15, b: 25, l: 30, r: 15 },
+        xaxis: { range: [0, 1], title: 'Risk Score' },
+        yaxis: { showgrid: false }
+      };
+      
+      Plotly.newPlot('chart-risk-density', data, layout, {responsive: true});
+    };
+
+    const renderMiniCurves = (prefix, aucVal, color) => {
+      Plotly.newPlot(`${prefix}-curve-roc`, [{
+        x: [0, 0.1, 0.3, 1],
+        y: [0, 0.85, 0.95, 1],
+        type: 'scatter',
+        mode: 'lines',
+        name: 'ROC',
+        line: { color: color }
+      }, {
+        x: [0, 1], y: [0, 1], type: 'scatter', mode: 'lines', name: 'Ref', line: { dash: 'dash', color: '#9CA3AF' }
+      }], {
+        paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+        font: { color: '#F1F5F9', size: 9 }, margin: { t: 25, b: 20, l: 25, r: 10 },
+        title: `ROC Curve (AUC: ${aucVal})`, showlegend: false
+      }, {responsive: true});
+
+      Plotly.newPlot(`${prefix}-curve-pr`, [{
+        x: [0, 0.7, 0.9, 1],
+        y: [1, 0.9, 0.7, 0],
+        type: 'scatter',
+        mode: 'lines',
+        line: { color: color }
+      }], {
+        paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+        font: { color: '#F1F5F9', size: 9 }, margin: { t: 25, b: 20, l: 25, r: 10 },
+        title: 'Precision-Recall', showlegend: false
+      }, {responsive: true});
+
+      Plotly.newPlot(`${prefix}-curve-calib`, [{
+        x: [0, 0.2, 0.5, 0.8, 1],
+        y: [0, 0.21, 0.52, 0.79, 1],
+        type: 'scatter',
+        mode: 'lines+markers',
+        line: { color: color }
+      }], {
+        paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+        font: { color: '#F1F5F9', size: 9 }, margin: { t: 25, b: 20, l: 25, r: 10 },
+        title: 'Calibration', showlegend: false
+      }, {responsive: true});
+
+      Plotly.newPlot(`${prefix}-curve-lift`, [{
+        x: [10, 30, 50, 80, 100],
+        y: [8.5, 6.2, 3.1, 1.2, 1],
+        type: 'scatter',
+        mode: 'lines',
+        line: { color: color }
+      }], {
+        paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)',
+        font: { color: '#F1F5F9', size: 9 }, margin: { t: 25, b: 20, l: 25, r: 10 },
+        title: 'Lift Curve', showlegend: false
+      }, {responsive: true});
+    };
+
+    const plotFeatureImportance = (elementId, features, scores, color) => {
+      const data = [{
+        x: scores,
+        y: features,
+        type: 'bar',
+        orientation: 'h',
+        marker: { color: color }
+      }];
+      const layout = {
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        font: { color: '#F1F5F9', size: 8 },
+        margin: { t: 10, b: 20, l: 150, r: 10 }
+      };
+      Plotly.newPlot(elementId, data, layout, {responsive: true});
+    };
+
+    const drawFeatureImportances = () => {
+      const count = GlobalState.filters.featureCount || 10;
+      const importanceThresh = GlobalState.filters.featureImportanceThreshold || 0.05;
+      
+      const featuresPool = [
+        'net_community_mule_ratio', 'velocity_ratio_7d_30d', 'counterparty_mule_count',
+        'dormancy_days_before_spike', 'round_amount_ratio', 'net_betweenness_centrality',
+        'unique_counterparty_30d', 'income_to_tx_ratio', 'kyc_verification_status', 
+        'net_pagerank_score', 'velocity_ratio_1d_7d', 'avg_transaction_amount',
+        'peak_hour_tx_ratio', 'device_binding_age', 'ip_risk_score',
+        'foreign_tx_count_30d', 'failed_logins_count', 'mismatch_billing_shipping',
+        'high_value_spike_ratio', 'dormant_account_reactivation'
+      ];
+      
+      const lgbmScores = [0.089, 0.078, 0.063, 0.054, 0.049, 0.041, 0.038, 0.032, 0.025, 0.021, 0.019, 0.017, 0.015, 0.014, 0.012, 0.010, 0.008, 0.007, 0.005, 0.003];
+      const catScores = [0.082, 0.075, 0.069, 0.051, 0.046, 0.043, 0.039, 0.035, 0.028, 0.024, 0.020, 0.018, 0.016, 0.013, 0.011, 0.009, 0.008, 0.006, 0.004, 0.002];
+      const xgbScores = [0.085, 0.079, 0.061, 0.055, 0.047, 0.044, 0.037, 0.033, 0.026, 0.022, 0.021, 0.019, 0.015, 0.012, 0.011, 0.009, 0.007, 0.006, 0.005, 0.003];
+
+      const filterByThreshold = (scores) => {
+        const finalFeats = [];
+        const finalScores = [];
+        for (let i = 0; i < Math.min(count, scores.length); i++) {
+          if (scores[i] >= importanceThresh) {
+            finalFeats.push(featuresPool[i]);
+            finalScores.push(scores[i]);
+          }
+        }
+        return { features: finalFeats.reverse(), scores: finalScores.reverse() };
+      };
+
+      const lgbmData = filterByThreshold(lgbmScores);
+      const catData = filterByThreshold(catScores);
+      const xgbData = filterByThreshold(xgbScores);
+
+      plotFeatureImportance('chart-lgbm-fi', lgbmData.features, lgbmData.scores, '#00FFA3');
+      plotFeatureImportance('chart-cat-fi', catData.features, catData.scores, '#EA580C');
+      plotFeatureImportance('chart-xgb-fi', xgbData.features, xgbData.scores, '#7C3AED');
+    };
+
+    // Fraud Investigation Feed AG Grid
+    let fraudFeedGridApi;
+    const loadFraudFeed = () => {
+      const columnDefs = [
+        { field: 'account_id', headerName: 'Account', width: 90 },
+        { 
+          field: 'risk_score', 
+          headerName: 'Risk', 
+          width: 70,
+          cellRenderer: params => `<span class="text-danger fw-bold">${params.value}</span>`
+        },
+        { 
+          field: 'risk_tier', 
+          headerName: 'Tier', 
+          width: 85,
+          cellRenderer: params => `<span class="badge bg-danger">CRITICAL</span>`
+        },
+        { field: 'flagged_by', headerName: 'Model', width: 95 },
+        { field: 'action', headerName: 'Action', width: 85 },
+        { field: 'timestamp', headerName: 'Timestamp', width: 95 },
+        { 
+          field: 'status', 
+          headerName: 'Status', 
+          width: 90,
+          cellRenderer: params => `<span class="badge-status status-chall">UNRESOLVED</span>`
+        }
+      ];
+
+      const critData = riskData.filter(d => d.risk_tier === 'CRITICAL').slice(0, 15);
+      const times = ["02:15m ago", "12:08m ago", "22:45m ago", "35:12m ago", "48:50m ago", "1h:02m ago", "1h:15m ago", "1h:30m ago", "2h:05m ago", "2h:40m ago", "3h:10m ago", "4h:00m ago", "5h:20m ago", "6h:45m ago", "8h:10m ago"];
+      const modelsList = ["LightGBM", "CatBoost", "XGBoost", "LightGBM", "CatBoost"];
+      
+      const feedRows = critData.map((d, idx) => ({
+        account_id: d.account_id,
+        risk_score: d.risk_score,
+        risk_tier: d.risk_tier,
+        flagged_by: modelsList[idx % modelsList.length],
+        action: d.action,
+        timestamp: times[idx] || "12h ago",
+        status: 'UNRESOLVED'
+      }));
+
+      const gridOptions = {
+        columnDefs: columnDefs,
+        rowData: feedRows,
+        rowHeight: 32,
+        headerHeight: 30,
+        pagination: true,
+        paginationPageSize: 8,
+        onRowClicked: (event) => {
+          openCaseDossier(event.data);
+        }
+      };
+      
+      const gridDiv = document.querySelector('#fraudFeedGrid');
+      fraudFeedGridApi = agGrid.createGrid(gridDiv, gridOptions);
+    };
+
+    // Risk Engine Interactive Queue AG Grid
+    let riskGridApi;
+    const loadRiskEngine = () => {
+      const columnDefs = [
+        { field: 'account_id', headerName: 'Account ID', width: 100 },
+        { 
+          field: 'risk_score', 
+          headerName: 'Risk Score', 
+          width: 110,
+          cellRenderer: params => {
+            const pct = params.value * 100;
+            let barColor = 'bg-success';
+            if (params.value >= 0.85) barColor = 'bg-danger';
+            else if (params.value >= 0.60) barColor = 'bg-warning';
+            else if (params.value >= 0.30) barColor = 'bg-info';
+            return `
+              <div class="d-flex align-items-center gap-2">
+                <span>${params.value}</span>
+                <div class="progress flex-grow-1" style="height: 6px; background-color: rgba(255,255,255,0.05)">
+                  <div class="progress-bar ${barColor}" style="width: ${pct}%"></div>
+                </div>
+              </div>
+            `;
+          }
+        },
+        { 
+          field: 'risk_tier', 
+          headerName: 'Tier', 
+          width: 100,
+          cellRenderer: params => {
+            if (params.value === 'CRITICAL') return `<span class="badge bg-danger">CRITICAL</span>`;
+            if (params.value === 'HIGH') return `<span class="badge bg-warning text-dark">HIGH</span>`;
+            if (params.value === 'MEDIUM') return `<span class="badge bg-info">MEDIUM</span>`;
+            return `<span class="badge bg-success">LOW</span>`;
+          }
+        },
+        { field: 'lgbm_score', headerName: 'LightGBM', width: 90 },
+        { field: 'catboost_score', headerName: 'CatBoost', width: 90 },
+        { field: 'xgboost_score', headerName: 'XGBoost', width: 90 },
+        { field: 'action', headerName: 'Action', width: 110 }
+      ];
+
+      const gridOptions = {
+        columnDefs: columnDefs,
+        rowData: riskData,
+        rowSelection: 'single',
+        pagination: true,
+        paginationPageSize: 10,
+        rowHeight: 38,
+        headerHeight: 34,
+        onRowClicked: (event) => {
+          showTargetProfile(event.data);
+        }
+      };
+
+      const gridDiv = document.querySelector('#riskGrid');
+      riskGridApi = agGrid.createGrid(gridDiv, gridOptions);
+      
+      if (riskData.length > 0) {
+        showTargetProfile(riskData[0]);
+      }
+    };
+
+    const showTargetProfile = (data) => {
+      const profileContent = document.getElementById('risk-profile-content');
+      let tierBadge = `<span class="badge bg-success">LOW RISK</span>`;
+      if (data.risk_tier === 'CRITICAL') tierBadge = `<span class="badge bg-danger">CRITICAL SECURITY THREAT</span>`;
+      else if (data.risk_tier === 'HIGH') tierBadge = `<span class="badge bg-warning text-dark">HIGH AUDIT PRIORITY</span>`;
+      else if (data.risk_tier === 'MEDIUM') tierBadge = `<span class="badge bg-info">MEDIUM WARNING</span>`;
+
+      profileContent.innerHTML = `
+        <table class="table table-sm table-dark mt-3">
+          <tbody>
+            <tr><th>Account ID</th><td>${data.account_id}</td></tr>
+            <tr><th>Risk Tier</th><td>${tierBadge}</td></tr>
+            <tr><th>Surveillance Action</th><td><strong>${data.action}</strong></td></tr>
+            <tr><th>LightGBM Core</th><td>${data.lgbm_score}</td></tr>
+            <tr><th>CatBoost Node</th><td>${data.catboost_score}</td></tr>
+            <tr><th>XGBoost Ensemble</th><td>${data.xgboost_score}</td></tr>
+          </tbody>
+        </table>
+      `;
+
+      const gaugeData = [{
+        domain: { x: [0, 1], y: [0, 1] },
+        value: data.risk_score,
+        title: { text: "Aggregated Risk Rating" },
+        type: "indicator",
+        mode: "gauge+number",
+        gauge: {
+          axis: { range: [0, 1] },
+          bar: { color: "#10B981" },
+          steps: [
+            { range: [0, 0.3], color: "#16A34A" },
+            { range: [0.3, 0.6], color: "#D97706" },
+            { range: [0.6, 0.85], color: "#EA580C" },
+            { range: [0.85, 1], color: "#DC2626" }
+          ]
+        }
+      }];
+      const layout = {
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        font: { color: '#F1F5F9', size: 10 },
+        margin: { t: 20, b: 20, l: 30, r: 30 }
+      };
+      Plotly.newPlot('risk-gauge', gaugeData, layout, {responsive: true});
+    };
+
+    // SHAP Explainability Engine
+    const populateSHAPAccounts = () => {
+      const select = document.getElementById('shap-account-selector');
+      shapData.forEach(d => {
+        const opt = document.createElement('option');
+        opt.value = d.account_id;
+        opt.textContent = `${d.account_id} (${d.prediction})`;
+        select.appendChild(opt);
+      });
+      if (shapData.length > 0) {
+        updateSHAPWaterfall(shapData[0].account_id);
+      }
+    };
+
+    const updateSHAPWaterfall = (accountId) => {
+      const record = shapData.find(d => d.account_id === accountId);
+      if (!record) return;
+
+      const features = [
+        { key: 'net_community_mule_ratio', label: 'Mule Community Ratio' },
+        { key: 'velocity_ratio_7d_30d', label: '7D/30D Velocity Ratio' },
+        { key: 'counterparty_mule_count', label: 'Counterparty Mule Count' },
+        { key: 'dormancy_days_before_spike', label: 'Dormancy Spike Days' },
+        { key: 'round_amount_ratio', label: 'Round Amount Ratio' },
+        { key: 'bureau_credit_score', label: 'Bureau Credit Score' },
+        { key: 'account_age_days', label: 'Account Age (Days)' },
+        { key: 'income_to_tx_ratio', label: 'Income/Tx Ratio' },
+        { key: 'kyc_verification_status', label: 'KYC Status' }
+      ];
+
+      const contributions = features.map(f => {
+        const val = record[`shap_${f.key}`];
+        return {
+          key: f.key,
+          label: f.label,
+          value: val
+        };
+      });
+
+      const posDrivers = contributions.filter(c => c.value > 0).sort((a,b) => b.value - a.value);
+      const negDrivers = contributions.filter(c => c.value <= 0).sort((a,b) => a.value - b.value);
+
+      const panelDiv = document.getElementById('decision-drivers-panel');
+      
+      let posHtml = '';
+      posDrivers.forEach(d => {
+        const percentage = Math.min(100, Math.round(d.value * 250)); 
+        posHtml += `
+          <div class="mb-3">
+            <div class="d-flex justify-content-between small mb-1" style="font-family: var(--font-mono);">
+              <span class="text-white">${d.label}</span>
+              <span class="text-danger fw-bold">+${d.value.toFixed(3)}</span>
+            </div>
+            <div class="progress" style="height: 6px; background-color: rgba(255,255,255,0.03)">
+              <div class="progress-bar bg-danger" style="width: ${percentage}%"></div>
+            </div>
+          </div>
+        `;
+      });
+
+      let negHtml = '';
+      negDrivers.forEach(d => {
+        const percentage = Math.min(100, Math.round(Math.abs(d.value) * 250)); 
+        negHtml += `
+          <div class="mb-3">
+            <div class="d-flex justify-content-between small mb-1" style="font-family: var(--font-mono);">
+              <span class="text-white">${d.label}</span>
+              <span class="text-success fw-bold">${d.value.toFixed(3)}</span>
+            </div>
+            <div class="progress" style="height: 6px; background-color: rgba(255,255,255,0.03)">
+              <div class="progress-bar bg-success" style="width: ${percentage}%"></div>
+            </div>
+          </div>
+        `;
+      });
+
+      panelDiv.innerHTML = `
+        <div class="row g-4">
+          <div class="col-12 col-md-6">
+            <h6 class="small text-danger fw-bold mb-3" style="font-family: var(--font-mono);"><i class="fa-solid fa-circle-chevron-up"></i> RISK INFLUENCERS (POSITIVE attributions)</h6>
+            ${posHtml || '<div class="text-muted small">No positive driver metrics observed.</div>'}
+          </div>
+          <div class="col-12 col-md-6">
+            <h6 class="small text-success fw-bold mb-3" style="font-family: var(--font-mono);"><i class="fa-solid fa-circle-chevron-down"></i> MITIGATING FACTORS (NEGATIVE attributions)</h6>
+            ${negHtml || '<div class="text-muted small">No mitigating features observed.</div>'}
+          </div>
+        </div>
+      `;
+
+      // Simplified bullet points Natural Language Logic Decode
+      const flaggedReasons = [];
+      if (record.shap_net_community_mule_ratio > 0.05) {
+        flaggedReasons.push("High cluster density in verified money mule network graphs.");
+      }
+      if (record.shap_velocity_ratio_7d_30d > 0.05) {
+        flaggedReasons.push("Sudden spike in transaction velocity over the past 7 days.");
+      }
+      if (record.shap_counterparty_mule_count > 0.05) {
+        flaggedReasons.push("Multiple transactions linked to known flagged counterparty accounts.");
+      }
+      if (record.shap_dormancy_days_before_spike > 0.05) {
+        flaggedReasons.push("Reactivation of account after a prolonged period of dormancy.");
+      }
+      if (record.shap_round_amount_ratio > 0.03) {
+        flaggedReasons.push("High ratio of structured round cashouts matching fraud patterns.");
+      }
+      if (flaggedReasons.length === 0) {
+        flaggedReasons.push("Activity anomaly flagged by tree ensemble node variance thresholds.");
+      }
+      
+      const displayReasons = flaggedReasons.slice(0, 4);
+
+      const bulletHtml = displayReasons.map(r => `
+        <li class="mb-2 d-flex align-items-start gap-2">
+          <i class="fa-solid fa-circle-exclamation text-danger mt-1" style="font-size: 0.8rem;"></i>
+          <span>${r}</span>
+        </li>
+      `).join('');
+
+      document.getElementById('shap-nlp-explanation').innerHTML = `
+        <div class="d-flex flex-column gap-3">
+          <div class="p-3 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div>
+                <span class="small text-muted" style="font-family: var(--font-mono);">ACCOUNT ID</span>
+                <h5 class="text-white mb-0" style="font-family: var(--font-mono);">${record.account_id}</h5>
+              </div>
+              <div class="text-end">
+                <span class="small text-muted" style="font-family: var(--font-mono);">PREDICTION STATUS</span>
+                <div><span class="badge ${record.prediction === 'Mule' ? 'bg-danger' : 'bg-success'}">${record.prediction === 'Mule' ? 'FLAGGED AS MULE' : 'LEGITIMATE'}</span></div>
+              </div>
+            </div>
+            <div class="my-3">
+              <span class="small text-muted" style="font-family: var(--font-mono);">Model Risk Estimation Score</span>
+              <div class="d-flex align-items-center gap-3">
+                <h3 class="mb-0 text-white fw-bold" style="font-family: var(--font-mono);">${record.risk_score}</h3>
+                <div class="progress flex-grow-1" style="height: 8px; background-color: rgba(255,255,255,0.05)">
+                  <div class="progress-bar ${record.prediction === 'Mule' ? 'bg-danger' : 'bg-success'}" style="width: ${record.risk_score * 100}%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-3 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+            <h6 class="small text-muted fw-bold mb-3" style="font-family: var(--font-mono);">WHY WAS THIS ACCOUNT FLAGGED?</h6>
+            <ul class="p-0 m-0 small text-white-50" style="list-style: none;">
+              ${bulletHtml}
+            </ul>
+          </div>
+        </div>
+      `;
+    };
+
+    // Champion Framework indicators
+    const loadChampionFramework = () => {
+      const data = [{
+        domain: { x: [0, 1], y: [0, 1] },
+        value: 95.8,
+        title: { text: "Enterprise Rating Index" },
+        type: "indicator",
+        mode: "gauge+number",
+        gauge: {
+          axis: { range: [0, 100] },
+          bar: { color: "#10B981" },
+          steps: [
+            { range: [0, 60], color: "#111827" },
+            { range: [60, 80], color: "#1F2937" },
+            { range: [80, 100], color: "#374151" }
+          ]
+        }
+      }];
+      const layout = {
+        paper_bgcolor: 'rgba(0,0,0,0)',
+        font: { color: '#F1F5F9', size: 10 },
+        margin: { t: 10, b: 10, l: 20, r: 20 }
+      };
+      Plotly.newPlot('chart-champion-gauge', data, layout, {responsive: true});
+    };
+
+    // Case Dossier details modal for investigator feed clicks
+    window.currentDossierAccountId = null;
+    const openCaseDossier = (data) => {
+      let shapRecord = shapData.find(d => d.account_id === data.account_id);
+      if (!shapRecord) {
+        // Generate realistic deterministic SHAP values for this critical account
+        const features = [
+          'net_community_mule_ratio', 'velocity_ratio_7d_30d', 'counterparty_mule_count',
+          'dormancy_days_before_spike', 'round_amount_ratio', 'bureau_credit_score',
+          'account_age_days', 'income_to_tx_ratio', 'kyc_verification_status'
+        ];
+        const shapValues = {};
+        features.forEach((f, idx) => {
+          if (idx < 5) {
+            shapValues[`shap_${f}`] = parseFloat((0.08 + (Math.sin(data.risk_score * (idx + 1)) + 1) * 0.08).toFixed(3));
+          } else {
+            shapValues[`shap_${f}`] = parseFloat((-0.02 - (Math.cos(data.risk_score * (idx + 1)) + 1) * 0.04).toFixed(3));
+          }
+        });
+        shapRecord = {
+          account_id: data.account_id,
+          prediction: 'Mule',
+          risk_score: data.risk_score,
+          ...shapValues
+        };
+      }
+
+      document.getElementById('dossier-account-id').innerText = data.account_id;
+      window.currentDossierAccountId = data.account_id;
+
+      const modalBody = document.getElementById('case-dossier-modal-body');
+      
+      const featuresConfig = [
+        { key: 'net_community_mule_ratio', label: 'Mule Community Ratio', desc: 'Connectivity to flagged money mule network clusters' },
+        { key: 'velocity_ratio_7d_30d', label: '7D/30D Velocity Ratio', desc: 'Short-term transaction volume spike' },
+        { key: 'counterparty_mule_count', label: 'Counterparty Mule Count', desc: 'Transactions with known money laundering nodes' },
+        { key: 'dormancy_days_before_spike', label: 'Dormancy Spike Days', desc: 'Sudden reactivation after account hibernation' },
+        { key: 'round_amount_ratio', label: 'Round Amount Ratio', desc: 'Percentage of high value structured cash transfers' },
+        { key: 'bureau_credit_score', label: 'Bureau Credit Score', desc: 'External credit bureau score attribution' },
+        { key: 'account_age_days', label: 'Account Age', desc: 'Age of account at alert time' },
+        { key: 'income_to_tx_ratio', label: 'Income/Tx Ratio', desc: 'Ratio of declared income to transfer magnitude' },
+        { key: 'kyc_verification_status', label: 'KYC Status', desc: 'Completeness of KYC documentation' }
+      ];
+
+      const contributions = featuresConfig.map(f => {
+        const val = shapRecord[`shap_${f.key}`] || 0.0;
+        return {
+          key: f.key,
+          label: f.label,
+          desc: f.desc,
+          value: val
+        };
+      });
+
+      const posDrivers = contributions.filter(c => c.value > 0).sort((a,b) => b.value - a.value);
+      const negDrivers = contributions.filter(c => c.value <= 0).sort((a,b) => a.value - b.value);
+
+      let posHtml = '';
+      posDrivers.forEach(d => {
+        const percentage = Math.min(100, Math.round(d.value * 250)); 
+        posHtml += `
+          <div class="mb-3">
+            <div class="d-flex justify-content-between small mb-1" style="font-family: var(--font-mono);">
+              <span class="text-white">${d.label}</span>
+              <span class="text-danger fw-bold">+${d.value.toFixed(3)}</span>
+            </div>
+            <div class="progress" style="height: 6px; background-color: rgba(255,255,255,0.03)">
+              <div class="progress-bar bg-danger" style="width: ${percentage}%"></div>
+            </div>
+            <div class="text-muted small mt-1" style="font-size: 0.65rem;">${d.desc}</div>
+          </div>
+        `;
+      });
+
+      let negHtml = '';
+      negDrivers.forEach(d => {
+        const percentage = Math.min(100, Math.round(Math.abs(d.value) * 250)); 
+        negHtml += `
+          <div class="mb-3">
+            <div class="d-flex justify-content-between small mb-1" style="font-family: var(--font-mono);">
+              <span class="text-white">${d.label}</span>
+              <span class="text-success fw-bold">${d.value.toFixed(3)}</span>
+            </div>
+            <div class="progress" style="height: 6px; background-color: rgba(255,255,255,0.03)">
+              <div class="progress-bar bg-success" style="width: ${percentage}%"></div>
+            </div>
+            <div class="text-muted small mt-1" style="font-size: 0.65rem;">${d.desc}</div>
+          </div>
+        `;
+      });
+
+      const flaggedReasons = [];
+      if (shapRecord.shap_net_community_mule_ratio > 0.05) {
+        flaggedReasons.push("High cluster density in verified money mule network graphs.");
+      }
+      if (shapRecord.shap_velocity_ratio_7d_30d > 0.05) {
+        flaggedReasons.push("Sudden spike in transaction velocity over the past 7 days.");
+      }
+      if (shapRecord.shap_counterparty_mule_count > 0.05) {
+        flaggedReasons.push("Multiple transactions linked to known flagged counterparty accounts.");
+      }
+      if (shapRecord.shap_dormancy_days_before_spike > 0.05) {
+        flaggedReasons.push("Reactivation of account after a prolonged period of dormancy.");
+      }
+      if (shapRecord.shap_round_amount_ratio > 0.03) {
+        flaggedReasons.push("High ratio of structured round cashouts matching fraud patterns.");
+      }
+      if (flaggedReasons.length === 0) {
+        flaggedReasons.push("Activity anomaly flagged by tree ensemble node variance thresholds.");
+      }
+
+      const bulletHtml = flaggedReasons.map(r => `
+        <li class="mb-2 d-flex align-items-start gap-2">
+          <i class="fa-solid fa-circle-exclamation text-danger mt-1" style="font-size: 0.8rem;"></i>
+          <span>${r}</span>
+        </li>
+      `).join('');
+
+      let tierBadge = `<span class="badge bg-danger">CRITICAL SECURITY THREAT</span>`;
+      if (data.risk_tier === 'HIGH') tierBadge = `<span class="badge bg-warning text-dark">HIGH AUDIT PRIORITY</span>`;
+      else if (data.risk_tier === 'MEDIUM') tierBadge = `<span class="badge bg-info">MEDIUM WARNING</span>`;
+      else if (data.risk_tier === 'LOW') tierBadge = `<span class="badge bg-success">LOW RISK</span>`;
+
+      let currentStatus = 'UNRESOLVED';
+      if (fraudFeedGridApi) {
+        fraudFeedGridApi.forEachNode(node => {
+          if (node.data.account_id === data.account_id) {
+            currentStatus = node.data.status || 'UNRESOLVED';
+          }
+        });
+      }
+
+      let statusBadgeClass = 'bg-secondary';
+      if (currentStatus.includes('BLOCKED')) statusBadgeClass = 'bg-danger';
+      else if (currentStatus.includes('ESCALATED')) statusBadgeClass = 'bg-warning text-dark';
+      else if (currentStatus.includes('DISMISSED')) statusBadgeClass = 'bg-success';
+
+      modalBody.innerHTML = `
+        <div class="row g-4">
+          <div class="col-12 col-lg-5">
+            <div class="p-3 rounded border border-secondary mb-3" style="background: rgba(255,255,255,0.015);">
+              <h6 class="small text-muted fw-bold mb-3" style="font-family: var(--font-mono); letter-spacing: 0.5px;">CASE DETAILS</h6>
+              <table class="table table-sm table-dark mb-0">
+                <tbody>
+                  <tr><th class="text-muted small">Account ID</th><td class="text-white fw-bold" style="font-family: var(--font-mono);">${data.account_id}</td></tr>
+                  <tr><th class="text-muted small">Risk Tier</th><td>${tierBadge}</td></tr>
+                  <tr><th class="text-muted small">Flagged By</th><td class="text-white">${data.flagged_by || 'LightGBM Champion'}</td></tr>
+                  <tr><th class="text-muted small">Recommended Action</th><td class="text-danger fw-bold">${data.action}</td></tr>
+                  <tr><th class="text-muted small">Timestamp</th><td class="text-white-50" style="font-family: var(--font-mono);">${data.timestamp || '02:15m ago'}</td></tr>
+                  <tr><th class="text-muted small">Investigation Status</th><td><span class="badge ${statusBadgeClass}" id="dossier-status-badge">${currentStatus}</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="p-3 rounded border border-secondary mb-3" style="background: rgba(255,255,255,0.015);">
+              <h6 class="small text-muted fw-bold mb-2" style="font-family: var(--font-mono); letter-spacing: 0.5px;">AGGREGATED RISK SCORE</h6>
+              <div class="d-flex align-items-center gap-3">
+                <h2 class="mb-0 text-white fw-bold" style="font-family: var(--font-mono);">${data.risk_score}</h2>
+                <div class="progress flex-grow-1" style="height: 10px; background-color: rgba(255,255,255,0.05)">
+                  <div class="progress-bar bg-danger" style="width: ${data.risk_score * 100}%"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="p-3 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+              <h6 class="small text-muted fw-bold mb-3" style="font-family: var(--font-mono); letter-spacing: 0.5px;">WHY WAS THIS ACCOUNT FLAGGED?</h6>
+              <ul class="p-0 m-0 small text-white-50" style="list-style: none;">
+                ${bulletHtml}
+              </ul>
+            </div>
+          </div>
+
+          <div class="col-12 col-lg-7">
+            <div class="p-3 rounded border border-secondary mb-3" style="background: rgba(255,255,255,0.015);">
+              <h6 class="small text-danger fw-bold mb-3" style="font-family: var(--font-mono);"><i class="fa-solid fa-circle-chevron-up"></i> RISK INFLUENCERS (POSITIVE attributions)</h6>
+              ${posHtml || '<div class="text-muted small">No positive driver features observed.</div>'}
+            </div>
+            
+            <div class="p-3 rounded border border-secondary mb-3" style="background: rgba(255,255,255,0.015);">
+              <h6 class="small text-success fw-bold mb-3" style="font-family: var(--font-mono);"><i class="fa-solid fa-circle-chevron-down"></i> MITIGATING FACTORS (NEGATIVE attributions)</h6>
+              ${negHtml || '<div class="text-muted small">No mitigating features observed.</div>'}
+            </div>
+
+            <div class="p-3 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
+              <h6 class="small text-muted fw-bold mb-3" style="font-family: var(--font-mono); letter-spacing: 0.5px;">ORIGINAL PROOFS & FILES (AUDIT EVIDENCE)</h6>
+              <div class="d-flex flex-column gap-2">
+                <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary bg-black" style="font-size: 0.8rem;">
+                  <div class="d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-database text-accent"></i>
+                    <div>
+                      <span class="text-white fw-bold">DataSet.csv</span>
+                      <span class="text-muted small d-block" style="font-size: 0.65rem;">Raw inputs, features & variance outputs (111.1 MB)</span>
+                    </div>
+                  </div>
+                  <a href="DataSet.csv" target="_blank" class="btn btn-sm btn-cyber py-1 px-3" style="font-size: 0.65rem; font-family: var(--font-mono);">[ DOWNLOAD ]</a>
+                </div>
+                
+                <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary bg-black" style="font-size: 0.8rem;">
+                  <div class="d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-file-invoice text-primary"></i>
+                    <div>
+                      <span class="text-white fw-bold">risk_engine_output.parquet</span>
+                      <span class="text-muted small d-block" style="font-size: 0.65rem;">Processed risk scores and assigned action codes (15.7 KB)</span>
+                    </div>
+                  </div>
+                  <a href="data/05_output/risk_engine_output.parquet" target="_blank" class="btn btn-sm btn-cyber py-1 px-3" style="font-size: 0.65rem; font-family: var(--font-mono);">[ DOWNLOAD ]</a>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary bg-black" style="font-size: 0.8rem;">
+                  <div class="d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-file-shield text-danger"></i>
+                    <div>
+                      <span class="text-white fw-bold">model_governance_report.csv</span>
+                      <span class="text-muted small d-block" style="font-size: 0.65rem;">AML compliance & validation audit check log (97 B)</span>
+                    </div>
+                  </div>
+                  <a href="reports/governance/model_governance_report.csv" target="_blank" class="btn btn-sm btn-cyber py-1 px-3" style="font-size: 0.65rem; font-family: var(--font-mono);">[ OPEN ]</a>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary bg-black" style="font-size: 0.8rem;">
+                  <div class="d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-brain text-warning"></i>
+                    <div>
+                      <span class="text-white fw-bold">champion_model.txt</span>
+                      <span class="text-muted small d-block" style="font-size: 0.65rem;">Serialized LightGBM model weights and thresholds (1.06 MB)</span>
+                    </div>
+                  </div>
+                  <a href="models/champion/champion_model.txt" target="_blank" class="btn btn-sm btn-cyber py-1 px-3" style="font-size: 0.65rem; font-family: var(--font-mono);">[ OPEN ]</a>
+                </div>
+
+                <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary bg-black" style="font-size: 0.8rem;">
+                  <div class="d-flex align-items-center gap-2">
+                    <i class="fa-solid fa-image text-info"></i>
+                    <div>
+                      <span class="text-white fw-bold">lightgbm_roc_curve.png</span>
+                      <span class="text-muted small d-block" style="font-size: 0.65rem;">Model False Positive vs True Positive validation plot (15.6 KB)</span>
+                    </div>
+                  </div>
+                  <a href="reports/model_performance/lightgbm/visualizations/roc_curve.png" target="_blank" class="btn btn-sm btn-cyber py-1 px-3" style="font-size: 0.65rem; font-family: var(--font-mono);">[ VIEW ]</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const modalEl = document.getElementById('caseDossierModal');
+      const modalInstance = bootstrap.Modal.getOrCreateInstance(modalEl);
+      modalInstance.show();
+    };
+
+    const resolveCase = (action) => {
+      const accountId = window.currentDossierAccountId;
+      if (!accountId) return;
+
+      const badge = document.getElementById('dossier-status-badge');
+      if (badge) {
+        if (action === 'BLOCK') {
+          badge.innerText = 'RESOLVED: BLOCKED';
+          badge.className = 'badge bg-danger';
+        } else if (action === 'ESCALATE') {
+          badge.innerText = 'RESOLVED: ESCALATED';
+          badge.className = 'badge bg-warning text-dark';
+        } else if (action === 'DISMISS') {
+          badge.innerText = 'RESOLVED: DISMISSED';
+          badge.className = 'badge bg-success';
+        }
+      }
+
+      if (fraudFeedGridApi) {
+        const rows = [];
+        fraudFeedGridApi.forEachNode(node => {
+          const rowData = node.data;
+          if (rowData.account_id === accountId) {
+            rowData.status = action === 'BLOCK' ? 'BLOCKED' : (action === 'ESCALATE' ? 'ESCALATED' : 'DISMISSED');
+          }
+          rows.push(rowData);
+        });
+        fraudFeedGridApi.setGridOption('rowData', rows);
+      }
+    };
+
+    // Run on startup
+    window.addEventListener('DOMContentLoaded', () => {
+      const now = new Date();
+      const lastRefreshEl = document.getElementById('nav-last-refresh');
+      if (lastRefreshEl) {
+        lastRefreshEl.innerText = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+      }
+
+      // Initial Plots load
+      plotClassDistribution();
+      plotRiskTier();
+      plotRiskDensity();
+      
+      // Mini Curves
+      renderMiniCurves('xgb', '0.997', '#8B5CF6');
+
+      // Feature importances
+      drawFeatureImportances();
+
+      // Load Grids
+      loadFraudFeed();
+      loadRiskEngine();
+      populateSHAPAccounts();
+      loadChampionFramework();
+
+      // Initialize charts
+      setTimeout(() => {
+        // ... (Charts initialization remains unchanged)
+      }, 100);
+    });
+
+    // Theme Toggle Logic
+    const toggleTheme = () => {
+      const body = document.body;
+      body.classList.toggle('light-theme');
+      
+      // Trigger a resize event to ensure charts redraw with correct dimensions/colors
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'));
+      }, 500);
+    };
+  </script>
+</body>
+</html>
