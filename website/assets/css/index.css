@@ -997,3 +997,67 @@
       font-size: 2rem;
       color: var(--primary);
     }
+
+    /* AG Grid layout, sizing, and text-clipping fixes */
+    .ag-theme-balham-dark {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .ag-theme-balham-dark .ag-root-wrapper,
+    .ag-theme-balham-dark .ag-root,
+    .ag-theme-balham-dark .ag-body-viewport {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Prevent text clipping inside cells and headers */
+    .ag-theme-balham-dark .ag-cell, 
+    .ag-theme-balham-dark .ag-cell-value, 
+    .ag-theme-balham-dark .ag-header-cell-text {
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    /* Ensure sticky header styling */
+    .ag-theme-balham-dark .ag-header {
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 10 !important;
+    }
+
+    /* Fixed container heights */
+    #riskGrid {
+        height: 500px !important;
+        min-height: 500px !important;
+        max-height: 500px !important;
+    }
+
+    /* Explainability card layout stabilization */
+    #explainability .cyber-card {
+        height: 540px !important;
+        min-height: 540px !important;
+        max-height: 540px !important;
+        overflow-y: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    /* Prevent horizontal scroll on table-responsive wraps */
+    .table-responsive {
+        overflow-x: hidden !important;
+    }
+
+    /* Custom Decision Drivers scroll wrapper */
+    #decision-drivers-panel {
+        overflow-y: auto;
+        flex-grow: 1;
+    }
+
+    /* Custom Investigation Summary scroll wrapper */
+    #shap-nlp-explanation {
+        overflow-y: auto;
+        flex-grow: 1;
+    }

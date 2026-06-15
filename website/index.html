@@ -1362,7 +1362,7 @@
                 <div class="d-flex justify-content-between align-items-center mb-4">
                   <h5 class="text-white">SURVEILLANCE QUEUE</h5>
                 </div>
-                <div id="riskGrid" class="ag-theme-balham-dark" style="height: 350px; width: 100%;"></div>
+                <div id="riskGrid" class="ag-theme-balham-dark" style="height: 500px; width: 100%;"></div>
               </div>
             </div>
             <div class="col-12 col-lg-4">
@@ -1387,34 +1387,34 @@
           </div>
 
           <div class="row g-4">
-            <!-- Left Column: Decision Drivers Panel -->
-            <div class="col-12 col-lg-7">
-              <div class="cyber-card h-100">
-                <div class="d-flex justify-content-between align-items-center mb-4">
-                  <h5 class="text-white"><span style="color: var(--primary); margin-right: 6px;">//</span> DECISION DRIVERS</h5>
-                  <div>
-                    <select class="form-select form-select-sm bg-dark text-white border-secondary" id="shap-account-selector" onchange="updateSHAPWaterfall(this.value)" style="font-family: var(--font-mono); font-size: 0.75rem;">
-                      <!-- Loaded dynamically -->
-                    </select>
-                  </div>
-                </div>
-                
-                <!-- Custom Decision Drivers UI -->
-                <div id="decision-drivers-panel">
-                  <!-- Loaded dynamically by JS -->
-                </div>
-              </div>
-            </div>
-            
-            <!-- Right Column: Investigation Summary -->
-            <div class="col-12 col-lg-5">
-              <div class="cyber-card h-100">
-                <h5 class="mb-4 text-white"><span style="color: var(--primary); margin-right: 6px;">//</span> INVESTIGATION SUMMARY</h5>
-                <div id="shap-nlp-explanation">
-                  <!-- Loaded dynamically by JS -->
-                </div>
-              </div>
-            </div>
+             <!-- Left Column: Decision Drivers Panel -->
+             <div class="col-12 col-lg-7">
+               <div class="cyber-card" style="height: 540px; min-height: 540px; max-height: 540px; overflow-y: auto;">
+                 <div class="d-flex justify-content-between align-items-center mb-4">
+                   <h5 class="text-white"><span style="color: var(--primary); margin-right: 6px;">//</span> DECISION DRIVERS</h5>
+                   <div>
+                     <select class="form-select form-select-sm bg-dark text-white border-secondary" id="shap-account-selector" onchange="updateSHAPWaterfall(this.value)" style="font-family: var(--font-mono); font-size: 0.75rem;">
+                       <!-- Loaded dynamically -->
+                     </select>
+                   </div>
+                 </div>
+                 
+                 <!-- Custom Decision Drivers UI -->
+                 <div id="decision-drivers-panel">
+                   <!-- Loaded dynamically by JS -->
+                 </div>
+               </div>
+             </div>
+             
+             <!-- Right Column: Investigation Summary -->
+             <div class="col-12 col-lg-5">
+               <div class="cyber-card" style="height: 540px; min-height: 540px; max-height: 540px; overflow-y: auto;">
+                 <h5 class="mb-4 text-white"><span style="color: var(--primary); margin-right: 6px;">//</span> INVESTIGATION SUMMARY</h5>
+                 <div id="shap-nlp-explanation">
+                   <!-- Loaded dynamically by JS -->
+                 </div>
+               </div>
+             </div>
           </div>
         </section>
       </div>

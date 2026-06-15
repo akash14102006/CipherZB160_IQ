@@ -262,6 +262,11 @@
         // 3. Update AG Grid Risk table
         if (riskGridApi) {
           riskGridApi.setGridOption('rowData', filteredData);
+          setTimeout(() => {
+            if (riskGridApi && typeof riskGridApi.sizeColumnsToFit === 'function') {
+              riskGridApi.sizeColumnsToFit();
+            }
+          }, 50);
           if (filteredData.length > 0) {
             showTargetProfile(filteredData[0]);
           } else {
@@ -475,7 +480,7 @@
         const hp = await import('https://cdn.jsdelivr.net/npm/hyparquet/+esm');
         
         // 1. Fetch risk_engine_output.parquet
-        const riskBuf = await fetch('../data/05_output/risk_engine_output.parquet').then(r => r.arrayBuffer());
+        const riskBuf = await fetch('assets/data/risk_engine_output.parquet').then(r => r.arrayBuffer());
         const riskMeta = await hp.parquetMetadataAsync(riskBuf);
         const riskCols = riskMeta.schema.map(s => s.name).slice(1);
         
@@ -503,7 +508,7 @@
         });
 
         // 2. Fetch investigator_dataset.parquet
-        const invBuf = await fetch('../data/05_output/investigator_dataset.parquet').then(r => r.arrayBuffer());
+        const invBuf = await fetch('assets/data/investigator_dataset.parquet').then(r => r.arrayBuffer());
         const invMeta = await hp.parquetMetadataAsync(invBuf);
         const invCols = invMeta.schema.map(s => s.name).slice(1);
         
@@ -540,7 +545,7 @@
 
         // 3. Fetch SHAP Explainability CSV
         await new Promise((resolve, reject) => {
-          Papa.parse('../reports/explainability/shap_local_explanations.csv', {
+          Papa.parse('assets/visualization/shap_local_explanations.csv', {
             download: true,
             header: true,
             complete: (results) => {
@@ -881,6 +886,12 @@
         headerHeight: 30,
         pagination: true,
         paginationPageSize: 8,
+        suppressHorizontalScroll: true,
+        suppressColumnVirtualisation: true,
+        domLayout: "normal",
+        defaultColDef: {
+          resizable: true,
+        },
         onRowClicked: (event) => {
           openCaseDossier(event.data);
         }
@@ -888,6 +899,9 @@
       
       const gridDiv = document.querySelector('#fraudFeedGrid');
       fraudFeedGridApi = agGrid.createGrid(gridDiv, gridOptions);
+      if (fraudFeedGridApi && typeof fraudFeedGridApi.sizeColumnsToFit === 'function') {
+        fraudFeedGridApi.sizeColumnsToFit();
+      }
     };
 
     // Risk Engine Interactive Queue AG Grid
@@ -900,11 +914,12 @@
           headerName: 'Risk Score', 
           width: 110,
           cellRenderer: params => {
-            const pct = params.value * 100;
+            const val = parseFloat(params.value);
+            const pct = isNaN(val) ? 0 : Math.min(100, Math.max(0, val));
             let barColor = 'bg-success';
-            if (params.value >= 0.85) barColor = 'bg-danger';
-            else if (params.value >= 0.60) barColor = 'bg-warning';
-            else if (params.value >= 0.30) barColor = 'bg-info';
+            if (pct >= 85) barColor = 'bg-danger';
+            else if (pct >= 60) barColor = 'bg-warning';
+            else if (pct >= 30) barColor = 'bg-info';
             return `
               <div class="d-flex align-items-center gap-2">
                 <span>${params.value}</span>
@@ -938,6 +953,12 @@
         paginationPageSize: 10,
         rowHeight: 38,
         headerHeight: 34,
+        suppressHorizontalScroll: true,
+        suppressColumnVirtualisation: true,
+        domLayout: "normal",
+        defaultColDef: {
+          resizable: true,
+        },
         onRowClicked: (event) => {
           showTargetProfile(event.data);
         }
@@ -945,6 +966,9 @@
 
       const gridDiv = document.querySelector('#riskGrid');
       riskGridApi = agGrid.createGrid(gridDiv, gridOptions);
+      if (riskGridApi && typeof riskGridApi.sizeColumnsToFit === 'function') {
+        riskGridApi.sizeColumnsToFit();
+      }
       
       if (window.riskData && window.riskData.length > 0) {
         showTargetProfile(window.riskData[0]);
@@ -1269,7 +1293,7 @@
                       <span class="text-muted small d-block" style="font-size: 0.65rem;">Raw inputs, features & variance outputs (111.1 MB)</span>
                     </div>
                   </div>
-                  <a href="DataSet.csv" target="_blank" class="btn btn-sm btn-cyber py-1 px-3" style="font-size: 0.65rem; font-family: var(--font-mono);">[ DOWNLOAD ]</a>
+                  <a href="https://drive.google.com/drive/u/0/folders/1wJtB1NzfdnRnzERzAllFfuQahAqy3RyS" target="_blank" class="btn btn-sm btn-cyber py-1 px-3" style="font-size: 0.65rem; font-family: var(--font-mono);">[ DRIVE ]</a>
                 </div>
                 
                 <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary bg-black" style="font-size: 0.8rem;">
@@ -1280,7 +1304,7 @@
                       <span class="text-muted small d-block" style="font-size: 0.65rem;">Processed risk scores and assigned action codes (15.7 KB)</span>
                     </div>
                   </div>
-                  <a href="data/05_output/risk_engine_output.parquet" target="_blank" class="btn btn-sm btn-cyber py-1 px-3" style="font-size: 0.65rem; font-family: var(--font-mono);">[ DOWNLOAD ]</a>
+                  <a href="https://drive.google.com/drive/u/0/folders/1wJtB1NzfdnRnzERzAllFfuQahAqy3RyS" target="_blank" class="btn btn-sm btn-cyber py-1 px-3" style="font-size: 0.65rem; font-family: var(--font-mono);">[ DRIVE ]</a>
                 </div>
 
                 <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary bg-black" style="font-size: 0.8rem;">
@@ -1354,11 +1378,16 @@
           rows.push(rowData);
         });
         fraudFeedGridApi.setGridOption('rowData', rows);
+        setTimeout(() => {
+          if (fraudFeedGridApi && typeof fraudFeedGridApi.sizeColumnsToFit === 'function') {
+            fraudFeedGridApi.sizeColumnsToFit();
+          }
+        }, 50);
       }
     };
 
     // Run on startup
-    window.addEventListener('DOMContentLoaded', () => {
+    window.addEventListener('DOMContentLoaded', async () => {
       const now = new Date();
       const lastRefreshEl = document.getElementById('nav-last-refresh');
       if (lastRefreshEl) {
@@ -1384,4 +1413,22 @@
       loadRiskEngine();
       populateSHAPAccounts();
       loadChampionFramework();
+    });
+
+    window.addEventListener('load', () => {
+      if (fraudFeedGridApi && typeof fraudFeedGridApi.sizeColumnsToFit === 'function') {
+        fraudFeedGridApi.sizeColumnsToFit();
+      }
+      if (riskGridApi && typeof riskGridApi.sizeColumnsToFit === 'function') {
+        riskGridApi.sizeColumnsToFit();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      if (fraudFeedGridApi && typeof fraudFeedGridApi.sizeColumnsToFit === 'function') {
+        fraudFeedGridApi.sizeColumnsToFit();
+      }
+      if (riskGridApi && typeof riskGridApi.sizeColumnsToFit === 'function') {
+        riskGridApi.sizeColumnsToFit();
+      }
     });

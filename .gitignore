@@ -1,0 +1,30 @@
+# IDE / Editor configuration
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Tooling and generated reports
+.opencode/
+graphify-out/
+
+# Dependency directories
+node_modules/
+jspm_packages/
+web_modules/
+
+# OS-generated files
+Thumbs.db
+db.db
+Desktop.ini
+.DS_Store
+
+# Temporary files and logs
+*.tmp
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
