@@ -985,71 +985,7 @@
               <div class="cyber-card">
                 <h5 class="mb-3">Feature Intelligence Explorer</h5>
                 <div class="d-flex flex-column gap-2" id="feature-intelligence-panel">
-                  <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-success fw-bold" style="font-family: var(--font-mono); font-size: 0.8rem;">01</span>
-                      <div>
-                        <div class="text-white fw-bold small">net_community_mule_ratio</div>
-                        <div class="text-muted" style="font-size: 0.65rem;">Community fraud indicator</div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-success fw-bold" style="font-family: var(--font-mono);">8.9%</span>
-                      <span class="badge bg-danger" style="font-size: 0.6rem;">HIGH IMPACT</span>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-success fw-bold" style="font-family: var(--font-mono); font-size: 0.8rem;">02</span>
-                      <div>
-                        <div class="text-white fw-bold small">velocity_ratio_7d_30d</div>
-                        <div class="text-muted" style="font-size: 0.65rem;">Short-term velocity spike</div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-success fw-bold" style="font-family: var(--font-mono);">7.8%</span>
-                      <span class="badge bg-danger" style="font-size: 0.6rem;">HIGH IMPACT</span>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-success fw-bold" style="font-family: var(--font-mono); font-size: 0.8rem;">03</span>
-                      <div>
-                        <div class="text-white fw-bold small">counterparty_mule_count</div>
-                        <div class="text-muted" style="font-size: 0.65rem;">Flagged network exposure</div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-success fw-bold" style="font-family: var(--font-mono);">6.3%</span>
-                      <span class="badge bg-warning text-dark" style="font-size: 0.6rem;">MEDIUM IMPACT</span>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-success fw-bold" style="font-family: var(--font-mono); font-size: 0.8rem;">04</span>
-                      <div>
-                        <div class="text-white fw-bold small">dormancy_days_before_spike</div>
-                        <div class="text-muted" style="font-size: 0.65rem;">Reactivation pattern signal</div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-success fw-bold" style="font-family: var(--font-mono);">5.4%</span>
-                      <span class="badge bg-warning text-dark" style="font-size: 0.6rem;">MEDIUM IMPACT</span>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-success fw-bold" style="font-family: var(--font-mono); font-size: 0.8rem;">05</span>
-                      <div>
-                        <div class="text-white fw-bold small">round_amount_ratio</div>
-                        <div class="text-muted" style="font-size: 0.65rem;">Structured cashout pattern</div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-success fw-bold" style="font-family: var(--font-mono);">4.9%</span>
-                      <span class="badge bg-info" style="font-size: 0.6rem;">LOW IMPACT</span>
-                    </div>
-                  </div>
+                  <div id="chart-lgbm-fi" style="height: 250px;"></div>
                 </div>
               </div>
             </div>
@@ -1122,71 +1058,7 @@
               <div class="cyber-card">
                 <h5 class="mb-3">Feature Intelligence Explorer</h5>
                 <div class="d-flex flex-column gap-2" id="cat-feature-intelligence-panel">
-                  <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-warning fw-bold" style="font-family: var(--font-mono); font-size: 0.8rem;">01</span>
-                      <div>
-                        <div class="text-white fw-bold small">net_community_mule_ratio</div>
-                        <div class="text-muted" style="font-size: 0.65rem;">Community fraud indicator</div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-warning fw-bold" style="font-family: var(--font-mono);">8.2%</span>
-                      <span class="badge bg-danger" style="font-size: 0.6rem;">HIGH IMPACT</span>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-warning fw-bold" style="font-family: var(--font-mono); font-size: 0.8rem;">02</span>
-                      <div>
-                        <div class="text-white fw-bold small">velocity_ratio_7d_30d</div>
-                        <div class="text-muted" style="font-size: 0.65rem;">Short-term velocity spike</div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-warning fw-bold" style="font-family: var(--font-mono);">7.5%</span>
-                      <span class="badge bg-danger" style="font-size: 0.6rem;">HIGH IMPACT</span>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-warning fw-bold" style="font-family: var(--font-mono); font-size: 0.8rem;">03</span>
-                      <div>
-                        <div class="text-white fw-bold small">counterparty_mule_count</div>
-                        <div class="text-muted" style="font-size: 0.65rem;">Flagged network exposure</div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-warning fw-bold" style="font-family: var(--font-mono);">6.9%</span>
-                      <span class="badge bg-warning text-dark" style="font-size: 0.6rem;">MEDIUM IMPACT</span>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-warning fw-bold" style="font-family: var(--font-mono); font-size: 0.8rem;">04</span>
-                      <div>
-                        <div class="text-white fw-bold small">dormancy_days_before_spike</div>
-                        <div class="text-muted" style="font-size: 0.65rem;">Reactivation pattern signal</div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-warning fw-bold" style="font-family: var(--font-mono);">5.1%</span>
-                      <span class="badge bg-warning text-dark" style="font-size: 0.6rem;">MEDIUM IMPACT</span>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-warning fw-bold" style="font-family: var(--font-mono); font-size: 0.8rem;">05</span>
-                      <div>
-                        <div class="text-white fw-bold small">round_amount_ratio</div>
-                        <div class="text-muted" style="font-size: 0.65rem;">Structured cashout pattern</div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-warning fw-bold" style="font-family: var(--font-mono);">4.6%</span>
-                      <span class="badge bg-info" style="font-size: 0.6rem;">LOW IMPACT</span>
-                    </div>
-                  </div>
+                  <div id="chart-cat-fi" style="height: 250px;"></div>
                 </div>
               </div>
             </div>
@@ -1259,71 +1131,7 @@
               <div class="cyber-card">
                 <h5 class="mb-3">Feature Intelligence Explorer</h5>
                 <div class="d-flex flex-column gap-2" id="xgb-feature-intelligence-panel">
-                  <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-accent fw-bold" style="font-family: var(--font-mono); font-size: 0.8rem;">01</span>
-                      <div>
-                        <div class="text-white fw-bold small">net_community_mule_ratio</div>
-                        <div class="text-muted" style="font-size: 0.65rem;">Community fraud indicator</div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-accent fw-bold" style="font-family: var(--font-mono);">8.5%</span>
-                      <span class="badge bg-danger" style="font-size: 0.6rem;">HIGH IMPACT</span>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-accent fw-bold" style="font-family: var(--font-mono); font-size: 0.8rem;">02</span>
-                      <div>
-                        <div class="text-white fw-bold small">velocity_ratio_7d_30d</div>
-                        <div class="text-muted" style="font-size: 0.65rem;">Short-term velocity spike</div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-accent fw-bold" style="font-family: var(--font-mono);">7.9%</span>
-                      <span class="badge bg-danger" style="font-size: 0.6rem;">HIGH IMPACT</span>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-accent fw-bold" style="font-family: var(--font-mono); font-size: 0.8rem;">03</span>
-                      <div>
-                        <div class="text-white fw-bold small">counterparty_mule_count</div>
-                        <div class="text-muted" style="font-size: 0.65rem;">Flagged network exposure</div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-accent fw-bold" style="font-family: var(--font-mono);">6.1%</span>
-                      <span class="badge bg-warning text-dark" style="font-size: 0.6rem;">MEDIUM IMPACT</span>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-accent fw-bold" style="font-family: var(--font-mono); font-size: 0.8rem;">04</span>
-                      <div>
-                        <div class="text-white fw-bold small">dormancy_days_before_spike</div>
-                        <div class="text-muted" style="font-size: 0.65rem;">Reactivation pattern signal</div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-accent fw-bold" style="font-family: var(--font-mono);">5.5%</span>
-                      <span class="badge bg-warning text-dark" style="font-size: 0.6rem;">MEDIUM IMPACT</span>
-                    </div>
-                  </div>
-                  <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-accent fw-bold" style="font-family: var(--font-mono); font-size: 0.8rem;">05</span>
-                      <div>
-                        <div class="text-white fw-bold small">round_amount_ratio</div>
-                        <div class="text-muted" style="font-size: 0.65rem;">Structured cashout pattern</div>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-3">
-                      <span class="text-accent fw-bold" style="font-family: var(--font-mono);">4.7%</span>
-                      <span class="badge bg-info" style="font-size: 0.6rem;">LOW IMPACT</span>
-                    </div>
-                  </div>
+                  <div id="chart-xgb-fi" style="height: 250px;"></div>
                 </div>
               </div>
             </div>
@@ -1331,10 +1139,11 @@
               <div class="cyber-card">
                 <h5 class="mb-4"><span style="color: var(--primary); margin-right: 6px;">//</span> Model Validation Curves</h5>
                 <div class="row g-2">
-                  <div class="col-6 text-center"><h6 class="small">ROC Curve</h6><div id="xgb-roc-chart" style="height:180px;"></div></div>
-                  <div class="col-6 text-center"><h6 class="small">PR Curve</h6><div id="xgb-pr-chart" style="height:180px;"></div></div>
-                  <div class="col-6 text-center"><h6 class="small">Calibration Curve</h6><div id="xgb-cal-chart" style="height:180px;"></div></div>
-                  <div class="col-6 text-center"><h6 class="small">Gain Chart</h6><div id="xgb-gain-chart" style="height:180px;"></div></div>
+                  <div class="col-6 text-center"><h6 class="small">ROC Curve</h6><img src="reports/model_evaluation/xgboost/XGBoost%20ROC%20Curve.png" class="img-fluid rounded border border-secondary" alt="XGBoost ROC Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">PR Curve</h6><img src="reports/model_evaluation/xgboost/XGBoost%20Precision%20Recall%20Curve.png" class="img-fluid rounded border border-secondary" alt="XGBoost PR Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">Calibration Curve</h6><img src="reports/model_evaluation/xgboost/XGBoost%20Calibration%20Curve.png" class="img-fluid rounded border border-secondary" alt="XGBoost Calibration Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">Gain Chart</h6><img src="reports/model_evaluation/xgboost/XGBoost%20Gain%20Chart.png" class="img-fluid rounded border border-secondary" alt="XGBoost Gain Chart"></div>
+                  <div class="col-12 text-center mt-3"><h6 class="small">Lift Chart</h6><img src="reports/model_evaluation/xgboost/XGBoost%20Lift%20Chart.png" class="img-fluid rounded border border-secondary" style="max-height: 200px;" alt="XGBoost Lift Chart"></div>
                 </div>
               </div>
             </div>
@@ -1437,27 +1246,21 @@
         
         <!-- Sticky Sub-Control Bar for parameters -->
         <div class="cyber-card mb-4 bg-black border-secondary py-3">
-          <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+          <div class="d-flex flex-column justify-content-center align-items-center gap-3">
             <div class="d-flex align-items-center gap-2">
               <i class="fa-solid fa-sliders text-success"></i>
               <span class="fw-bold text-white small" style="font-family: var(--font-headings);">SURVEILLANCE FILTERS & CRITERIA</span>
             </div>
             
-            <div class="d-flex flex-wrap gap-2 align-items-center">
+            <div class="d-flex flex-wrap gap-3 justify-content-center align-items-center">
               <div class="filter-group">
                 <div class="btn-group btn-group-sm bg-black p-1 rounded border border-secondary" role="group" id="btn-group-risk">
                   <button type="button" class="btn btn-dark active" onclick="GlobalState.updateFilter('riskLevel', 'ALL')">ALL RISK</button>
-                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('riskLevel', 'LOW')">LOW</button>
-                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('riskLevel', 'MEDIUM')">MEDIUM</button>
-                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('riskLevel', 'HIGH')">HIGH</button>
-                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('riskLevel', 'CRITICAL')">CRITICAL</button>
                 </div>
               </div>
               <div class="filter-group">
                 <div class="btn-group btn-group-sm bg-black p-1 rounded border border-secondary" role="group" id="btn-group-type">
-                  <button type="button" class="btn btn-dark active" onclick="GlobalState.updateFilter('accountType', 'ALL')">ALL TYPE</button>
-                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('accountType', 'Legitimate')">LEGIT</button>
-                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('accountType', 'Suspicious')">SUSPECT</button>
+                  <button type="button" class="btn btn-dark active" onclick="GlobalState.updateFilter('accountType', 'Suspicious')">SUSPECT</button>
                   <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('accountType', 'Mule')">MULE</button>
                 </div>
               </div>
@@ -1560,6 +1363,8 @@
                   </div>
                 </div>
                 
+                <div id="chart-champion-gauge" style="height: 180px;"></div>
+
                 <div class="mt-3">
                   <div class="d-flex justify-content-between align-items-center mb-2">
                     <span class="small text-muted" style="font-family: var(--font-mono); font-size: 0.7rem;">AUDIT STATUS</span>
@@ -2035,7 +1840,7 @@
       filters: {
         model: 'ALL',
         riskLevel: 'ALL',
-        accountType: 'ALL',
+        accountType: 'Suspicious',
         dataset: 'Production',
         dateRange: '30d',
         riskScoreThreshold: 0.0,
@@ -2291,6 +2096,11 @@
           if (matchName === selectedMatch) {
             el.style.display = 'block';
             el.style.opacity = '1';
+            setTimeout(() => {
+              if (sec === 'lightgbm' && document.getElementById('chart-lgbm-fi')) Plotly.Plots.resize('chart-lgbm-fi');
+              if (sec === 'catboost' && document.getElementById('chart-cat-fi')) Plotly.Plots.resize('chart-cat-fi');
+              if (sec === 'xgboost' && document.getElementById('chart-xgb-fi')) Plotly.Plots.resize('chart-xgb-fi');
+            }, 50);
             if (sec === 'xgboost') {
               setTimeout(() => renderXGBoostCurves(), 100);
             }
@@ -2381,17 +2191,17 @@
             file: riskBuf,
             onComplete: (data) => {
               window.riskData = data.map((row, i) => {
-                const obj = { account_id: `ACC_${String(i+1000).padStart(4, '0')}` };
+                const obj = { account_id: `ACC_${String(Number(row.record_id || i) + 1000).padStart(4, '0')}` };
                 riskCols.forEach((col, idx) => {
                   let val = row[idx];
                   if (typeof val === 'bigint') val = Number(val);
                   obj[col] = val;
                 });
                 
-                obj.lgbm_score = obj.risk_score;
-                obj.catboost_score = parseFloat((obj.risk_score * 0.95).toFixed(3));
-                obj.xgboost_score = parseFloat((obj.risk_score * 1.02).toFixed(3));
-                obj.action = obj.risk_tier === 'CRITICAL' ? 'BLOCK' : (obj.risk_tier === 'HIGH' ? 'ESCALATE' : 'MONITOR');
+                obj.lgbm_score = obj.risk_score || 'Data Not Available';
+                obj.catboost_score = 'Data Not Available';
+                obj.xgboost_score = 'Data Not Available';
+                obj.action = obj.risk_tier === 'CRITICAL' ? 'BLOCK' : (obj.risk_tier === 'HIGH' ? 'ESCALATE' : (obj.risk_tier === 'MEDIUM' ? 'REVIEW' : 'MONITOR'));
                 return obj;
               });
               resolve();
@@ -2409,24 +2219,24 @@
             file: invBuf,
             onComplete: (data) => {
               window.feedRows = data.map((row, i) => {
-                const obj = {};
+                const obj = { account_id: `ACC_${String(Number(row.record_id || i) + 1000).padStart(4, '0')}` };
                 invCols.forEach((col, idx) => {
                   let val = row[idx];
                   if (typeof val === 'bigint') val = Number(val);
                   obj[col] = val;
                 });
                 
-                const accountId = `ACC_${String(i+1000).padStart(4, '0')}`;
                 return {
-                  case_id: `CAS-${1000+i}`,
-                  account_id: accountId,
-                  status: i % 4 === 0 ? 'INVESTIGATING' : 'OPEN',
-                  priority: obj.risk_tier === 'CRITICAL' ? 'P1' : (obj.risk_tier === 'HIGH' ? 'P2' : 'P3'),
-                  risk_tier: obj.risk_tier,
+                  account_id: obj.account_id,
                   risk_score: obj.risk_score,
-                  analyst: i % 2 === 0 ? 'J. Smith' : 'A. Chen',
-                  evidence: Math.floor(Math.random() * 8) + 2,
-                  date: `2026-06-${Math.floor(Math.random() * 15) + 1} 14:00`
+                  risk_tier: obj.risk_tier,
+                  top_feature_1: obj.top_feature_1 || 'Data Not Available',
+                  top_feature_2: obj.top_feature_2 || 'Data Not Available',
+                  top_feature_3: obj.top_feature_3 || 'Data Not Available',
+                  flagged_by: 'LightGBM v1.3',
+                  status: 'UNRESOLVED',
+                  action: obj.risk_tier === 'CRITICAL' ? 'BLOCK' : (obj.risk_tier === 'HIGH' ? 'ESCALATE' : 'REVIEW'),
+                  timestamp: 'Data Not Available'
                 };
               });
               
@@ -2447,11 +2257,11 @@
                 const accountId = `ACC_${String(Number(row.record_id || i) + 1000).padStart(4, '0')}`;
                 return {
                   account_id: accountId,
-                  top_feature_1: row.top_feature_1,
-                  top_feature_2: row.top_feature_2,
-                  top_feature_3: row.top_feature_3
+                  top_feature_1: row.top_feature_1 || 'Data Not Available',
+                  top_feature_2: row.top_feature_2 || 'Data Not Available',
+                  top_feature_3: row.top_feature_3 || 'Data Not Available'
                 };
-              }).filter(d => d.top_feature_1); // filter out empty rows
+              }).filter(d => d.top_feature_1 !== 'Data Not Available'); // filter out empty rows
               resolve();
             },
             error: (err) => reject(err)
@@ -2655,6 +2465,8 @@
     };
 
     const plotFeatureImportance = (elementId, features, scores, color) => {
+      const el = document.getElementById(elementId);
+      if (!el) return;
       const data = [{
         x: scores,
         y: features,
@@ -2666,7 +2478,10 @@
         paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: 'rgba(0,0,0,0)',
         font: { color: '#F1F5F9', size: 8 },
-        margin: { t: 10, b: 20, l: 150, r: 10 }
+        margin: { t: 10, b: 20, l: 10, r: 20 },
+        yaxis: { automargin: true },
+        xaxis: { automargin: true },
+        autosize: true
       };
       Plotly.newPlot(elementId, data, layout, {responsive: true});
     };
@@ -2793,8 +2608,6 @@
           }
         },
         { field: 'lgbm_score', headerName: 'LightGBM', width: 90 },
-        { field: 'catboost_score', headerName: 'CatBoost', width: 90 },
-        { field: 'xgboost_score', headerName: 'XGBoost', width: 90 },
         { field: 'action', headerName: 'Action', width: 110 }
       ];
 
@@ -2833,11 +2646,16 @@
             <tr><th>Risk Tier</th><td>${tierBadge}</td></tr>
             <tr><th>Surveillance Action</th><td><strong>${data.action}</strong></td></tr>
             <tr><th>LightGBM Core</th><td>${data.lgbm_score}</td></tr>
-            <tr><th>CatBoost Node</th><td>${data.catboost_score}</td></tr>
-            <tr><th>XGBoost Ensemble</th><td>${data.xgboost_score}</td></tr>
           </tbody>
         </table>
       `;
+
+      // Update the Explainability and Investigation Summary
+      const shapSelect = document.getElementById('shap-account-selector');
+      if (shapSelect) {
+        shapSelect.value = data.account_id;
+        updateSHAPWaterfall(data.account_id);
+      }
 
       const gaugeData = [{
         domain: { x: [0, 1], y: [0, 1] },
@@ -2859,7 +2677,7 @@
       const layout = {
         paper_bgcolor: 'rgba(0,0,0,0)',
         font: { color: '#F1F5F9', size: 10 },
-        margin: { t: 20, b: 20, l: 30, r: 30 }
+        margin: { t: 40, b: 20, l: 30, r: 30 }
       };
       Plotly.newPlot('risk-gauge', gaugeData, layout, {responsive: true});
     };
@@ -2870,7 +2688,7 @@
       window.shapData.forEach(d => {
         const opt = document.createElement('option');
         opt.value = d.account_id;
-        opt.textContent = `${d.account_id} (${d.prediction})`;
+        opt.textContent = `${d.account_id}`;
         select.appendChild(opt);
       });
       if (window.shapData.length > 0) {
@@ -2900,22 +2718,33 @@
       [record.top_feature_1, record.top_feature_2, record.top_feature_3].forEach((feat, idx) => {
         if (!feat) return;
         const label = getFeatureLabel(feat);
-        html += `
-          <div class="p-3 bg-dark border rounded" style="border-color: rgba(255,255,255,0.1) !important;">
-            <div class="d-flex justify-content-between align-items-center mb-1">
-              <span class="text-white fw-bold">Rank ${idx + 1} Driver</span>
-              <span class="badge bg-danger" style="font-size: 0.7rem;">CRITICAL</span>
+        if (feat === 'Data Not Available') {
+          html += `
+            <div class="p-3 bg-dark border rounded" style="border-color: rgba(255,255,255,0.1) !important;">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <span class="text-white fw-bold">Rank ${idx + 1} Driver</span>
+              </div>
+              <div class="text-secondary" style="font-size: 0.9rem;">Data Not Available</div>
             </div>
-            <div class="text-secondary" style="font-size: 0.9rem;">${feat}</div>
-            <div style="font-size: 1.1rem; color: var(--primary); font-family: var(--font-mono); margin-top: 4px;">${label}</div>
-          </div>
-        `;
+          `;
+        } else {
+          html += `
+            <div class="p-3 bg-dark border rounded" style="border-color: rgba(255,255,255,0.1) !important;">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <span class="text-white fw-bold">Rank ${idx + 1} Driver</span>
+                <span class="badge bg-danger" style="font-size: 0.7rem;">CRITICAL</span>
+              </div>
+              <div class="text-secondary" style="font-size: 0.9rem;">${feat}</div>
+              <div style="font-size: 1.1rem; color: var(--primary); font-family: var(--font-mono); margin-top: 4px;">${label}</div>
+            </div>
+          `;
+        }
       });
       html += '</div>';
       panelDiv.innerHTML = html;
 
       // Update Narrative
-      const bulletHtml = [record.top_feature_1, record.top_feature_2, record.top_feature_3].filter(Boolean).map(feat => `
+      const bulletHtml = [record.top_feature_1, record.top_feature_2, record.top_feature_3].filter(feat => feat && feat !== 'Data Not Available').map(feat => `
         <li class="mb-2 d-flex align-items-start gap-2">
           <i class="fa-solid fa-circle-exclamation text-danger mt-1" style="font-size: 0.8rem;"></i>
           <span>${getFeatureLabel(feat)}</span>
@@ -2954,21 +2783,27 @@
         value: 95.8,
         title: { text: "Enterprise Rating Index" },
         type: "indicator",
-        mode: "gauge+number",
+        mode: "gauge",
         gauge: {
-          axis: { range: [0, 100] },
+          axis: { range: [0, 100], tickcolor: "rgba(255,255,255,0.3)" },
           bar: { color: "#10B981" },
+          bgcolor: "rgba(0,0,0,0)",
           steps: [
-            { range: [0, 60], color: "#111827" },
-            { range: [60, 80], color: "#1F2937" },
-            { range: [80, 100], color: "#374151" }
+            { range: [0, 100], color: "rgba(255,255,255,0.05)" }
           ]
         }
       }];
       const layout = {
         paper_bgcolor: 'rgba(0,0,0,0)',
         font: { color: '#F1F5F9', size: 10 },
-        margin: { t: 10, b: 10, l: 20, r: 20 }
+        margin: { t: 40, b: 10, l: 30, r: 30 },
+        annotations: [{
+          text: "95.8%",
+          x: 0.5,
+          y: 0.1,
+          showarrow: false,
+          font: { size: 36, color: "#10B981", family: "var(--font-mono)" }
+        }]
       };
       Plotly.newPlot('chart-champion-gauge', data, layout, {responsive: true});
     };
@@ -3060,18 +2895,12 @@
                   <tr>
                     <th class="text-muted small">Champion (Agg)</th>
                     <th class="text-muted small">LightGBM</th>
-                    <th class="text-muted small">CatBoost</th>
-                    <th class="text-muted small">XGBoost</th>
-                    <th class="text-muted small">Isolation Forest</th>
                   </tr>
                 </thead>
                 <tbody style="font-family: var(--font-mono); font-size: 1.1rem; color: var(--primary);">
                   <tr>
-                    <td class="text-danger fw-bold">${combinedData.risk_score || 'N/A'}</td>
-                    <td>${combinedData.lgbm_score || 'N/A'}</td>
-                    <td>${combinedData.catboost_score || 'N/A'}</td>
-                    <td>${combinedData.xgboost_score || 'N/A'}</td>
-                    <td>${(Math.random() * 0.15 + 0.6).toFixed(3)}</td>
+                    <td class="text-danger fw-bold">${combinedData.risk_score || 'Data Not Available'}</td>
+                    <td>${combinedData.lgbm_score || 'Data Not Available'}</td>
                   </tr>
                 </tbody>
               </table>

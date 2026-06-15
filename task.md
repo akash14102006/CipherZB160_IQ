@@ -1,271 +1,330 @@
-1. SURVEILLANCE QUEUE
+About CipherZB160 IQ
+Hero Section
 
-Current:
+Use your logo with glow animation.
 
-SURVEILLANCE QUEUE
-[ EMPTY ]
+┌─────────────────────────────────────┐
+│  CipherZB160 IQ                     │
+│  Advanced Financial Crime AI        │
+│                                     │
+│  Enterprise Mule Account Detection  │
+│  & Risk Intelligence Platform       │
+│                                     │
+│  Built using ML + Explainable AI    │
+│  + Risk Intelligence Engine         │
+└─────────────────────────────────────┘
 
-Should load from:
+Buttons:
 
-data/risk_engine_output.parquet
+Explore Architecture
+View Evidence Repository
+Interactive Intelligence Vault
 
-Columns:
+Replace the boring project overview card.
 
-Account ID
-Risk Score
-Risk Tier
-Champion Model Score
-CatBoost Score
-XGBoost Score
-Isolation Score
-Recommended Action
-Last Updated
+Use the uploaded folder animation component from codingprofessors.html
 
-Example:
+Transform it into:
 
-Account	Risk	Tier	Action
-ACC_001	0.95	Critical	Block
-ACC_002	0.82	High	Review
-ACC_003	0.61	Medium	Monitor
-2. TARGET ASSESSMENT
+Enterprise Intelligence Vault
 
-Current:
+Folder contains:
 
-Select an account...
+Data Processing Reports
+Feature Engineering Reports
+Model Artifacts
+Risk Engine
+Governance Reports
+SHAP Explanations
+Model Comparison
 
-Should populate after clicking queue row.
+When folder opens:
 
-Display:
+📄 Data Cleaning Report
+📄 Feature Selection Report
+📄 Leakage Report
+📄 Model Governance Report
+📊 ROC Comparison
+📊 Feature Importance
+🧠 SHAP Explanations
+⚠ Risk Engine Output
 
-Account Profile
+This immediately looks premium.
 
-Account ID
+Platform Overview
 
-Risk Score
+Replace text paragraph.
 
-Risk Tier
+Use architecture diagram.
 
-Predicted Class
+Raw Banking Data
+        ↓
+Data Audit
+        ↓
+Feature Engineering
+        ↓
+Feature Selection
+        ↓
+────────────────────
+LightGBM
+CatBoost
+XGBoost
+Isolation Forest
+────────────────────
+        ↓
+Champion Selection
+        ↓
+Risk Engine
+        ↓
+SHAP Explainability
+        ↓
+Investigator Dashboard
 
-Champion Model
+Animated arrows.
 
-LightGBM Score
+How CipherZB160 IQ Works
 
-CatBoost Score
+Graphify style.
 
-XGBoost Score
+[Transaction Data]
+          ↓
+[Feature Intelligence]
+          ↓
+[Model Evaluation]
+          ↓
+[Champion Model]
+          ↓
+[Risk Scoring]
+          ↓
+[Investigation Queue]
+          ↓
+[Analyst Action]
 
-Isolation Forest Score
+Each step clickable.
 
-Final Recommendation
+Intelligence Pipeline
 
-Evidence Files Count
+Create cards.
 
-SHAP Explanation Available
-3. DECISION DRIVERS
+Data Audit
+01_data_audit.ipynb
 
-Current:
+Data Cleaning
+Leakage Detection
+Variance Analysis
+Feature Discovery
+02_feature_discovery.ipynb
 
-EMPTY
+Feature Engineering
+Mutual Information
+Feature Ranking
+Feature Selection
+03_feature_selection.ipynb
 
-Should load from:
+Top Feature Selection
+Production Dataset
+Model Training
+LightGBM
+CatBoost
+XGBoost
+Isolation Forest
+Risk Intelligence
+05_explainability_and_risk_engine.ipynb
 
-reports/shap_local_explanations.csv
+Risk Scores
+Investigator Dataset
+SHAP Explanations
+Model Ecosystem
+
+Use enterprise cards.
+
+Champion
+LightGBM
+
+Challenger
+CatBoost
+
+Challenger
+XGBoost
+
+Anomaly Detection
+Isolation Forest
 
 Show:
 
-Top Risk Drivers
+Model File
+Metrics
+Artifacts
+Governance Status
+
+Read directly from:
+
+models/
+reports/model_performance/
+reports/model_evaluation/
+
+No fake values.
+
+Evidence Repository Preview
+
+Show real repository structure.
+
+Reports
+Visualizations
+Datasets
+Models
+Audit Files
+SHAP Explanations
+
+Each card opens GitHub folder.
 
 Example:
 
-net_community_mule_ratio
-+0.242
+Reports
+→ reports/data_processing/
 
-velocity_ratio_7d_30d
-+0.187
+Models
+→ models/champion/
 
-counterparty_mule_count
-+0.156
+Visualizations
+→ reports/model_performance/
+Risk Intelligence Engine
 
-dormancy_days_before_spike
-+0.101
+Enterprise animation.
 
-Visual:
+risk_engine_output.parquet
 
-Risk Driver Cards
+feeds
 
-instead of raw tables.
-
-4. INVESTIGATION SUMMARY
-
-Current:
-
-EMPTY
-
-Should load from:
-
-data/investigator_dataset.parquet
-
-Show:
-
-Case Status
-
-Open Cases
-Critical Cases
-Pending Review
-Closed Cases
-
-Average Investigation Time
-
-Evidence Attached
-
-Last Investigation Date
-5. INVESTIGATION QUEUE
-
-Current:
-
-EMPTY
-
-Load from:
-
+Surveillance Queue
+Threat Intelligence
+Target Assessment
 investigator_dataset.parquet
 
-Columns:
+feeds
 
-Case ID
-Account ID
-Priority
-Risk Tier
-Status
-Assigned Analyst
-Evidence Count
-Created Date
+Investigation Queue
+Investigation Summary
+shap_local_explanations.csv
 
-Use:
+feeds
 
-AG Grid Enterprise
+Decision Drivers
+Explainability
 
-with:
+Show animated data flow.
 
-Sorting
-Filtering
-Search
-Pagination
-Row Click
-6. SHAP EXPLAINABILITY
+Explainable AI
 
-Current:
+Show SHAP process.
 
-EMPTY
+Account
+     ↓
+Champion Model
+     ↓
+SHAP Engine
+     ↓
+Top Drivers
 
-Use:
+Example:
 
-reports/shap_local_explanations.csv
+Velocity Spike
+Dormancy Reactivation
+Counterparty Mule Count
+Network Exposure
+Governance Framework
 
-Display:
+Use timeline.
 
-Global Drivers
-Top Risk Features
-Local Drivers
+Real files:
 
-Selected Account:
-
-ACC_001
+champion_model_report.csv
+challenger_models_report.csv
+model_governance_report.csv
+enterprise_model_comparison.csv
 
 Show:
 
-Why account was classified as Mule
+Audit Passed
+Model Approved
+Champion Deployed
+Monitoring Active
+Repository Statistics
 
-Example:
+Auto-count.
 
-↑ High counterparty mule count
+Datasets
+Models
+Reports
+Visualizations
+Governance Files
 
-↑ High network centrality
+Read from actual folders.
 
-↑ Unusual transaction velocity
+No hardcoded values.
 
-↑ Dormancy spike detected
+Team Section
 
-Much better than raw waterfall charts.
+Like CipherLens.
 
-MASTER PROMPT
-Populate all currently empty sections using actual project artifacts.
+But enterprise style.
 
-DATA SOURCES
+CipherZB160 IQ
 
-data/risk_engine_output.parquet
-data/investigator_dataset.parquet
-reports/shap_local_explanations.csv
-reports/risk_score_distribution.csv
-reports/risk_tier_distribution.csv
+AI Engineering
+Data Science
+Risk Intelligence
+Explainability
+Model Governance
+Footer
+CipherZB160 IQ
 
-SURVEILLANCE QUEUE
+Advanced Cyber Intelligence
 
-Load risk_engine_output.parquet
+Enterprise Mule Account Detection
+Risk Intelligence Platform
 
-Display:
+LightGBM
+CatBoost
+XGBoost
+Isolation Forest
 
-Account ID
-Risk Score
-Risk Tier
-Champion Model Score
-CatBoost Score
-XGBoost Score
-Isolation Forest Score
-Recommended Action
+Explainable AI
+Governance
+AML Compliance
+Most Important Design Rule
 
-Use AG Grid Enterprise.
+Do NOT copy CipherLens exactly.
 
-TARGET ASSESSMENT
+Copy only:
 
-Populate dynamically when user clicks a queue row.
+storytelling flow
+architecture section
+team section
+interactive folder concept
 
-Show full account risk profile.
+Keep CipherZB160 IQ theme:
 
-DECISION DRIVERS
+Dark Navy
+Graphify Grid
+Cyan Glow
+Terminal Typography
+Enterprise Intelligence UI
 
-Load shap_local_explanations.csv
+Avoid:
 
-Show Top Risk Factors as cards.
+❌ Long paragraphs
+❌ Academic style
+❌ Static cards
+❌ Fake numbers
+❌ Placeholder content
 
-Do not show empty containers.
+Use:
 
-INVESTIGATION SUMMARY
-
-Load investigator_dataset.parquet
-
-Display:
-
-Total Cases
-Open Cases
-Critical Cases
-Pending Review
-Closed Cases
-
-INVESTIGATION QUEUE
-
-Load investigator_dataset.parquet
-
-Display actual investigations.
-
-Enable filtering, search and pagination.
-
-SHAP EXPLAINABILITY
-
-Replace empty panels with actual feature attribution summaries.
-
-Use business language.
-
-Example:
-
-High transaction velocity increased risk by 18%.
-
-Large mule network exposure increased risk by 24%.
-
-No mock data.
-
-No placeholders.
-
-No empty containers.
-
-Everything must be populated from real project files.
+✅ Real reports
+✅ Real model artifacts
+✅ Real governance files
+✅ Real visualizations
+✅ Interactive evidence vault
+✅ Architecture diagrams
+✅ Data flow animations

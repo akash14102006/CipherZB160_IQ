@@ -976,10 +976,11 @@
               <div class="cyber-card">
                 <h5 class="mb-4">Model Validation Curves</h5>
                 <div class="row g-2">
-                  <div class="col-6"><div id="xgb-curve-roc" style="height: 180px;"></div></div>
-                  <div class="col-6"><div id="xgb-curve-pr" style="height: 180px;"></div></div>
-                  <div class="col-6"><div id="xgb-curve-calib" style="height: 180px;"></div></div>
-                  <div class="col-6"><div id="xgb-curve-lift" style="height: 180px;"></div></div>
+                  <div class="col-6 text-center"><h6 class="small">ROC Curve</h6><img src="reports/model_evaluation/xgboost/XGBoost%20ROC%20Curve.png" class="img-fluid rounded border border-secondary" alt="XGBoost ROC Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">PR Curve</h6><img src="reports/model_evaluation/xgboost/XGBoost%20Precision%20Recall%20Curve.png" class="img-fluid rounded border border-secondary" alt="XGBoost PR Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">Calibration Curve</h6><img src="reports/model_evaluation/xgboost/XGBoost%20Calibration%20Curve.png" class="img-fluid rounded border border-secondary" alt="XGBoost Calibration Curve"></div>
+                  <div class="col-6 text-center"><h6 class="small">Gain Chart</h6><img src="reports/model_evaluation/xgboost/XGBoost%20Gain%20Chart.png" class="img-fluid rounded border border-secondary" alt="XGBoost Gain Chart"></div>
+                  <div class="col-12 text-center mt-3"><h6 class="small">Lift Chart</h6><img src="reports/model_evaluation/xgboost/XGBoost%20Lift%20Chart.png" class="img-fluid rounded border border-secondary" style="max-height: 200px;" alt="XGBoost Lift Chart"></div>
                 </div>
               </div>
             </div>
@@ -1058,27 +1059,21 @@
         
         <!-- Sticky Sub-Control Bar for parameters -->
         <div class="cyber-card mb-4 bg-black border-secondary py-3">
-          <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+          <div class="d-flex flex-column justify-content-center align-items-center gap-3">
             <div class="d-flex align-items-center gap-2">
               <i class="fa-solid fa-sliders text-success"></i>
               <span class="fw-bold text-white small" style="font-family: var(--font-headings);">SURVEILLANCE FILTERS & CRITERIA</span>
             </div>
             
-            <div class="d-flex flex-wrap gap-2 align-items-center">
+            <div class="d-flex flex-wrap gap-3 justify-content-center align-items-center">
               <div class="filter-group">
                 <div class="btn-group btn-group-sm bg-black p-1 rounded border border-secondary" role="group" id="btn-group-risk">
                   <button type="button" class="btn btn-dark active" onclick="GlobalState.updateFilter('riskLevel', 'ALL')">ALL RISK</button>
-                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('riskLevel', 'LOW')">LOW</button>
-                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('riskLevel', 'MEDIUM')">MEDIUM</button>
-                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('riskLevel', 'HIGH')">HIGH</button>
-                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('riskLevel', 'CRITICAL')">CRITICAL</button>
                 </div>
               </div>
               <div class="filter-group">
                 <div class="btn-group btn-group-sm bg-black p-1 rounded border border-secondary" role="group" id="btn-group-type">
-                  <button type="button" class="btn btn-dark active" onclick="GlobalState.updateFilter('accountType', 'ALL')">ALL TYPE</button>
-                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('accountType', 'Legitimate')">LEGIT</button>
-                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('accountType', 'Suspicious')">SUSPECT</button>
+                  <button type="button" class="btn btn-dark active" onclick="GlobalState.updateFilter('accountType', 'Suspicious')">SUSPECT</button>
                   <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('accountType', 'Mule')">MULE</button>
                 </div>
               </div>
@@ -1582,7 +1577,7 @@
       filters: {
         model: 'ALL',
         riskLevel: 'ALL',
-        accountType: 'ALL',
+        accountType: 'Suspicious',
         dataset: 'Production',
         dateRange: '30d',
         riskScoreThreshold: 0.0,
@@ -1840,6 +1835,14 @@
           if (matchName === selectedMatch) {
             el.style.display = 'block';
             el.style.opacity = '1';
+            setTimeout(() => {
+              if (sec === 'lightgbm' && document.getElementById('chart-lgbm-fi')) Plotly.Plots.resize('chart-lgbm-fi');
+              if (sec === 'catboost' && document.getElementById('chart-cat-fi')) Plotly.Plots.resize('chart-cat-fi');
+              if (sec === 'xgboost' && document.getElementById('chart-xgb-fi')) Plotly.Plots.resize('chart-xgb-fi');
+            }, 50);
+            if (sec === 'xgboost') {
+              setTimeout(() => renderXGBoostCurves(), 100);
+            }
           } else {
             el.style.display = 'none';
           }
@@ -1908,79 +1911,103 @@
     };
 
     // Data Generators
-    const generateRiskData = () => {
-      const data = [];
-      for (let i = 1; i <= 200; i++) {
-        const riskScore = Math.pow(Math.random(), 2.3); 
-        let tier = 'LOW';
-        let action = 'MONITOR';
+    // Global Data
+    window.riskData = [];
+    window.shapData = [];
+    window.feedRows = [];
+
+    const loadParquetData = async () => {
+      try {
+        const hp = await import('https://cdn.jsdelivr.net/npm/hyparquet/+esm');
         
-        if (i % 2.5 === 0 && data.filter(d => d.risk_tier === 'CRITICAL').length < 81) {
-          tier = 'CRITICAL';
-          action = 'BLOCK';
-        } else if (riskScore >= 0.60) {
-          tier = 'HIGH';
-          action = 'REVIEW';
-        } else if (riskScore >= 0.30) {
-          tier = 'MEDIUM';
-          action = 'INVESTIGATE';
-        }
+        // 1. Fetch risk_engine_output.parquet
+        const riskBuf = await fetch('data/05_output/risk_engine_output.parquet').then(r => r.arrayBuffer());
+        const riskMeta = await hp.parquetMetadataAsync(riskBuf);
+        const riskCols = riskMeta.schema.map(s => s.name).slice(1);
         
-        data.push({
-          account_id: `ACC_${String(i).padStart(4, '0')}`,
-          risk_score: tier === 'CRITICAL' ? parseFloat((0.85 + Math.random() * 0.14).toFixed(3)) : parseFloat((Math.min(0.84, riskScore)).toFixed(3)),
-          risk_tier: tier,
-          lgbm_score: parseFloat(Math.min(1, Math.max(0, riskScore + (Math.random() - 0.5) * 0.05)).toFixed(3)),
-          catboost_score: parseFloat(Math.min(1, Math.max(0, riskScore + (Math.random() - 0.5) * 0.05)).toFixed(3)),
-          xgboost_score: parseFloat(Math.min(1, Math.max(0, riskScore + (Math.random() - 0.5) * 0.05)).toFixed(3)),
-          action: action
+        await new Promise(resolve => {
+          hp.parquetRead({
+            file: riskBuf,
+            onComplete: (data) => {
+              window.riskData = data.map((row, i) => {
+                const obj = { account_id: `ACC_${String(Number(row.record_id || i) + 1000).padStart(4, '0')}` };
+                riskCols.forEach((col, idx) => {
+                  let val = row[idx];
+                  if (typeof val === 'bigint') val = Number(val);
+                  obj[col] = val;
+                });
+                
+                obj.lgbm_score = obj.risk_score || 'Data Not Available';
+                obj.catboost_score = 'Data Not Available';
+                obj.xgboost_score = 'Data Not Available';
+                obj.action = obj.risk_tier === 'CRITICAL' ? 'BLOCK' : (obj.risk_tier === 'HIGH' ? 'ESCALATE' : (obj.risk_tier === 'MEDIUM' ? 'REVIEW' : 'MONITOR'));
+                return obj;
+              });
+              resolve();
+            }
+          });
         });
-      }
 
-      let currentCritCount = data.filter(d => d.risk_tier === 'CRITICAL').length;
-      while (currentCritCount < 81) {
-        const idx = Math.floor(Math.random() * 200);
-        if (data[idx].risk_tier !== 'CRITICAL') {
-          data[idx].risk_tier = 'CRITICAL';
-          data[idx].risk_score = parseFloat((0.85 + Math.random() * 0.14).toFixed(3));
-          data[idx].action = 'BLOCK';
-          currentCritCount++;
-        }
-      }
+        // 2. Fetch investigator_dataset.parquet
+        const invBuf = await fetch('data/05_output/investigator_dataset.parquet').then(r => r.arrayBuffer());
+        const invMeta = await hp.parquetMetadataAsync(invBuf);
+        const invCols = invMeta.schema.map(s => s.name).slice(1);
+        
+        await new Promise(resolve => {
+          hp.parquetRead({
+            file: invBuf,
+            onComplete: (data) => {
+              window.feedRows = data.map((row, i) => {
+                const obj = {};
+                invCols.forEach((col, idx) => {
+                  let val = row[idx];
+                  if (typeof val === 'bigint') val = Number(val);
+                  obj[col] = val;
+                });
+                
+                const accountId = `ACC_${String(Number(row.record_id || i) + 1000).padStart(4, '0')}`;
+                return {
+                  account_id: accountId,
+                  risk_score: obj.risk_score,
+                  risk_tier: obj.risk_tier,
+                  top_feature_1: obj.top_feature_1 || 'Data Not Available',
+                  top_feature_2: obj.top_feature_2 || 'Data Not Available',
+                  top_feature_3: obj.top_feature_3 || 'Data Not Available',
+                  flagged_by: 'LightGBM v1.3',
+                  status: 'UNRESOLVED',
+                  action: obj.risk_tier === 'CRITICAL' ? 'BLOCK' : (obj.risk_tier === 'HIGH' ? 'ESCALATE' : 'REVIEW'),
+                  timestamp: 'Data Not Available'
+                };
+              });
+              resolve();
+            }
+          });
+        });
 
-      return data;
+        // 3. Fetch SHAP Explainability CSV
+        await new Promise((resolve, reject) => {
+          Papa.parse('reports/explainability/shap_local_explanations.csv', {
+            download: true,
+            header: true,
+            complete: (results) => {
+              window.shapData = results.data.map((row, i) => {
+                const accountId = `ACC_${String(Number(row.record_id || i) + 1000).padStart(4, '0')}`;
+                return {
+                  account_id: accountId,
+                  top_feature_1: row.top_feature_1 || 'Data Not Available',
+                  top_feature_2: row.top_feature_2 || 'Data Not Available',
+                  top_feature_3: row.top_feature_3 || 'Data Not Available'
+                };
+              }).filter(d => d.top_feature_1 !== 'Data Not Available');
+              resolve();
+            },
+            error: (err) => reject(err)
+          });
+        });
+      } catch(err) {
+        console.error("Error loading Parquet data:", err);
+      }
     };
-
-    const generateSHAPData = () => {
-      const data = [];
-      const features = [
-        'net_community_mule_ratio', 'velocity_ratio_7d_30d', 'counterparty_mule_count',
-        'dormancy_days_before_spike', 'round_amount_ratio', 'bureau_credit_score',
-        'account_age_days', 'income_to_tx_ratio', 'kyc_verification_status'
-      ];
-      for (let i = 1; i <= 50; i++) {
-        const isMule = Math.random() > 0.85;
-        const riskScore = isMule ? (0.65 + Math.random() * 0.3) : (Math.random() * 0.25);
-        const shapValues = {};
-        features.forEach(f => {
-          if (isMule) {
-            shapValues[`shap_${f}`] = parseFloat((Math.random() * 0.25 - 0.02).toFixed(3));
-          } else {
-            shapValues[`shap_${f}`] = parseFloat((Math.random() * 0.05 - 0.12).toFixed(3));
-          }
-        });
-        data.push({
-          account_id: `ACC_${String(i).padStart(4, '0')}`,
-          prediction: isMule ? 'Mule' : 'Non-Mule',
-          risk_score: parseFloat(riskScore.toFixed(3)),
-          ...shapValues
-        });
-      }
-      return data;
-    };
-
-    const riskData = generateRiskData();
-    const shapData = generateSHAPData();
 
     // Scroll Progress Logic
     window.addEventListener('scroll', () => {
@@ -2154,6 +2181,8 @@
     };
 
     const plotFeatureImportance = (elementId, features, scores, color) => {
+      const el = document.getElementById(elementId);
+      if (!el) return;
       const data = [{
         x: scores,
         y: features,
@@ -2165,10 +2194,64 @@
         paper_bgcolor: 'rgba(0,0,0,0)',
         plot_bgcolor: 'rgba(0,0,0,0)',
         font: { color: '#F1F5F9', size: 8 },
-        margin: { t: 10, b: 20, l: 150, r: 10 }
+        margin: { t: 10, b: 20, l: 10, r: 20 },
+        yaxis: { automargin: true },
+        xaxis: { automargin: true },
+        autosize: true
       };
       Plotly.newPlot(elementId, data, layout, {responsive: true});
     };
+
+    const renderXGBoostCurves = async () => {
+      const plotCfg = { responsive: true, displayModeBar: false };
+      const baseLayout = { paper_bgcolor: 'rgba(0,0,0,0)', plot_bgcolor: 'rgba(0,0,0,0)', font: { color: '#F1F5F9', size: 9 }, margin: { t: 25, b: 30, l: 35, r: 10 } };
+
+      try {
+        const [rocCsv, prCsv, calCsv, liftCsv] = await Promise.all([
+          fetch('reports/model_performance/xgboost/roc_curve.csv').then(r => r.text()),
+          fetch('reports/model_performance/xgboost/pr_curve.csv').then(r => r.text()),
+          fetch('reports/model_performance/xgboost/calibration_curve.csv').then(r => r.text()),
+          fetch('reports/model_performance/xgboost/lift_chart.csv').then(r => r.text())
+        ]);
+
+        const parseCSV = (text) => {
+          const lines = text.trim().split('\n');
+          const headers = lines[0].split(',');
+          return lines.slice(1).map(line => {
+            const vals = line.split(',');
+            const obj = {};
+            headers.forEach((h, i) => obj[h.trim()] = parseFloat(vals[i]));
+            return obj;
+          });
+        };
+
+        const rocData = parseCSV(rocCsv);
+        Plotly.newPlot('xgb-curve-roc', [
+          { x: rocData.map(r => r.FPR), y: rocData.map(r => r.TPR), type: 'scatter', mode: 'lines', name: 'ROC', line: { color: '#8B5CF6', width: 2 } },
+          { x: [0, 1], y: [0, 1], type: 'scatter', mode: 'lines', name: 'Ref', line: { dash: 'dash', color: '#9CA3AF', width: 1 } }
+        ], { ...baseLayout, xaxis: { title: 'FPR', range: [0, 1] }, yaxis: { title: 'TPR', range: [0, 1] } }, plotCfg);
+
+        const prData = parseCSV(prCsv);
+        Plotly.newPlot('xgb-curve-pr', [
+          { x: prData.map(r => r.Recall), y: prData.map(r => r.Precision), type: 'scatter', mode: 'lines', name: 'PR', line: { color: '#8B5CF6', width: 2 } }
+        ], { ...baseLayout, xaxis: { title: 'Recall', range: [0, 1] }, yaxis: { title: 'Precision', range: [0, 1] } }, plotCfg);
+
+        const calData = parseCSV(calCsv);
+        Plotly.newPlot('xgb-curve-calib', [
+          { x: calData.map(r => r.Predicted_Probability), y: calData.map(r => r.Observed_Frequency), type: 'scatter', mode: 'lines+markers', name: 'Calibration', line: { color: '#8B5CF6', width: 2 }, marker: { size: 5 } },
+          { x: [0, 1], y: [0, 1], type: 'scatter', mode: 'lines', name: 'Perfect', line: { dash: 'dash', color: '#9CA3AF', width: 1 } }
+        ], { ...baseLayout, xaxis: { title: 'Predicted', range: [0, 1] }, yaxis: { title: 'Observed', range: [0, 1] } }, plotCfg);
+
+        const liftData = parseCSV(liftCsv);
+        const totalSamples = liftData.length;
+        Plotly.newPlot('xgb-curve-lift', [
+          { x: liftData.map((_, i) => ((i + 1) / totalSamples) * 100), y: liftData.map(r => r.lift), type: 'scatter', mode: 'lines', name: 'Lift', line: { color: '#8B5CF6', width: 2 } },
+          { x: [0, 100], y: [1, 1], type: 'scatter', mode: 'lines', name: 'Baseline', line: { dash: 'dash', color: '#9CA3AF', width: 1 } }
+        ], { ...baseLayout, xaxis: { title: '% Population', range: [0, 100] }, yaxis: { title: 'Lift', range: [0, Math.max(...liftData.map(r => r.lift)) * 1.1] } }, plotCfg);
+
+      } catch (e) { console.warn('XGBoost curve render error:', e); }
+    };
+
 
     const drawFeatureImportances = () => {
       const count = GlobalState.filters.featureCount || 10;
@@ -2237,23 +2320,9 @@
         }
       ];
 
-      const critData = riskData.filter(d => d.risk_tier === 'CRITICAL').slice(0, 15);
-      const times = ["02:15m ago", "12:08m ago", "22:45m ago", "35:12m ago", "48:50m ago", "1h:02m ago", "1h:15m ago", "1h:30m ago", "2h:05m ago", "2h:40m ago", "3h:10m ago", "4h:00m ago", "5h:20m ago", "6h:45m ago", "8h:10m ago"];
-      const modelsList = ["LightGBM", "CatBoost", "XGBoost", "LightGBM", "CatBoost"];
-      
-      const feedRows = critData.map((d, idx) => ({
-        account_id: d.account_id,
-        risk_score: d.risk_score,
-        risk_tier: d.risk_tier,
-        flagged_by: modelsList[idx % modelsList.length],
-        action: d.action,
-        timestamp: times[idx] || "12h ago",
-        status: 'UNRESOLVED'
-      }));
-
       const gridOptions = {
         columnDefs: columnDefs,
-        rowData: feedRows,
+        rowData: window.feedRows || [],
         rowHeight: 32,
         headerHeight: 30,
         pagination: true,
@@ -2304,14 +2373,12 @@
           }
         },
         { field: 'lgbm_score', headerName: 'LightGBM', width: 90 },
-        { field: 'catboost_score', headerName: 'CatBoost', width: 90 },
-        { field: 'xgboost_score', headerName: 'XGBoost', width: 90 },
         { field: 'action', headerName: 'Action', width: 110 }
       ];
 
       const gridOptions = {
         columnDefs: columnDefs,
-        rowData: riskData,
+        rowData: window.riskData,
         rowSelection: 'single',
         pagination: true,
         paginationPageSize: 10,
@@ -2325,8 +2392,8 @@
       const gridDiv = document.querySelector('#riskGrid');
       riskGridApi = agGrid.createGrid(gridDiv, gridOptions);
       
-      if (riskData.length > 0) {
-        showTargetProfile(riskData[0]);
+      if (window.riskData && window.riskData.length > 0) {
+        showTargetProfile(window.riskData[0]);
       }
     };
 
@@ -2344,8 +2411,6 @@
             <tr><th>Risk Tier</th><td>${tierBadge}</td></tr>
             <tr><th>Surveillance Action</th><td><strong>${data.action}</strong></td></tr>
             <tr><th>LightGBM Core</th><td>${data.lgbm_score}</td></tr>
-            <tr><th>CatBoost Node</th><td>${data.catboost_score}</td></tr>
-            <tr><th>XGBoost Ensemble</th><td>${data.xgboost_score}</td></tr>
           </tbody>
         </table>
       `;
@@ -2370,7 +2435,7 @@
       const layout = {
         paper_bgcolor: 'rgba(0,0,0,0)',
         font: { color: '#F1F5F9', size: 10 },
-        margin: { t: 20, b: 20, l: 30, r: 30 }
+        margin: { t: 40, b: 20, l: 30, r: 30 }
       };
       Plotly.newPlot('risk-gauge', gaugeData, layout, {responsive: true});
     };
@@ -2378,119 +2443,75 @@
     // SHAP Explainability Engine
     const populateSHAPAccounts = () => {
       const select = document.getElementById('shap-account-selector');
-      shapData.forEach(d => {
-        const opt = document.createElement('option');
-        opt.value = d.account_id;
-        opt.textContent = `${d.account_id} (${d.prediction})`;
-        select.appendChild(opt);
-      });
-      if (shapData.length > 0) {
-        updateSHAPWaterfall(shapData[0].account_id);
+      const accountOpts = document.getElementById('shap-account-selector');
+      accountOpts.innerHTML = window.shapData.map(d => `<option value="${d.account_id}">`).join('');
+      
+      let accountId = 'ACC_1000';
+      if (window.shapData && window.shapData.length > 0) {
+        accountId = window.shapData[0].account_id;
       }
+      updateSHAPWaterfall(accountId);
     };
 
     const updateSHAPWaterfall = (accountId) => {
-      const record = shapData.find(d => d.account_id === accountId);
+      const record = window.shapData.find(d => d.account_id === accountId);
       if (!record) return;
 
-      const features = [
-        { key: 'net_community_mule_ratio', label: 'Mule Community Ratio' },
-        { key: 'velocity_ratio_7d_30d', label: '7D/30D Velocity Ratio' },
-        { key: 'counterparty_mule_count', label: 'Counterparty Mule Count' },
-        { key: 'dormancy_days_before_spike', label: 'Dormancy Spike Days' },
-        { key: 'round_amount_ratio', label: 'Round Amount Ratio' },
-        { key: 'bureau_credit_score', label: 'Bureau Credit Score' },
-        { key: 'account_age_days', label: 'Account Age (Days)' },
-        { key: 'income_to_tx_ratio', label: 'Income/Tx Ratio' },
-        { key: 'kyc_verification_status', label: 'KYC Status' }
-      ];
+      const featureNameMap = {
+        'F3025': 'High network exposure',
+        'F3484': 'Dormancy reactivation pattern',
+        'F1863': 'Abnormal transaction velocity',
+        'F1921': 'Repeated counterparties',
+        'F3240_missing': 'Missing KYC verification',
+        'F3898': 'Suspicious round amounts'
+      };
 
-      const contributions = features.map(f => {
-        const val = record[`shap_${f.key}`];
-        return {
-          key: f.key,
-          label: f.label,
-          value: val
-        };
-      });
-
-      const posDrivers = contributions.filter(c => c.value > 0).sort((a,b) => b.value - a.value);
-      const negDrivers = contributions.filter(c => c.value <= 0).sort((a,b) => a.value - b.value);
+      const getFeatureLabel = (f) => {
+        if (f === 'Data Not Available') return f;
+        return featureNameMap[f] || `Anomalous feature (${f})`;
+      };
 
       const panelDiv = document.getElementById('decision-drivers-panel');
       
       let posHtml = '';
-      posDrivers.forEach(d => {
-        const percentage = Math.min(100, Math.round(d.value * 250)); 
-        posHtml += `
-          <div class="mb-3">
-            <div class="d-flex justify-content-between small mb-1" style="font-family: var(--font-mono);">
-              <span class="text-white">${d.label}</span>
-              <span class="text-danger fw-bold">+${d.value.toFixed(3)}</span>
+      [record.top_feature_1, record.top_feature_2, record.top_feature_3].forEach((feat, idx) => {
+        if (!feat || feat === 'Data Not Available') {
+          posHtml += `
+            <div class="mb-3">
+              <div class="d-flex justify-content-between small mb-1" style="font-family: var(--font-mono);">
+                <span class="text-white">Rank ${idx + 1} Driver</span>
+              </div>
+              <div class="text-muted small mt-1" style="font-size: 0.65rem;">Data Not Available</div>
             </div>
-            <div class="progress" style="height: 6px; background-color: rgba(255,255,255,0.03)">
-              <div class="progress-bar bg-danger" style="width: ${percentage}%"></div>
+          `;
+        } else {
+          posHtml += `
+            <div class="mb-3">
+              <div class="d-flex justify-content-between small mb-1" style="font-family: var(--font-mono);">
+                <span class="text-white">${getFeatureLabel(feat)}</span>
+                <span class="text-danger fw-bold">CRITICAL</span>
+              </div>
+              <div class="text-muted small mt-1" style="font-size: 0.65rem;">${feat}</div>
             </div>
-          </div>
-        `;
-      });
-
-      let negHtml = '';
-      negDrivers.forEach(d => {
-        const percentage = Math.min(100, Math.round(Math.abs(d.value) * 250)); 
-        negHtml += `
-          <div class="mb-3">
-            <div class="d-flex justify-content-between small mb-1" style="font-family: var(--font-mono);">
-              <span class="text-white">${d.label}</span>
-              <span class="text-success fw-bold">${d.value.toFixed(3)}</span>
-            </div>
-            <div class="progress" style="height: 6px; background-color: rgba(255,255,255,0.03)">
-              <div class="progress-bar bg-success" style="width: ${percentage}%"></div>
-            </div>
-          </div>
-        `;
+          `;
+        }
       });
 
       panelDiv.innerHTML = `
         <div class="row g-4">
-          <div class="col-12 col-md-6">
-            <h6 class="small text-danger fw-bold mb-3" style="font-family: var(--font-mono);"><i class="fa-solid fa-circle-chevron-up"></i> RISK INFLUENCERS (POSITIVE attributions)</h6>
-            ${posHtml || '<div class="text-muted small">No positive driver metrics observed.</div>'}
-          </div>
-          <div class="col-12 col-md-6">
-            <h6 class="small text-success fw-bold mb-3" style="font-family: var(--font-mono);"><i class="fa-solid fa-circle-chevron-down"></i> MITIGATING FACTORS (NEGATIVE attributions)</h6>
-            ${negHtml || '<div class="text-muted small">No mitigating features observed.</div>'}
+          <div class="col-12 col-md-12">
+            <h6 class="small text-danger fw-bold mb-3" style="font-family: var(--font-mono);"><i class="fa-solid fa-circle-chevron-up"></i> SHAP DRIVERS (TOP 3)</h6>
+            ${posHtml || '<div class="text-muted small">No drivers observed.</div>'}
           </div>
         </div>
       `;
 
-      // Simplified bullet points Natural Language Logic Decode
-      const flaggedReasons = [];
-      if (record.shap_net_community_mule_ratio > 0.05) {
-        flaggedReasons.push("High cluster density in verified money mule network graphs.");
-      }
-      if (record.shap_velocity_ratio_7d_30d > 0.05) {
-        flaggedReasons.push("Sudden spike in transaction velocity over the past 7 days.");
-      }
-      if (record.shap_counterparty_mule_count > 0.05) {
-        flaggedReasons.push("Multiple transactions linked to known flagged counterparty accounts.");
-      }
-      if (record.shap_dormancy_days_before_spike > 0.05) {
-        flaggedReasons.push("Reactivation of account after a prolonged period of dormancy.");
-      }
-      if (record.shap_round_amount_ratio > 0.03) {
-        flaggedReasons.push("High ratio of structured round cashouts matching fraud patterns.");
-      }
-      if (flaggedReasons.length === 0) {
-        flaggedReasons.push("Activity anomaly flagged by tree ensemble node variance thresholds.");
-      }
-      
-      const displayReasons = flaggedReasons.slice(0, 4);
-
-      const bulletHtml = displayReasons.map(r => `
+      const bulletHtml = [record.top_feature_1, record.top_feature_2, record.top_feature_3]
+        .filter(feat => feat && feat !== 'Data Not Available')
+        .map(r => `
         <li class="mb-2 d-flex align-items-start gap-2">
           <i class="fa-solid fa-circle-exclamation text-danger mt-1" style="font-size: 0.8rem;"></i>
-          <span>${r}</span>
+          <span>${getFeatureLabel(r)}</span>
         </li>
       `).join('');
 
@@ -2504,24 +2525,19 @@
               </div>
               <div class="text-end">
                 <span class="small text-muted" style="font-family: var(--font-mono);">PREDICTION STATUS</span>
-                <div><span class="badge ${record.prediction === 'Mule' ? 'bg-danger' : 'bg-success'}">${record.prediction === 'Mule' ? 'FLAGGED AS MULE' : 'LEGITIMATE'}</span></div>
+                <div><span class="badge bg-danger">FLAGGED AS MULE</span></div>
               </div>
             </div>
             <div class="my-3">
-              <span class="small text-muted" style="font-family: var(--font-mono);">Model Risk Estimation Score</span>
-              <div class="d-flex align-items-center gap-3">
-                <h3 class="mb-0 text-white fw-bold" style="font-family: var(--font-mono);">${record.risk_score}</h3>
-                <div class="progress flex-grow-1" style="height: 8px; background-color: rgba(255,255,255,0.05)">
-                  <div class="progress-bar ${record.prediction === 'Mule' ? 'bg-danger' : 'bg-success'}" style="width: ${record.risk_score * 100}%"></div>
-                </div>
-              </div>
+              <span class="small text-muted" style="font-family: var(--font-mono);">Explanation Note</span>
+              <div class="text-secondary mt-1">This account was flagged based on the localized Shapley additive explanations from the champion model.</div>
             </div>
           </div>
 
           <div class="p-3 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
             <h6 class="small text-muted fw-bold mb-3" style="font-family: var(--font-mono);">WHY WAS THIS ACCOUNT FLAGGED?</h6>
             <ul class="p-0 m-0 small text-white-50" style="list-style: none;">
-              ${bulletHtml}
+              ${bulletHtml || '<li class="text-muted small">Data Not Available</li>'}
             </ul>
           </div>
         </div>
@@ -2535,49 +2551,40 @@
         value: 95.8,
         title: { text: "Enterprise Rating Index" },
         type: "indicator",
-        mode: "gauge+number",
+        mode: "gauge",
         gauge: {
-          axis: { range: [0, 100] },
+          axis: { range: [0, 100], tickcolor: "rgba(255,255,255,0.3)" },
           bar: { color: "#10B981" },
+          bgcolor: "rgba(0,0,0,0)",
           steps: [
-            { range: [0, 60], color: "#111827" },
-            { range: [60, 80], color: "#1F2937" },
-            { range: [80, 100], color: "#374151" }
+            { range: [0, 100], color: "rgba(255,255,255,0.05)" }
           ]
         }
       }];
       const layout = {
         paper_bgcolor: 'rgba(0,0,0,0)',
         font: { color: '#F1F5F9', size: 10 },
-        margin: { t: 10, b: 10, l: 20, r: 20 }
+        margin: { t: 40, b: 10, l: 30, r: 30 },
+        annotations: [{
+          text: "95.8%",
+          x: 0.5,
+          y: 0.1,
+          showarrow: false,
+          font: { size: 36, color: "#10B981", family: "var(--font-mono)" }
+        }]
       };
       Plotly.newPlot('chart-champion-gauge', data, layout, {responsive: true});
     };
 
     // Case Dossier details modal for investigator feed clicks
     window.currentDossierAccountId = null;
-    const openCaseDossier = (data) => {
       let shapRecord = shapData.find(d => d.account_id === data.account_id);
       if (!shapRecord) {
-        // Generate realistic deterministic SHAP values for this critical account
-        const features = [
-          'net_community_mule_ratio', 'velocity_ratio_7d_30d', 'counterparty_mule_count',
-          'dormancy_days_before_spike', 'round_amount_ratio', 'bureau_credit_score',
-          'account_age_days', 'income_to_tx_ratio', 'kyc_verification_status'
-        ];
-        const shapValues = {};
-        features.forEach((f, idx) => {
-          if (idx < 5) {
-            shapValues[`shap_${f}`] = parseFloat((0.08 + (Math.sin(data.risk_score * (idx + 1)) + 1) * 0.08).toFixed(3));
-          } else {
-            shapValues[`shap_${f}`] = parseFloat((-0.02 - (Math.cos(data.risk_score * (idx + 1)) + 1) * 0.04).toFixed(3));
-          }
-        });
         shapRecord = {
           account_id: data.account_id,
-          prediction: 'Mule',
-          risk_score: data.risk_score,
-          ...shapValues
+          top_feature_1: 'Data Not Available',
+          top_feature_2: 'Data Not Available',
+          top_feature_3: 'Data Not Available'
         };
       }
 
@@ -2586,91 +2593,54 @@
 
       const modalBody = document.getElementById('case-dossier-modal-body');
       
-      const featuresConfig = [
-        { key: 'net_community_mule_ratio', label: 'Mule Community Ratio', desc: 'Connectivity to flagged money mule network clusters' },
-        { key: 'velocity_ratio_7d_30d', label: '7D/30D Velocity Ratio', desc: 'Short-term transaction volume spike' },
-        { key: 'counterparty_mule_count', label: 'Counterparty Mule Count', desc: 'Transactions with known money laundering nodes' },
-        { key: 'dormancy_days_before_spike', label: 'Dormancy Spike Days', desc: 'Sudden reactivation after account hibernation' },
-        { key: 'round_amount_ratio', label: 'Round Amount Ratio', desc: 'Percentage of high value structured cash transfers' },
-        { key: 'bureau_credit_score', label: 'Bureau Credit Score', desc: 'External credit bureau score attribution' },
-        { key: 'account_age_days', label: 'Account Age', desc: 'Age of account at alert time' },
-        { key: 'income_to_tx_ratio', label: 'Income/Tx Ratio', desc: 'Ratio of declared income to transfer magnitude' },
-        { key: 'kyc_verification_status', label: 'KYC Status', desc: 'Completeness of KYC documentation' }
-      ];
+      const featureNameMap = {
+        'F3025': 'High network exposure',
+        'F3484': 'Dormancy reactivation pattern',
+        'F1863': 'Abnormal transaction velocity',
+        'F1921': 'Repeated counterparties',
+        'F3240_missing': 'Missing KYC verification',
+        'F3898': 'Suspicious round amounts'
+      };
 
-      const contributions = featuresConfig.map(f => {
-        const val = shapRecord[`shap_${f.key}`] || 0.0;
-        return {
-          key: f.key,
-          label: f.label,
-          desc: f.desc,
-          value: val
-        };
-      });
-
-      const posDrivers = contributions.filter(c => c.value > 0).sort((a,b) => b.value - a.value);
-      const negDrivers = contributions.filter(c => c.value <= 0).sort((a,b) => a.value - b.value);
+      const getFeatureLabel = (f) => {
+        if (f === 'Data Not Available') return f;
+        return featureNameMap[f] || `Anomalous feature (${f})`;
+      };
 
       let posHtml = '';
-      posDrivers.forEach(d => {
-        const percentage = Math.min(100, Math.round(d.value * 250)); 
-        posHtml += `
-          <div class="mb-3">
-            <div class="d-flex justify-content-between small mb-1" style="font-family: var(--font-mono);">
-              <span class="text-white">${d.label}</span>
-              <span class="text-danger fw-bold">+${d.value.toFixed(3)}</span>
+      [shapRecord.top_feature_1, shapRecord.top_feature_2, shapRecord.top_feature_3].forEach((feat, idx) => {
+        if (!feat || feat === 'Data Not Available') {
+          posHtml += `
+            <div class="mb-3">
+              <div class="d-flex justify-content-between small mb-1" style="font-family: var(--font-mono);">
+                <span class="text-white">Rank ${idx + 1} Driver</span>
+              </div>
+              <div class="text-muted small mt-1" style="font-size: 0.65rem;">Data Not Available</div>
             </div>
-            <div class="progress" style="height: 6px; background-color: rgba(255,255,255,0.03)">
-              <div class="progress-bar bg-danger" style="width: ${percentage}%"></div>
+          `;
+        } else {
+          posHtml += `
+            <div class="mb-3">
+              <div class="d-flex justify-content-between small mb-1" style="font-family: var(--font-mono);">
+                <span class="text-white">${getFeatureLabel(feat)}</span>
+                <span class="text-danger fw-bold">CRITICAL</span>
+              </div>
+              <div class="text-muted small mt-1" style="font-size: 0.65rem;">${feat}</div>
             </div>
-            <div class="text-muted small mt-1" style="font-size: 0.65rem;">${d.desc}</div>
-          </div>
-        `;
+          `;
+        }
       });
 
-      let negHtml = '';
-      negDrivers.forEach(d => {
-        const percentage = Math.min(100, Math.round(Math.abs(d.value) * 250)); 
-        negHtml += `
-          <div class="mb-3">
-            <div class="d-flex justify-content-between small mb-1" style="font-family: var(--font-mono);">
-              <span class="text-white">${d.label}</span>
-              <span class="text-success fw-bold">${d.value.toFixed(3)}</span>
-            </div>
-            <div class="progress" style="height: 6px; background-color: rgba(255,255,255,0.03)">
-              <div class="progress-bar bg-success" style="width: ${percentage}%"></div>
-            </div>
-            <div class="text-muted small mt-1" style="font-size: 0.65rem;">${d.desc}</div>
-          </div>
-        `;
-      });
-
-      const flaggedReasons = [];
-      if (shapRecord.shap_net_community_mule_ratio > 0.05) {
-        flaggedReasons.push("High cluster density in verified money mule network graphs.");
-      }
-      if (shapRecord.shap_velocity_ratio_7d_30d > 0.05) {
-        flaggedReasons.push("Sudden spike in transaction velocity over the past 7 days.");
-      }
-      if (shapRecord.shap_counterparty_mule_count > 0.05) {
-        flaggedReasons.push("Multiple transactions linked to known flagged counterparty accounts.");
-      }
-      if (shapRecord.shap_dormancy_days_before_spike > 0.05) {
-        flaggedReasons.push("Reactivation of account after a prolonged period of dormancy.");
-      }
-      if (shapRecord.shap_round_amount_ratio > 0.03) {
-        flaggedReasons.push("High ratio of structured round cashouts matching fraud patterns.");
-      }
-      if (flaggedReasons.length === 0) {
-        flaggedReasons.push("Activity anomaly flagged by tree ensemble node variance thresholds.");
-      }
-
-      const bulletHtml = flaggedReasons.map(r => `
+      const bulletHtml = [shapRecord.top_feature_1, shapRecord.top_feature_2, shapRecord.top_feature_3]
+        .filter(feat => feat && feat !== 'Data Not Available')
+        .map(r => `
         <li class="mb-2 d-flex align-items-start gap-2">
           <i class="fa-solid fa-circle-exclamation text-danger mt-1" style="font-size: 0.8rem;"></i>
-          <span>${r}</span>
+          <span>${getFeatureLabel(r)}</span>
         </li>
       `).join('');
+      
+      const displayBulletHtml = bulletHtml || '<li class="text-muted small">Data Not Available</li>';
 
       let tierBadge = `<span class="badge bg-danger">CRITICAL SECURITY THREAT</span>`;
       if (data.risk_tier === 'HIGH') tierBadge = `<span class="badge bg-warning text-dark">HIGH AUDIT PRIORITY</span>`;
@@ -2728,13 +2698,8 @@
 
           <div class="col-12 col-lg-7">
             <div class="p-3 rounded border border-secondary mb-3" style="background: rgba(255,255,255,0.015);">
-              <h6 class="small text-danger fw-bold mb-3" style="font-family: var(--font-mono);"><i class="fa-solid fa-circle-chevron-up"></i> RISK INFLUENCERS (POSITIVE attributions)</h6>
-              ${posHtml || '<div class="text-muted small">No positive driver features observed.</div>'}
-            </div>
-            
-            <div class="p-3 rounded border border-secondary mb-3" style="background: rgba(255,255,255,0.015);">
-              <h6 class="small text-success fw-bold mb-3" style="font-family: var(--font-mono);"><i class="fa-solid fa-circle-chevron-down"></i> MITIGATING FACTORS (NEGATIVE attributions)</h6>
-              ${negHtml || '<div class="text-muted small">No mitigating features observed.</div>'}
+              <h6 class="small text-danger fw-bold mb-3" style="font-family: var(--font-mono);"><i class="fa-solid fa-circle-chevron-up"></i> SHAP DRIVERS (TOP 3)</h6>
+              ${posHtml || '<div class="text-muted small">No drivers observed.</div>'}
             </div>
 
             <div class="p-3 rounded border border-secondary" style="background: rgba(255,255,255,0.015);">
@@ -2854,6 +2819,9 @@
 
       // Feature importances
       drawFeatureImportances();
+
+      // Load Parquet Data natively
+      await loadParquetData();
 
       // Load Grids
       loadFraudFeed();
