@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "name": "cipher-zb-160-iq",
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/$1"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+model_id,model_name,version,status,type,framework,updated_at
+M_LGBM_001,LightGBM Champion,1.0,ACTIVE,LightGBM,lightgbm,2026-06-15
+M_CAT_001,CatBoost Challenger,1.0,ACTIVE,CatBoost,catboost,2026-06-15
+M_XGB_001,XGBoost Challenger,1.0,ACTIVE,XGBoost,xgboost,2026-06-15
+M_IF_001,Isolation Forest Challenger,1.0,ACTIVE,Isolation Forest,scikit-learn,2026-06-15

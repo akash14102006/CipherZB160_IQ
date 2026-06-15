@@ -1,0 +1,12 @@
+{
+  "name": "cipher-zb-160-iq-deployment",
+  "version": "1.0.0",
+  "description": "Deployment configuration and scripts for CipherZB160-IQ dashboard",
+  "scripts": {
+    "start": "serve website",
+    "test": "echo \"Error: no test specified\" && exit 0"
+  },
+  "dependencies": {
+    "serve": "^14.2.1"
+  }
+}

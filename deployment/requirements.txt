@@ -1,0 +1,11 @@
+# Machine Learning and Data Pipeline requirements for CipherZB160-IQ
+numpy>=1.22.0
+pandas>=1.4.0
+scikit-learn>=1.0.0
+lightgbm>=3.3.0
+catboost>=1.0.0
+xgboost>=1.6.0
+pyarrow>=8.0.0
+fastparquet>=0.8.0
+shap>=0.40.0
+hyparquet>=0.1.0
