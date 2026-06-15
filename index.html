@@ -2762,14 +2762,6 @@
       const columnDefs = [
         { field: 'case_id', headerName: 'Case ID', width: 100, filter: 'agTextColumnFilter', sortable: true },
         { field: 'account_id', headerName: 'Account', width: 95, filter: 'agTextColumnFilter', sortable: true },
-        { 
-          field: 'status', 
-          headerName: 'Status', 
-          width: 100,
-          filter: 'agSetColumnFilter',
-          sortable: true,
-          cellRenderer: params => `<span class="badge ${params.value === 'OPEN' ? 'bg-danger' : 'bg-warning'}">${params.value}</span>`
-        },
         { field: 'priority', headerName: 'Priority', width: 95, sortable: true },
         { 
           field: 'risk_tier', 
@@ -2778,9 +2770,17 @@
           sortable: true,
           cellRenderer: params => `<span class="text-danger fw-bold">${params.value}</span>`
         },
+        { 
+          field: 'status', 
+          headerName: 'Status', 
+          width: 100,
+          filter: 'agSetColumnFilter',
+          sortable: true,
+          cellRenderer: params => `<span class="badge ${params.value === 'OPEN' ? 'bg-danger' : 'bg-warning'}">${params.value}</span>`
+        },
         { field: 'analyst', headerName: 'Assigned', width: 110, filter: 'agTextColumnFilter', sortable: true },
         { field: 'evidence', headerName: 'Evidence', width: 95, sortable: true },
-        { field: 'date', headerName: 'Inv. Date', width: 110, sortable: true }
+        { field: 'date', headerName: 'Created Date', width: 120, sortable: true }
       ];
 
       const gridOptions = {
