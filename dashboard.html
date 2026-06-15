@@ -1771,8 +1771,8 @@
 
       updateGeneralStats(data) {
         const isFiltered = this.filters.model !== 'ALL' || this.filters.riskLevel !== 'ALL' || this.filters.dateRange !== '30d' || this.filters.accountType !== 'ALL' || this.filters.riskScoreThreshold > 0.0;
-        let total = isFiltered ? data.length : 9082;
-        let mules = isFiltered ? data.filter(d => d.risk_score >= 0.85).length : 81;
+        let total = data.length;
+        let mules = data.filter(d => d.risk_score >= 0.85).length;
         
         const totalEl = document.getElementById('kpi-total-accounts');
         if (totalEl) totalEl.innerText = total.toLocaleString();
@@ -2418,9 +2418,10 @@
       const gaugeData = [{
         domain: { x: [0, 1], y: [0, 1] },
         value: data.risk_score,
-        title: { text: "Aggregated Risk Rating" },
+        title: { text: "Aggregated Risk Rating", font: { size: 14 } },
         type: "indicator",
         mode: "gauge+number",
+        number: { font: { size: 36 } },
         gauge: {
           axis: { range: [0, 1] },
           bar: { color: "#10B981" },
@@ -2435,7 +2436,8 @@
       const layout = {
         paper_bgcolor: 'rgba(0,0,0,0)',
         font: { color: '#F1F5F9', size: 10 },
-        margin: { t: 40, b: 20, l: 30, r: 30 }
+        margin: { t: 40, b: 20, l: 30, r: 50 },
+        autosize: true
       };
       Plotly.newPlot('risk-gauge', gaugeData, layout, {responsive: true});
     };

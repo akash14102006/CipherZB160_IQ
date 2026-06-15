@@ -377,43 +377,27 @@
     .cyber-card {
       overflow: visible;
     }
-    /* Theme Toggle Switch */
-    .theme-toggle {
-      background: rgba(16, 185, 129, 0.15);
-      border: 1px solid var(--primary);
-      border-radius: 20px;
-      width: 56px;
-      height: 28px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 5px;
-      transition: all 0.3s ease;
-      position: relative;
-      box-shadow: 0 0 10px rgba(16, 185, 129, 0.15);
+    
+    @keyframes pulseDot {
+      0% { opacity: 0.5; transform: scale(0.9); }
+      50% { opacity: 1; transform: scale(1.1); box-shadow: 0 0 12px var(--primary); }
+      100% { opacity: 0.5; transform: scale(0.9); }
     }
-    .theme-toggle .toggle-thumb {
-      position: absolute;
-      top: 3px;
-      left: 3px;
-      width: 20px;
-      height: 20px;
+    .live-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+    .live-dot {
+      width: 8px;
+      height: 8px;
       background: var(--primary);
       border-radius: 50%;
-      transition: transform 0.3s ease;
-      z-index: 1;
-    }
-    .theme-toggle i {
-      font-size: 0.75rem;
-      z-index: 2;
-      transition: color 0.5s ease;
-    }
-    .moon-icon {
-      color: #030712; /* dark so it contrasts with the primary thumb */
-    }
-    .sun-icon {
-      color: var(--text-muted);
+      animation: pulseDot 2s infinite;
     }
     
     /* Light Theme Classes */
@@ -425,15 +409,6 @@
       --text-muted: #475569;
       --primary-glow: rgba(16, 185, 129, 0.1);
       --glow-shadow: 0 0 10px rgba(16, 185, 129, 0.1);
-    }
-    body.light-theme .theme-toggle .toggle-thumb {
-      transform: translateX(32px);
-    }
-    body.light-theme .theme-toggle .moon-icon {
-      color: var(--text-muted);
-    }
-    body.light-theme .theme-toggle .sun-icon {
-      color: #0f172a;
     }
     body.light-theme .navbar {
       background-color: #ffffff !important;
@@ -482,8 +457,563 @@
       --ag-border-color: var(--border-color);
     }
     
-    body, .cyber-card, .navbar, .text-white, .bg-dark, .bg-black, .table {
-      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    /* Storytelling Components */
+    .hero-container {
+      position: relative;
+      padding: 6rem 2rem;
+      text-align: center;
+      background: radial-gradient(circle at center, rgba(0, 255, 163, 0.05) 0%, transparent 70%);
+      border-bottom: 1px solid rgba(0, 255, 163, 0.1);
+      overflow: hidden;
+      margin: -1.5rem -1.5rem 2rem -1.5rem; /* Break out of container-fluid padding */
+    }
+    .hero-container::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        linear-gradient(rgba(0, 255, 163, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 163, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    .hero-title {
+      font-family: var(--font-headings);
+      font-size: 3.5rem;
+      font-weight: 800;
+      color: #FFFFFF;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      text-shadow: 0 0 20px rgba(0, 255, 163, 0.4);
+      animation: pulseGlow 3s infinite alternate;
+      margin-bottom: 0.5rem;
+    }
+    .hero-subtitle {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      color: var(--primary);
+      margin-bottom: 1.5rem;
+      letter-spacing: 1px;
+    }
+    .hero-desc {
+      font-size: 1.1rem;
+      color: #9CA3AF;
+      max-width: 700px;
+      margin: 0 auto 3rem auto;
+      line-height: 1.6;
+    }
+    @keyframes pulseGlow {
+      0% { text-shadow: 0 0 10px rgba(0, 255, 163, 0.2); }
+      100% { text-shadow: 0 0 30px rgba(0, 255, 163, 0.6), 0 0 50px rgba(0, 255, 163, 0.2); }
+    }
+    
+    .cyber-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0.75rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #fff;
+      background: rgba(11, 15, 25, 0.8);
+      border: 1px solid var(--primary);
+      border-radius: 4px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .cyber-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 163, 0.2), transparent);
+      transition: all 0.5s ease;
+    }
+    .cyber-btn:hover {
+      background: rgba(0, 255, 163, 0.1);
+      box-shadow: 0 0 15px rgba(0, 255, 163, 0.3);
+      color: #fff;
+    }
+    .cyber-btn:hover::before {
+      left: 100%;
+    }
+    .cyber-btn-primary {
+      background: rgba(0, 255, 163, 0.1);
+      border-color: var(--primary);
+      box-shadow: 0 0 10px rgba(0, 255, 163, 0.2);
+    }
+    .cyber-btn-primary:hover {
+      background: rgba(0, 255, 163, 0.2);
+      box-shadow: 0 0 20px rgba(0, 255, 163, 0.5);
+    }
+    
+    /* Animated Folder Vault */
+    .vault-container {
+      max-width: 800px;
+      margin: 4rem auto;
+      perspective: 1000px;
+    }
+    .folder {
+      background: rgba(11, 15, 25, 0.8);
+      border: 1px solid var(--border-color);
+      border-radius: 8px 8px 8px 8px;
+      position: relative;
+      margin-top: 2rem;
+      transition: all 0.4s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    }
+    .folder-tab {
+      position: absolute;
+      top: -30px;
+      left: 0;
+      width: 200px;
+      height: 30px;
+      background: rgba(11, 15, 25, 0.8);
+      border-top: 1px solid var(--border-color);
+      border-left: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      border-radius: 8px 8px 0 0;
+      display: flex;
+      align-items: center;
+      padding-left: 15px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--primary);
+      border-bottom: 1px solid transparent;
+      z-index: 2;
+    }
+    .folder-cover {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, rgba(16, 25, 40, 1), rgba(11, 15, 25, 1));
+      border: 1px solid var(--border-color);
+      border-radius: 0 8px 8px 8px;
+      transform-origin: bottom;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .folder-cover:hover {
+      background: linear-gradient(135deg, rgba(20, 32, 50, 1), rgba(11, 15, 25, 1));
+      box-shadow: 0 0 20px rgba(0, 255, 163, 0.1) inset;
+    }
+    .folder.open .folder-cover {
+      transform: rotateX(-85deg);
+      opacity: 0.2;
+      pointer-events: none;
+    }
+    .folder-content {
+      padding: 2rem;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 0.5s ease;
+      transition-delay: 0.1s;
+      min-height: 300px;
+      position: relative;
+      z-index: 1;
+    }
+    .folder.open .folder-content {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .file-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 15px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 6px;
+      margin-bottom: 8px;
+      color: #D1D5DB;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .file-item:hover {
+      background: rgba(0, 255, 163, 0.05);
+      border-color: rgba(0, 255, 163, 0.2);
+      color: #fff;
+      transform: translateX(5px);
+    }
+    .file-icon {
+      color: var(--primary);
+    }
+    
+    /* Architecture Diagram */
+    .arch-container {
+      background: rgba(11, 15, 25, 0.5);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 3rem 2rem;
+      margin-top: 4rem;
+    }
+    .arch-node {
+      background: rgba(16, 25, 40, 0.9);
+      border: 1px solid var(--primary);
+      border-radius: 6px;
+      padding: 1rem;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: #fff;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 0 15px rgba(0, 255, 163, 0.1);
+      transition: all 0.3s ease;
+    }
+    .arch-node:hover {
+      background: rgba(0, 255, 163, 0.1);
+      box-shadow: 0 0 20px rgba(0, 255, 163, 0.3);
+      transform: translateY(-2px);
+    }
+    .arch-models-container {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      padding: 1.5rem;
+      border: 1px dashed var(--border-color);
+      border-radius: 8px;
+      background: rgba(0,0,0,0.2);
+    }
+    .arch-model-node {
+      background: rgba(11, 15, 25, 1);
+      border: 1px solid #4B5563;
+      padding: 0.8rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+    }
+    .arch-model-node.champion {
+      border-color: #10B981;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);
+    }
+    .arch-arrow {
+      height: 40px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--primary) 0%, rgba(0,255,163,0.1) 100%);
+      margin: 0 auto;
+      position: relative;
+    }
+    .arch-arrow::after {
+      content: '▼';
+      position: absolute;
+      bottom: -10px;
+      left: -5px;
+      color: rgba(0,255,163,0.5);
+      font-size: 12px;
+      animation: pulseArrow 1.5s infinite;
+    }
+    @keyframes pulseArrow {
+      0% { transform: translateY(0); opacity: 0.5; }
+      50% { transform: translateY(5px); opacity: 1; }
+      100% { transform: translateY(0); opacity: 0.5; }
+    }
+    
+    /* Horizontal Graphify Timeline */
+    .timeline-wrapper {
+      display: flex;
+      overflow-x: auto;
+      padding: 2rem 1rem;
+      gap: 2rem;
+      align-items: center;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) rgba(0,0,0,0.5);
+    }
+    .timeline-wrapper::-webkit-scrollbar {
+      height: 6px;
+    }
+    .timeline-wrapper::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.5);
+      border-radius: 4px;
+    }
+    .timeline-wrapper::-webkit-scrollbar-thumb {
+      background: var(--primary);
+      border-radius: 4px;
+    }
+    .timeline-node {
+      flex: 0 0 auto;
+      width: 180px;
+      height: 180px;
+      background: rgba(11, 15, 25, 0.9);
+      border: 1px solid var(--border-color);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .timeline-node:hover {
+      border-color: var(--primary);
+      box-shadow: 0 0 25px rgba(0, 255, 163, 0.2);
+      transform: scale(1.05);
+    }
+    .timeline-node.active {
+      border-color: var(--primary);
+      background: rgba(0, 255, 163, 0.1);
+      box-shadow: 0 0 25px rgba(0, 255, 163, 0.4) inset;
+    }
+    .timeline-node i {
+      font-size: 2rem;
+      color: #9CA3AF;
+      margin-bottom: 0.5rem;
+      transition: color 0.3s ease;
+    }
+    .timeline-node:hover i, .timeline-node.active i {
+      color: var(--primary);
+    }
+    .timeline-node span {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: #fff;
+    }
+    .timeline-connector {
+      flex: 0 0 50px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--border-color) 0%, var(--primary) 100%);
+      position: relative;
+    }
+    .timeline-connector::after {
+      content: '►';
+      position: absolute;
+      right: -8px;
+      top: -9px;
+      color: var(--primary);
+      font-size: 14px;
+    }
+    
+    /* Pipeline Cards */
+    .pipeline-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .pipeline-card {
+      background: rgba(11, 15, 25, 0.6);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .pipeline-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: var(--primary);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .pipeline-card:hover {
+      background: rgba(16, 25, 40, 0.8);
+      border-color: var(--primary);
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+    }
+    .pipeline-card:hover::before {
+      transform: scaleX(1);
+    }
+    .pipeline-card .badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      background: rgba(255,255,255,0.05);
+      color: #9CA3AF;
+      border: 1px solid rgba(255,255,255,0.1);
+      margin-bottom: 1rem;
+    }
+    .pipeline-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .pipeline-card ul li {
+      font-size: 0.85rem;
+      color: #D1D5DB;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pipeline-card ul li i {
+      color: var(--primary);
+      font-size: 0.7rem;
+    }
+    
+    /* Model Ecosystem */
+    .model-ecosystem-card {
+      background: rgba(11, 15, 25, 0.8);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1.5rem;
+      height: 100%;
+    }
+    .model-ecosystem-card.champion {
+      border-color: #10B981;
+      background: linear-gradient(180deg, rgba(16, 185, 129, 0.05) 0%, rgba(11, 15, 25, 0.8) 100%);
+    }
+    .metric-box {
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 4px;
+      padding: 10px;
+      text-align: center;
+    }
+    .metric-box .val {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #fff;
+      font-family: var(--font-mono);
+    }
+    .metric-box .lbl {
+      font-size: 0.7rem;
+      color: #9CA3AF;
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+    }
+    
+    /* Evidence Repo */
+    .repo-card {
+      background: rgba(11, 15, 25, 0.6);
+      border: 1px solid var(--border-color);
+      border-left: 3px solid var(--primary);
+      border-radius: 4px;
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .repo-card:hover {
+      background: rgba(0, 255, 163, 0.05);
+      transform: translateX(5px);
+    }
+    
+    /* SHAP & Data Flow */
+    .data-flow-box {
+      background: rgba(16, 25, 40, 0.8);
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 1.5rem;
+      text-align: center;
+      position: relative;
+    }
+    .flow-arrow-horizontal {
+      height: 2px;
+      width: 50px;
+      background: var(--primary);
+      position: relative;
+      margin: 0 15px;
+    }
+    .flow-arrow-horizontal::after {
+      content: '►';
+      position: absolute;
+      right: -10px;
+      top: -9px;
+      color: var(--primary);
+      font-size: 14px;
+      animation: pulseArrowRight 1.5s infinite;
+    }
+    @keyframes pulseArrowRight {
+      0% { transform: translateX(0); opacity: 0.5; }
+      50% { transform: translateX(5px); opacity: 1; }
+      100% { transform: translateX(0); opacity: 0.5; }
+    }
+    
+    /* Governance Timeline */
+    .gov-timeline {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem 0;
+    }
+    .gov-timeline::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 50%;
+      width: 2px; height: 100%;
+      background: var(--border-color);
+    }
+    .gov-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .gov-content {
+      width: 45%;
+      background: rgba(11, 15, 25, 0.9);
+      border: 1px solid var(--border-color);
+      padding: 1rem;
+      border-radius: 6px;
+      text-align: right;
+    }
+    .gov-item:nth-child(even) .gov-content {
+      text-align: left;
+    }
+    .gov-point {
+      width: 16px;
+      height: 16px;
+      background: var(--primary);
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 10px var(--primary);
+    }
+    .gov-item:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+    
+    /* Team Section */
+    .team-card {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: rgba(11, 15, 25, 0.4);
+      border: 1px solid transparent;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+    .team-card:hover {
+      background: rgba(11, 15, 25, 0.8);
+      border-color: var(--border-color);
+      transform: translateY(-5px);
+    }
+    .team-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: rgba(0, 255, 163, 0.1);
+      border: 2px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1rem auto;
+      font-size: 2rem;
+      color: var(--primary);
     }
   </style>
 </head>
@@ -504,7 +1034,10 @@
       <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
         <ul class="navbar-nav gap-4">
   <li class="nav-item">
-    <a class="nav-link active" href="#surveillance-command" onclick="switchTab('surveillance-command'); return false;">Command Nexus</a>
+    <a class="nav-link active" href="#platform-overview" onclick="switchTab('platform-overview'); return false;">Platform Overview</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#surveillance-command" onclick="switchTab('surveillance-command'); return false;">Command Nexus</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#analytics-centers" onclick="switchTab('analytics-centers'); return false;">Analytics Centers</a>
@@ -519,14 +1052,9 @@
       </div>
 
       <div class="d-none d-md-flex align-items-center gap-3">
-        <div class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
-          <div class="toggle-thumb"></div>
-          <i class="fa-solid fa-moon moon-icon"></i>
-          <i class="fa-solid fa-sun sun-icon"></i>
-        </div>
-        <div class="d-flex align-items-center gap-2">
-          <span class="d-inline-block rounded-circle bg-success" style="width: 6px; height: 6px;"></span>
-          <span class="small text-success fw-bold" style="font-family: var(--font-mono); font-size: 0.7rem;">LIVE</span>
+        <div class="live-indicator px-3 py-1 rounded-pill d-flex align-items-center gap-2" style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); box-shadow: 0 0 10px rgba(16, 185, 129, 0.2);">
+          <span class="rounded-circle" style="width: 8px; height: 8px; display: inline-block; background-color: var(--primary); box-shadow: 0 0 8px var(--primary); animation: pulseDot 1.5s infinite;"></span>
+          <span class="text-success fw-bold" style="font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 1px;">SYSTEM LIVE</span>
         </div>
       </div>
     </div>
@@ -537,8 +1065,562 @@
     <!-- Main Content Area -->
     <main class="main-content">
       
+      <!-- PAGE 0: PLATFORM OVERVIEW (LANDING / STORYTELLING) -->
+      <div id="page-platform-overview" style="display: block;" class="animate__animated animate__fadeIn">
+        
+        <!-- Hero Section -->
+        <div class="hero-container">
+          <div class="hero-content">
+            <h1 class="hero-title">CipherZB160 IQ</h1>
+            <h2 class="hero-subtitle">// Advanced Financial Crime AI</h2>
+            <p class="hero-desc">
+              Enterprise Mule Account Detection &amp; Risk Intelligence Platform.<br>
+              Built using ML + Explainable AI + Risk Intelligence Engine.
+            </p>
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+              <a href="#architecture" class="cyber-btn cyber-btn-primary" onclick="document.getElementById('architecture-section').scrollIntoView({behavior: 'smooth'})">
+                <i class="fa-solid fa-diagram-project"></i> Explore Architecture
+              </a>
+              <a href="#vault" class="cyber-btn" onclick="document.getElementById('vault-section').scrollIntoView({behavior: 'smooth'})">
+                <i class="fa-solid fa-folder-tree"></i> View Evidence Repository
+              </a>
+              <a href="#surveillance-command" class="cyber-btn" onclick="switchTab('surveillance-command'); return false;">
+                <i class="fa-solid fa-shield-halved"></i> Interactive Intelligence Vault
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Enterprise Intelligence Vault -->
+        <div id="vault-section" class="container mt-5 pt-4">
+          <div class="text-center mb-4">
+            <h3 class="fw-bold" style="font-family: var(--font-headings); letter-spacing: 1px;"><span style="color: var(--primary);">//</span> ENTERPRISE INTELLIGENCE VAULT</h3>
+            <p class="text-muted">Click to decrypt and access platform artifacts</p>
+          </div>
+          
+          <div class="vault-container">
+            <div class="folder" id="evidence-folder">
+              <div class="folder-tab">
+                <i class="fa-solid fa-lock me-2"></i> CLASSIFIED_DATA
+              </div>
+              
+              <!-- The clickable cover that flips open -->
+              <div class="folder-cover" onclick="document.getElementById('evidence-folder').classList.add('open')">
+                <i class="fa-solid fa-shield-cat fa-3x mb-3" style="color: var(--primary);"></i>
+                <h4 class="text-white" style="font-family: var(--font-headings); letter-spacing: 2px;">PROJECT ARTIFACTS</h4>
+                <p class="small" style="color: var(--primary); font-family: var(--font-mono);">ENCRYPTED ARCHIVE</p>
+                <div class="mt-4 cyber-btn">DECRYPT & OPEN</div>
+              </div>
+
+              <!-- The inside contents -->
+              <div class="folder-content">
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <h6 class="text-white mb-3" style="font-family: var(--font-mono); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">DATA PROCESSING</h6>
+                    <div class="file-item"><i class="fa-solid fa-file-csv file-icon"></i> 01_Data_Cleaning_Report.csv</div>
+                    <div class="file-item"><i class="fa-solid fa-file-csv file-icon"></i> 02_Leakage_Detection.csv</div>
+                    <div class="file-item"><i class="fa-solid fa-file-csv file-icon"></i> 03_Feature_Selection.csv</div>
+                    <div class="file-item"><i class="fa-solid fa-triangle-exclamation text-warning"></i> risk_engine_output.parquet</div>
+                  </div>
+                  <div class="col-md-6">
+                    <h6 class="text-white mb-3" style="font-family: var(--font-mono); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">MODEL INTELLIGENCE</h6>
+                    <div class="file-item"><i class="fa-solid fa-chart-line file-icon"></i> ROC_Comparison_Curves.png</div>
+                    <div class="file-item"><i class="fa-solid fa-chart-bar file-icon"></i> Feature_Importance_Rankings.csv</div>
+                    <div class="file-item"><i class="fa-solid fa-brain file-icon" style="color: #7C3AED;"></i> shap_local_explanations.csv</div>
+                    <div class="file-item"><i class="fa-solid fa-file-shield text-info"></i> model_governance_report.csv</div>
+                  </div>
+                </div>
+                <div class="text-center mt-4">
+                  <button class="btn btn-sm btn-outline-secondary" onclick="document.getElementById('evidence-folder').classList.remove('open')">
+                    <i class="fa-solid fa-xmark"></i> Close Vault
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Architecture Diagram -->
+        <div id="architecture-section" class="container mt-5 pt-4">
+          <div class="text-center mb-4">
+            <h3 class="fw-bold" style="font-family: var(--font-headings); letter-spacing: 1px;"><span style="color: var(--primary);">//</span> PLATFORM ARCHITECTURE</h3>
+            <p class="text-muted">Enterprise Multi-Model Detection Pipeline</p>
+          </div>
+          
+          <div class="arch-container">
+            <div class="d-flex flex-column align-items-center">
+              
+              <div class="arch-node" style="width: 250px;">
+                <i class="fa-solid fa-database text-info mb-2 fs-4"></i><br>
+                Raw Banking Data
+              </div>
+              <div class="arch-arrow"></div>
+              
+              <div class="arch-node" style="width: 250px;">
+                <i class="fa-solid fa-clipboard-check text-warning mb-2 fs-4"></i><br>
+                Data Audit &amp; Validation
+              </div>
+              <div class="arch-arrow"></div>
+              
+              <div class="arch-node" style="width: 250px;">
+                <i class="fa-solid fa-gears text-secondary mb-2 fs-4"></i><br>
+                Feature Engineering
+              </div>
+              <div class="arch-arrow"></div>
+              
+              <div class="arch-node" style="width: 250px;">
+                <i class="fa-solid fa-filter text-info mb-2 fs-4"></i><br>
+                Feature Selection
+              </div>
+              <div class="arch-arrow"></div>
+              
+              <div class="arch-models-container" style="width: 100%; max-width: 600px;">
+                <div class="arch-model-node text-center champion">
+                  <span class="text-success fw-bold d-block mb-1">CHAMPION</span>
+                  <i class="fa-solid fa-crown text-success mb-1"></i><br>
+                  LightGBM
+                </div>
+                <div class="arch-model-node text-center text-muted">
+                  <span class="d-block mb-1">CHALLENGER</span>
+                  <i class="fa-solid fa-robot mb-1"></i><br>
+                  CatBoost
+                </div>
+                <div class="arch-model-node text-center text-muted">
+                  <span class="d-block mb-1">CHALLENGER</span>
+                  <i class="fa-solid fa-robot mb-1"></i><br>
+                  XGBoost
+                </div>
+                <div class="arch-model-node text-center text-warning" style="border-color: rgba(255,193,7,0.5);">
+                  <span class="d-block mb-1 text-warning">ANOMALY</span>
+                  <i class="fa-solid fa-radar mb-1"></i><br>
+                  Isolation Forest
+                </div>
+              </div>
+              <div class="arch-arrow"></div>
+              
+              <div class="arch-node" style="width: 250px;">
+                <i class="fa-solid fa-code-compare text-success mb-2 fs-4"></i><br>
+                Champion Selection
+              </div>
+              <div class="arch-arrow"></div>
+              
+              <div class="arch-node" style="width: 250px; border-color: #EF4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);">
+                <i class="fa-solid fa-engine-warning text-danger mb-2 fs-4"></i><br>
+                Risk Engine
+              </div>
+              <div class="arch-arrow"></div>
+              
+              <div class="arch-node" style="width: 250px; border-color: #A855F7; box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);">
+                <i class="fa-solid fa-brain text-purple mb-2 fs-4" style="color: #A855F7;"></i><br>
+                SHAP Explainability
+              </div>
+              <div class="arch-arrow"></div>
+              
+              <div class="arch-node" style="width: 300px; background: rgba(0, 255, 163, 0.1); border-color: var(--primary);">
+                <i class="fa-solid fa-desktop text-success mb-2 fs-3"></i><br>
+                <span class="fw-bold fs-6 text-white">Investigator Dashboard</span>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+        <!-- How CipherZB160 IQ Works (Graphify Timeline) -->
+        <div class="container mt-5 pt-4">
+          <div class="text-center mb-4">
+            <h3 class="fw-bold" style="font-family: var(--font-headings); letter-spacing: 1px;"><span style="color: var(--primary);">//</span> HOW IT WORKS</h3>
+            <p class="text-muted">End-to-End Enterprise Mule Account Detection</p>
+          </div>
+          
+          <div class="timeline-wrapper">
+            <div class="timeline-node" onclick="this.classList.toggle('active')">
+              <i class="fa-solid fa-server"></i>
+              <span>Transaction Data</span>
+            </div>
+            <div class="timeline-connector"></div>
+            
+            <div class="timeline-node" onclick="this.classList.toggle('active')">
+              <i class="fa-solid fa-network-wired"></i>
+              <span>Feature Intelligence</span>
+            </div>
+            <div class="timeline-connector"></div>
+            
+            <div class="timeline-node" onclick="this.classList.toggle('active')">
+              <i class="fa-solid fa-microchip"></i>
+              <span>Model Evaluation</span>
+            </div>
+            <div class="timeline-connector"></div>
+            
+            <div class="timeline-node active" onclick="this.classList.toggle('active')">
+              <i class="fa-solid fa-crown"></i>
+              <span>Champion Model</span>
+            </div>
+            <div class="timeline-connector"></div>
+            
+            <div class="timeline-node" onclick="this.classList.toggle('active')">
+              <i class="fa-solid fa-triangle-exclamation"></i>
+              <span>Risk Scoring</span>
+            </div>
+            <div class="timeline-connector"></div>
+            
+            <div class="timeline-node" onclick="this.classList.toggle('active')">
+              <i class="fa-solid fa-list-check"></i>
+              <span>Investigation Queue</span>
+            </div>
+            <div class="timeline-connector"></div>
+            
+            <div class="timeline-node" onclick="this.classList.toggle('active')">
+              <i class="fa-solid fa-user-shield"></i>
+              <span>Analyst Action</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Intelligence Pipeline -->
+        <div class="container mt-5 pt-4">
+          <div class="text-center mb-4">
+            <h3 class="fw-bold" style="font-family: var(--font-headings); letter-spacing: 1px;"><span style="color: var(--primary);">//</span> INTELLIGENCE PIPELINE</h3>
+            <p class="text-muted">Jupyter Notebook Data Processing & Model Training</p>
+          </div>
+          
+          <div class="pipeline-grid">
+            <div class="pipeline-card">
+              <span class="badge badge-status">01_data_audit.ipynb</span>
+              <h5 class="text-white mb-3"><i class="fa-solid fa-broom me-2 text-info"></i> Data Audit</h5>
+              <ul>
+                <li><i class="fa-solid fa-check"></i> Data Cleaning</li>
+                <li><i class="fa-solid fa-check"></i> Leakage Detection</li>
+                <li><i class="fa-solid fa-check"></i> Variance Analysis</li>
+              </ul>
+            </div>
+            <div class="pipeline-card">
+              <span class="badge badge-status">02_feature_discovery.ipynb</span>
+              <h5 class="text-white mb-3"><i class="fa-solid fa-search me-2 text-warning"></i> Feature Discovery</h5>
+              <ul>
+                <li><i class="fa-solid fa-check"></i> Feature Engineering</li>
+                <li><i class="fa-solid fa-check"></i> Mutual Information</li>
+                <li><i class="fa-solid fa-check"></i> Feature Ranking</li>
+              </ul>
+            </div>
+            <div class="pipeline-card">
+              <span class="badge badge-status">03_feature_selection.ipynb</span>
+              <h5 class="text-white mb-3"><i class="fa-solid fa-filter me-2 text-success"></i> Feature Selection</h5>
+              <ul>
+                <li><i class="fa-solid fa-check"></i> Top Feature Selection</li>
+                <li><i class="fa-solid fa-check"></i> Production Dataset</li>
+              </ul>
+            </div>
+            <div class="pipeline-card">
+              <span class="badge badge-status">04_model_training.ipynb</span>
+              <h5 class="text-white mb-3"><i class="fa-solid fa-brain me-2" style="color: #A855F7;"></i> Model Training</h5>
+              <ul>
+                <li><i class="fa-solid fa-check"></i> LightGBM</li>
+                <li><i class="fa-solid fa-check"></i> CatBoost &amp; XGBoost</li>
+                <li><i class="fa-solid fa-check"></i> Isolation Forest</li>
+              </ul>
+            </div>
+            <div class="pipeline-card">
+              <span class="badge badge-status">05_explainability.ipynb</span>
+              <h5 class="text-white mb-3"><i class="fa-solid fa-shield-halved me-2 text-danger"></i> Risk Intelligence</h5>
+              <ul>
+                <li><i class="fa-solid fa-check"></i> Risk Scores</li>
+                <li><i class="fa-solid fa-check"></i> Investigator Dataset</li>
+                <li><i class="fa-solid fa-check"></i> SHAP Explanations</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Model Ecosystem -->
+        <div class="container mt-5 pt-4">
+          <div class="text-center mb-4">
+            <h3 class="fw-bold" style="font-family: var(--font-headings); letter-spacing: 1px;"><span style="color: var(--primary);">//</span> MODEL ECOSYSTEM</h3>
+            <p class="text-muted">Production & Challenger Model Benchmarks</p>
+          </div>
+          
+          <div class="row g-4">
+            <!-- Champion -->
+            <div class="col-lg-3 col-md-6">
+              <div class="model-ecosystem-card champion">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span class="badge bg-success bg-opacity-25 text-success border border-success">CHAMPION</span>
+                  <i class="fa-solid fa-crown text-success fs-5"></i>
+                </div>
+                <h5 class="text-white fw-bold mb-1">LightGBM</h5>
+                <p class="small text-muted mb-3" style="font-family: var(--font-mono);">models/champion/lightgbm_model.pkl</p>
+                <div class="row g-2 mb-3">
+                  <div class="col-6"><div class="metric-box"><div class="val text-success">0.999</div><div class="lbl">ROC-AUC</div></div></div>
+                  <div class="col-6"><div class="metric-box"><div class="val text-white">0.972</div><div class="lbl">Accuracy</div></div></div>
+                  <div class="col-6"><div class="metric-box"><div class="val text-white">0.857</div><div class="lbl">F1 Score</div></div></div>
+                  <div class="col-6"><div class="metric-box"><div class="val text-white">0.750</div><div class="lbl">Recall</div></div></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center border-top border-secondary pt-3 mt-auto">
+                  <span class="small text-muted">Governance Status</span>
+                  <span class="text-success small fw-bold"><i class="fa-solid fa-circle-check"></i> APPROVED</span>
+                </div>
+              </div>
+            </div>
+            <!-- Challenger 1 -->
+            <div class="col-lg-3 col-md-6">
+              <div class="model-ecosystem-card">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span class="badge bg-secondary bg-opacity-25 text-light border border-secondary">CHALLENGER</span>
+                  <i class="fa-solid fa-robot text-muted fs-5"></i>
+                </div>
+                <h5 class="text-white fw-bold mb-1">CatBoost</h5>
+                <p class="small text-muted mb-3" style="font-family: var(--font-mono);">models/challengers/catboost_model.pkl</p>
+                <div class="row g-2 mb-3">
+                  <div class="col-6"><div class="metric-box"><div class="val text-white">0.998</div><div class="lbl">ROC-AUC</div></div></div>
+                  <div class="col-6"><div class="metric-box"><div class="val text-white">0.968</div><div class="lbl">Accuracy</div></div></div>
+                  <div class="col-6"><div class="metric-box"><div class="val text-white">0.840</div><div class="lbl">F1 Score</div></div></div>
+                  <div class="col-6"><div class="metric-box"><div class="val text-white">0.730</div><div class="lbl">Recall</div></div></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center border-top border-secondary pt-3 mt-auto">
+                  <span class="small text-muted">Governance Status</span>
+                  <span class="text-warning small fw-bold"><i class="fa-solid fa-clock"></i> PENDING</span>
+                </div>
+              </div>
+            </div>
+            <!-- Challenger 2 -->
+            <div class="col-lg-3 col-md-6">
+              <div class="model-ecosystem-card">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span class="badge bg-secondary bg-opacity-25 text-light border border-secondary">CHALLENGER</span>
+                  <i class="fa-solid fa-robot text-muted fs-5"></i>
+                </div>
+                <h5 class="text-white fw-bold mb-1">XGBoost</h5>
+                <p class="small text-muted mb-3" style="font-family: var(--font-mono);">models/challengers/xgboost_model.pkl</p>
+                <div class="row g-2 mb-3">
+                  <div class="col-6"><div class="metric-box"><div class="val text-white">0.998</div><div class="lbl">ROC-AUC</div></div></div>
+                  <div class="col-6"><div class="metric-box"><div class="val text-white">0.968</div><div class="lbl">Accuracy</div></div></div>
+                  <div class="col-6"><div class="metric-box"><div class="val text-white">0.845</div><div class="lbl">F1 Score</div></div></div>
+                  <div class="col-6"><div class="metric-box"><div class="val text-white">0.735</div><div class="lbl">Recall</div></div></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center border-top border-secondary pt-3 mt-auto">
+                  <span class="small text-muted">Governance Status</span>
+                  <span class="text-warning small fw-bold"><i class="fa-solid fa-clock"></i> PENDING</span>
+                </div>
+              </div>
+            </div>
+            <!-- Anomaly -->
+            <div class="col-lg-3 col-md-6">
+              <div class="model-ecosystem-card">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                  <span class="badge bg-warning bg-opacity-25 text-warning border border-warning">ANOMALY</span>
+                  <i class="fa-solid fa-radar text-warning fs-5"></i>
+                </div>
+                <h5 class="text-white fw-bold mb-1">Isolation Forest</h5>
+                <p class="small text-muted mb-3" style="font-family: var(--font-mono);">models/unsupervised/iso_forest.pkl</p>
+                <div class="row g-2 mb-3">
+                  <div class="col-12"><div class="metric-box"><div class="val text-warning">-0.482</div><div class="lbl">Mean Anomaly Score</div></div></div>
+                  <div class="col-12"><div class="metric-box"><div class="val text-white">5.0%</div><div class="lbl">Contamination</div></div></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center border-top border-secondary pt-3 mt-auto">
+                  <span class="small text-muted">Governance Status</span>
+                  <span class="text-success small fw-bold"><i class="fa-solid fa-circle-check"></i> APPROVED</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Evidence Repository Preview -->
+        <div class="container mt-5 pt-4">
+          <div class="text-center mb-4">
+            <h3 class="fw-bold" style="font-family: var(--font-headings); letter-spacing: 1px;"><span style="color: var(--primary);">//</span> EVIDENCE REPOSITORY</h3>
+            <p class="text-muted">Direct Access to Project Artifacts</p>
+          </div>
+          
+          <div class="row g-3">
+            <div class="col-md-4">
+              <div class="repo-card" onclick="window.open('https://github.com/akash14102006/CipherZB160-IQ/tree/main/reports', '_blank')">
+                <i class="fa-regular fa-folder-open fa-2x text-primary"></i>
+                <div>
+                  <h6 class="text-white mb-1 fw-bold">Reports</h6>
+                  <p class="small text-muted mb-0 font-monospace">reports/data_processing/</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="repo-card" onclick="window.open('https://github.com/akash14102006/CipherZB160-IQ/tree/main/models/champion', '_blank')">
+                <i class="fa-solid fa-robot fa-2x text-success"></i>
+                <div>
+                  <h6 class="text-white mb-1 fw-bold">Models</h6>
+                  <p class="small text-muted mb-0 font-monospace">models/champion/</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="repo-card" onclick="window.open('https://github.com/akash14102006/CipherZB160-IQ/tree/main/reports/model_performance', '_blank')">
+                <i class="fa-solid fa-chart-line fa-2x text-warning"></i>
+                <div>
+                  <h6 class="text-white mb-1 fw-bold">Visualizations</h6>
+                  <p class="small text-muted mb-0 font-monospace">reports/model_performance/</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="repo-card" onclick="window.open('https://github.com/akash14102006/CipherZB160-IQ/tree/main/data', '_blank')">
+                <i class="fa-solid fa-database fa-2x text-info"></i>
+                <div>
+                  <h6 class="text-white mb-1 fw-bold">Datasets</h6>
+                  <p class="small text-muted mb-0 font-monospace">data/05_output/</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="repo-card" onclick="window.open('https://github.com/akash14102006/CipherZB160-IQ/tree/main/reports/model_governance', '_blank')">
+                <i class="fa-solid fa-file-shield fa-2x text-danger"></i>
+                <div>
+                  <h6 class="text-white mb-1 fw-bold">Audit Files</h6>
+                  <p class="small text-muted mb-0 font-monospace">reports/model_governance/</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="repo-card" onclick="window.open('https://github.com/akash14102006/CipherZB160-IQ/tree/main/reports/explainability', '_blank')">
+                <i class="fa-solid fa-brain fa-2x" style="color: #A855F7;"></i>
+                <div>
+                  <h6 class="text-white mb-1 fw-bold">SHAP Engine</h6>
+                  <p class="small text-muted mb-0 font-monospace">reports/explainability/</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Risk Intelligence & Explainable AI -->
+        <div class="container mt-5 pt-4">
+          <div class="row g-5">
+            <div class="col-lg-6">
+              <div class="text-center mb-4">
+                <h3 class="fw-bold" style="font-family: var(--font-headings); letter-spacing: 1px;"><span style="color: var(--primary);">//</span> RISK ENGINE</h3>
+                <p class="text-muted">High-Throughput Scoring Pipeline</p>
+              </div>
+              <div class="d-flex flex-column align-items-center gap-3">
+                <div class="data-flow-box w-100">
+                  <i class="fa-solid fa-file-parquet text-warning fs-3 mb-2"></i>
+                  <h6 class="text-white mb-0 font-monospace">risk_engine_output.parquet</h6>
+                </div>
+                <div class="arch-arrow"></div>
+                <div class="data-flow-box w-100 border-success">
+                  <h6 class="text-success mb-0 font-monospace">LIVE DATA FEEDS</h6>
+                </div>
+                <div class="arch-arrow"></div>
+                <div class="d-flex w-100 gap-3 justify-content-center">
+                  <div class="data-flow-box flex-fill"><i class="fa-solid fa-shield-halved text-info mb-2"></i><br><span class="small text-white">Surveillance Queue</span></div>
+                  <div class="data-flow-box flex-fill"><i class="fa-solid fa-crosshairs text-danger mb-2"></i><br><span class="small text-white">Target Assessment</span></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-6">
+              <div class="text-center mb-4">
+                <h3 class="fw-bold" style="font-family: var(--font-headings); letter-spacing: 1px;"><span style="color: #A855F7;">//</span> EXPLAINABLE AI</h3>
+                <p class="text-muted">SHAP Local Explanation Extraction</p>
+              </div>
+              <div class="d-flex flex-column align-items-center gap-3">
+                <div class="data-flow-box w-100 d-flex justify-content-between align-items-center">
+                  <div><i class="fa-solid fa-user-tag text-info fs-4 mb-2"></i><br><span class="small text-white">Account</span></div>
+                  <div class="flow-arrow-horizontal"></div>
+                  <div><i class="fa-solid fa-crown text-success fs-4 mb-2"></i><br><span class="small text-white">Champion</span></div>
+                  <div class="flow-arrow-horizontal" style="background: #A855F7;"></div>
+                  <div><i class="fa-solid fa-brain fs-4 mb-2" style="color: #A855F7;"></i><br><span class="small text-white">SHAP</span></div>
+                </div>
+                <div class="arch-arrow" style="background: linear-gradient(to bottom, #A855F7 0%, transparent 100%);"></div>
+                <div class="data-flow-box w-100" style="border-color: #A855F7;">
+                  <h6 class="mb-3 font-monospace text-white">TOP DRIVERS EXTRACTED</h6>
+                  <div class="d-flex flex-wrap gap-2 justify-content-center">
+                    <span class="badge bg-danger bg-opacity-25 text-danger border border-danger">Velocity Spike</span>
+                    <span class="badge bg-warning bg-opacity-25 text-warning border border-warning">Dormancy Reactivation</span>
+                    <span class="badge bg-danger bg-opacity-25 text-danger border border-danger">Counterparty Mule Count</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Governance Framework -->
+        <div class="container mt-5 pt-4">
+          <div class="text-center mb-4">
+            <h3 class="fw-bold" style="font-family: var(--font-headings); letter-spacing: 1px;"><span style="color: var(--primary);">//</span> GOVERNANCE FRAMEWORK</h3>
+            <p class="text-muted">Continuous Model Auditing & Compliance</p>
+          </div>
+          <div class="gov-timeline">
+            <div class="gov-item">
+              <div class="gov-content">
+                <h6 class="text-white font-monospace mb-1">model_governance_report.csv</h6>
+                <p class="small text-success fw-bold mb-0"><i class="fa-solid fa-check-circle"></i> Audit Passed</p>
+              </div>
+              <div class="gov-point"></div>
+            </div>
+            <div class="gov-item">
+              <div class="gov-content">
+                <h6 class="text-white font-monospace mb-1">enterprise_model_comparison.csv</h6>
+                <p class="small text-info fw-bold mb-0"><i class="fa-solid fa-file-signature"></i> Model Approved</p>
+              </div>
+              <div class="gov-point"></div>
+            </div>
+            <div class="gov-item">
+              <div class="gov-content">
+                <h6 class="text-white font-monospace mb-1">champion_model_report.csv</h6>
+                <p class="small text-warning fw-bold mb-0"><i class="fa-solid fa-rocket"></i> Champion Deployed</p>
+              </div>
+              <div class="gov-point"></div>
+            </div>
+            <div class="gov-item">
+              <div class="gov-content">
+                <h6 class="text-white font-monospace mb-1">challenger_models_report.csv</h6>
+                <p class="small text-muted fw-bold mb-0"><i class="fa-solid fa-eye"></i> Monitoring Active</p>
+              </div>
+              <div class="gov-point" style="background: #6B7280; box-shadow: none;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Team Section -->
+        <div class="container mt-5 pt-4 pb-5">
+          <div class="text-center mb-5">
+            <h3 class="fw-bold" style="font-family: var(--font-headings); letter-spacing: 1px;"><span style="color: var(--primary);">//</span> CIPHERZB160 IQ CORE</h3>
+            <p class="text-muted">Enterprise Development Division</p>
+          </div>
+          <div class="row g-4 justify-content-center">
+            <div class="col-md-3 col-sm-6">
+              <div class="team-card">
+                <div class="team-avatar"><i class="fa-solid fa-code"></i></div>
+                <h6 class="text-white fw-bold mb-1">AI Engineering</h6>
+                <p class="small text-muted font-monospace">Pipeline Dev</p>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="team-card">
+                <div class="team-avatar"><i class="fa-solid fa-chart-pie"></i></div>
+                <h6 class="text-white fw-bold mb-1">Data Science</h6>
+                <p class="small text-muted font-monospace">Model Architecture</p>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="team-card">
+                <div class="team-avatar"><i class="fa-solid fa-shield-halved"></i></div>
+                <h6 class="text-white fw-bold mb-1">Risk Intelligence</h6>
+                <p class="small text-muted font-monospace">Fraud Domain</p>
+              </div>
+            </div>
+            <div class="col-md-3 col-sm-6">
+              <div class="team-card">
+                <div class="team-avatar" style="border-color: #A855F7; color: #A855F7; background: rgba(168, 85, 247, 0.1);"><i class="fa-solid fa-brain"></i></div>
+                <h6 class="text-white fw-bold mb-1">Explainability</h6>
+                <p class="small text-muted font-monospace">SHAP Analytics</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
       <!-- PAGE 1: COMMAND NEXUS -->
-      <div id="page-surveillance-command" style="display: block;" class="animate__animated animate__fadeIn">
+      <div id="page-surveillance-command" style="display: none;" class="animate__animated animate__fadeIn">
         
         <!-- FIRST COMPONENT: Enterprise Leaderboard -->
         <div class="row g-4 mb-4">
@@ -1601,13 +2683,39 @@
       </div>
 
       <!-- Footer -->
-      <footer class="py-4 text-center mt-5" style="background: rgba(11, 15, 25, 0.75); border-top: 1px solid rgba(255, 255, 255, 0.05)">
-        <p class="mb-0 text-muted small">
-          Mule Account Detection Platform v1.3 | Classification: <strong>CONFIDENTIAL / PROPRIETARY</strong>
-        </p>
-        <p class="mb-0 text-muted small mt-1">
-          Built with Bootstrap, Plotly.js, and AG Grid. © 2026 Financial Crime command Unit.
-        </p>
+      <footer id="main-footer" class="py-5 mt-5" style="background: rgba(11, 15, 25, 0.9); border-top: 1px solid var(--primary);">
+        <div class="container text-center">
+          <h4 class="text-white fw-bold mb-1" style="font-family: var(--font-headings); letter-spacing: 2px;">CIPHERZB160 IQ</h4>
+          <p class="text-primary small mb-4" style="font-family: var(--font-mono); letter-spacing: 1px;">ADVANCED CYBER INTELLIGENCE</p>
+          
+          <div class="row justify-content-center mb-4">
+            <div class="col-md-8">
+              <p class="text-muted small mb-2">
+                Enterprise Mule Account Detection &amp; Risk Intelligence Platform
+              </p>
+              <p class="text-muted small mb-0" style="font-family: var(--font-mono);">
+                LightGBM &nbsp;|&nbsp; CatBoost &nbsp;|&nbsp; XGBoost &nbsp;|&nbsp; Isolation Forest
+              </p>
+              <p class="text-muted small" style="font-family: var(--font-mono);">
+                Explainable AI &nbsp;|&nbsp; Governance &nbsp;|&nbsp; AML Compliance
+              </p>
+              <div class="d-flex justify-content-center gap-4 mt-4">
+                <a href="https://github.com/akash14102006/CipherZB160-IQ" target="_blank" class="text-muted text-decoration-none fs-4" style="transition: color 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'" title="GitHub Repository">
+                  <i class="fa-brands fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/akash14102006/" target="_blank" class="text-muted text-decoration-none fs-4" style="transition: color 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='var(--text-muted)'" title="LinkedIn Profile">
+                  <i class="fa-brands fa-linkedin"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          
+          <div class="border-top border-secondary pt-3 mt-4">
+            <p class="mb-0 text-secondary small" style="font-family: var(--font-mono); font-size: 0.7rem;">
+              &copy; 2026 CipherZB160 Intelligence Labs. All models trained securely on enterprise environments.
+            </p>
+          </div>
+        </div>
       </footer>
     </main>
   </div>
@@ -1674,7 +2782,7 @@
   <script>
     // Tab switching engine
     const switchTab = (tabId) => {
-      const pages = ['surveillance-command', 'analytics-centers', 'risk-intelligence', 'governance'];
+      const pages = ['platform-overview', 'surveillance-command', 'analytics-centers', 'risk-intelligence', 'governance'];
       pages.forEach(p => {
         const el = document.getElementById(`page-${p}`);
         if (el) el.style.display = 'none';
@@ -1693,6 +2801,17 @@
           link.classList.remove('active');
         }
       });
+      
+      const footer = document.getElementById('main-footer');
+      if (footer) {
+        if (tabId === 'platform-overview' || tabId === 'governance') {
+          footer.style.display = 'block';
+        } else {
+          footer.style.display = 'none';
+        }
+      }
+      
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       
       // If switching to analytics-centers, default to LightGBM view
       if (tabId === 'analytics-centers') {
@@ -1840,7 +2959,7 @@
       filters: {
         model: 'ALL',
         riskLevel: 'ALL',
-        accountType: 'Suspicious',
+        accountType: 'ALL',
         dataset: 'Production',
         dateRange: '30d',
         riskScoreThreshold: 0.0,
@@ -2032,8 +3151,8 @@
 
       updateGeneralStats(data) {
         const isFiltered = this.filters.model !== 'ALL' || this.filters.riskLevel !== 'ALL' || this.filters.dateRange !== '30d' || this.filters.accountType !== 'ALL' || this.filters.riskScoreThreshold > 0.0;
-        let total = isFiltered ? data.length : 9082;
-        let mules = isFiltered ? data.filter(d => d.risk_score >= 0.85).length : 81;
+        let total = data.length;
+        let mules = data.filter(d => d.risk_score >= 0.85).length;
         
         const totalEl = document.getElementById('kpi-total-accounts');
         if (totalEl) totalEl.innerText = total.toLocaleString();
@@ -2660,9 +3779,10 @@
       const gaugeData = [{
         domain: { x: [0, 1], y: [0, 1] },
         value: data.risk_score,
-        title: { text: "Aggregated Risk Rating" },
+        title: { text: "Aggregated Risk Rating", font: { size: 14 } },
         type: "indicator",
         mode: "gauge+number",
+        number: { font: { size: 36 } },
         gauge: {
           axis: { range: [0, 1] },
           bar: { color: "#10B981" },
@@ -2677,7 +3797,8 @@
       const layout = {
         paper_bgcolor: 'rgba(0,0,0,0)',
         font: { color: '#F1F5F9', size: 10 },
-        margin: { t: 40, b: 20, l: 30, r: 30 }
+        margin: { t: 40, b: 20, l: 30, r: 50 },
+        autosize: true
       };
       Plotly.newPlot('risk-gauge', gaugeData, layout, {responsive: true});
     };
@@ -3006,16 +4127,7 @@
       }, 100);
     });
 
-    // Theme Toggle Logic
-    const toggleTheme = () => {
-      const body = document.body;
-      body.classList.toggle('light-theme');
-      
-      // Trigger a resize event to ensure charts redraw with correct dimensions/colors
-      setTimeout(() => {
-        window.dispatchEvent(new Event('resize'));
-      }, 500);
-    };
+    // Theme Toggle Logic Removed
   </script>
 </body>
 </html>
