@@ -78,10 +78,10 @@
               Built using ML + Explainable AI + Risk Intelligence Engine.
             </p>
             <div class="d-flex flex-wrap justify-content-center gap-3">
-              <a href="#architecture" class="cyber-btn cyber-btn-primary" onclick="document.getElementById('architecture-section').scrollIntoView({behavior: 'smooth'})">
+              <a href="#platform-architecture" class="cyber-btn cyber-btn-primary" onclick="document.getElementById('platform-architecture').scrollIntoView({behavior: 'smooth', block: 'start'}); return false;">
                 <i class="fa-solid fa-diagram-project"></i> Explore Architecture
               </a>
-              <a href="#vault" class="cyber-btn" onclick="document.getElementById('vault-section').scrollIntoView({behavior: 'smooth'})">
+              <a href="#evidence-repository" class="cyber-btn" onclick="document.getElementById('evidence-repository').scrollIntoView({behavior: 'smooth', block: 'start'}); return false;">
                 <i class="fa-solid fa-folder-tree"></i> View Evidence Repository
               </a>
               <a href="#surveillance-command" class="cyber-btn" onclick="switchTab('surveillance-command'); return false;">
@@ -92,7 +92,7 @@
         </div>
 
         <!-- Enterprise Intelligence Vault -->
-        <div id="vault-section" class="container mt-5 pt-4">
+        <section id="evidence-repository" class="container mt-5 pt-4">
           <div class="text-center mb-4">
             <h3 class="fw-bold" style="font-family: var(--font-headings); letter-spacing: 1px;"><span style="color: var(--primary);">//</span> ENTERPRISE INTELLIGENCE VAULT</h3>
             <p class="text-muted">Click to decrypt and access platform artifacts</p>
@@ -117,31 +117,31 @@
                 <div class="row g-3">
                   <div class="col-md-6">
                     <h6 class="text-white mb-3" style="font-family: var(--font-mono); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">DATA PROCESSING</h6>
-                    <a href="https://github.com/akash14102006/CipherZB160-IQ/blob/main/reports/data_processing/data_cleaning_report.pdf" target="_blank" class="file-item text-decoration-none">
+                    <a href="https://github.com/akash14102006/CipherZB160-IQ" target="_blank" class="file-item text-decoration-none">
                       <i class="fa-solid fa-file-csv file-icon"></i> 01_Data_Cleaning_Report.csv
                     </a>
-                    <a href="https://github.com/akash14102006/CipherZB160-IQ/blob/main/reports/data_processing/leakage_report.csv" target="_blank" class="file-item text-decoration-none">
+                    <a href="https://github.com/akash14102006/CipherZB160-IQ" target="_blank" class="file-item text-decoration-none">
                       <i class="fa-solid fa-file-csv file-icon"></i> 02_Leakage_Detection.csv
                     </a>
-                    <a href="https://github.com/akash14102006/CipherZB160-IQ/blob/main/reports/data_processing/selected_features_v1.csv" target="_blank" class="file-item text-decoration-none">
+                    <a href="https://github.com/akash14102006/CipherZB160-IQ" target="_blank" class="file-item text-decoration-none">
                       <i class="fa-solid fa-file-csv file-icon"></i> 03_Feature_Selection.csv
                     </a>
-                    <a href="https://github.com/akash14102006/CipherZB160-IQ/blob/main/data/05_output/risk_engine_output.parquet" target="_blank" class="file-item text-decoration-none">
+                    <a href="https://github.com/akash14102006/CipherZB160-IQ" target="_blank" class="file-item text-decoration-none">
                       <i class="fa-solid fa-triangle-exclamation text-warning"></i> risk_engine_output.parquet
                     </a>
                   </div>
                   <div class="col-md-6">
                     <h6 class="text-white mb-3" style="font-family: var(--font-mono); border-bottom: 1px solid var(--border-color); padding-bottom: 5px;">MODEL INTELLIGENCE</h6>
-                    <a href="https://github.com/akash14102006/CipherZB160-IQ/blob/main/reports/model_comparison.png" target="_blank" class="file-item text-decoration-none">
+                    <a href="https://github.com/akash14102006/CipherZB160-IQ" target="_blank" class="file-item text-decoration-none">
                       <i class="fa-solid fa-chart-line file-icon"></i> ROC_Comparison_Curves.png
                     </a>
-                    <a href="https://github.com/akash14102006/CipherZB160-IQ/blob/main/reports/model_performance/lightgbm/feature_importance.csv" target="_blank" class="file-item text-decoration-none">
+                    <a href="https://github.com/akash14102006/CipherZB160-IQ" target="_blank" class="file-item text-decoration-none">
                       <i class="fa-solid fa-chart-bar file-icon"></i> Feature_Importance_Rankings.csv
                     </a>
-                    <a href="https://github.com/akash14102006/CipherZB160-IQ/blob/main/reports/explainability/shap_local_explanations.csv" target="_blank" class="file-item text-decoration-none">
+                    <a href="https://github.com/akash14102006/CipherZB160-IQ" target="_blank" class="file-item text-decoration-none">
                       <i class="fa-solid fa-brain file-icon" style="color: #7C3AED;"></i> shap_local_explanations.csv
                     </a>
-                    <a href="https://github.com/akash14102006/CipherZB160-IQ/blob/main/reports/governance/model_governance_report.csv" target="_blank" class="file-item text-decoration-none">
+                    <a href="https://github.com/akash14102006/CipherZB160-IQ" target="_blank" class="file-item text-decoration-none">
                       <i class="fa-solid fa-file-shield text-info"></i> model_governance_report.csv
                     </a>
                   </div>
@@ -154,10 +154,10 @@
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         <!-- Architecture Diagram -->
-        <div id="architecture-section" class="container mt-5 pt-4">
+        <section id="platform-architecture" class="container mt-5 pt-4">
           <div class="text-center mb-4">
             <h3 class="fw-bold" style="font-family: var(--font-headings); letter-spacing: 1px;"><span style="color: var(--primary);">//</span> PLATFORM ARCHITECTURE</h3>
             <p class="text-muted">Enterprise Multi-Model Detection Pipeline</p>
@@ -239,7 +239,7 @@
               
             </div>
           </div>
-        </div>
+        </section>
 
         <!-- How CipherZB160 IQ Works (Graphify Timeline) -->
         <div class="container mt-5 pt-4">
@@ -449,7 +449,7 @@
           
           <div class="row g-3">
             <div class="col-md-4">
-              <div class="repo-card" onclick="window.open('https://github.com/akash14102006/CipherZB160-IQ/tree/main/reports', '_blank')">
+              <div class="repo-card" onclick="window.open('https://github.com/akash14102006/CipherZB160-IQ', '_blank')">
                 <i class="fa-regular fa-folder-open fa-2x text-primary"></i>
                 <div>
                   <h6 class="text-white mb-1 fw-bold">Reports</h6>
@@ -458,7 +458,7 @@
               </div>
             </div>
             <div class="col-md-4">
-              <div class="repo-card" onclick="window.open('https://github.com/akash14102006/CipherZB160-IQ/tree/main/models/champion', '_blank')">
+              <div class="repo-card" onclick="window.open('https://github.com/akash14102006/CipherZB160-IQ', '_blank')">
                 <i class="fa-solid fa-robot fa-2x text-success"></i>
                 <div>
                   <h6 class="text-white mb-1 fw-bold">Models</h6>
@@ -467,7 +467,7 @@
               </div>
             </div>
             <div class="col-md-4">
-              <div class="repo-card" onclick="window.open('https://github.com/akash14102006/CipherZB160-IQ/tree/main/website/assets/visualizations', '_blank')">
+              <div class="repo-card" onclick="window.open('https://github.com/akash14102006/CipherZB160-IQ', '_blank')">
                 <i class="fa-solid fa-chart-line fa-2x text-warning"></i>
                 <div>
                   <h6 class="text-white mb-1 fw-bold">Visualizations</h6>
@@ -476,7 +476,7 @@
               </div>
             </div>
             <div class="col-md-4">
-              <div class="repo-card" onclick="window.open('https://github.com/akash14102006/CipherZB160-IQ/tree/main/data', '_blank')">
+              <div class="repo-card" onclick="window.open('https://github.com/akash14102006/CipherZB160-IQ', '_blank')">
                 <i class="fa-solid fa-database fa-2x text-info"></i>
                 <div>
                   <h6 class="text-white mb-1 fw-bold">Datasets</h6>
@@ -485,7 +485,7 @@
               </div>
             </div>
             <div class="col-md-4">
-              <div class="repo-card" onclick="window.open('https://github.com/akash14102006/CipherZB160-IQ/tree/main/reports/model_governance', '_blank')">
+              <div class="repo-card" onclick="window.open('https://github.com/akash14102006/CipherZB160-IQ', '_blank')">
                 <i class="fa-solid fa-file-shield fa-2x text-danger"></i>
                 <div>
                   <h6 class="text-white mb-1 fw-bold">Audit Files</h6>
@@ -494,7 +494,7 @@
               </div>
             </div>
             <div class="col-md-4">
-              <div class="repo-card" onclick="window.open('https://github.com/akash14102006/CipherZB160-IQ/tree/main/reports/explainability', '_blank')">
+              <div class="repo-card" onclick="window.open('https://github.com/akash14102006/CipherZB160-IQ', '_blank')">
                 <i class="fa-solid fa-brain fa-2x" style="color: #A855F7;"></i>
                 <div>
                   <h6 class="text-white mb-1 fw-bold">SHAP Engine</h6>
@@ -1297,51 +1297,7 @@
             </div>
           </div>
 
-          <div class="row g-4 mb-4">
-            <div class="col-12">
-              <div class="cyber-card">
-                <h5 class="mb-4 text-white"><span style="color: var(--primary); margin-right: 6px;">//</span> ANOMALY COMPLIANCE TELEMETRY</h5>
-                <div class="table-responsive">
-                  <table class="table table-dark table-hover table-sm align-middle small">
-                    <thead>
-                      <tr>
-                        <th style="font-family: var(--font-mono); font-size: 0.7rem;">COMPLIANCE CHECK</th>
-                        <th style="font-family: var(--font-mono); font-size: 0.7rem;">VALUE</th>
-                        <th style="font-family: var(--font-mono); font-size: 0.7rem;">INTERPRETATION</th>
-                        <th style="font-family: var(--font-mono); font-size: 0.7rem;">STATUS</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td class="text-white">Expected Suspicious Rate</td>
-                        <td class="text-warning fw-bold">3.9%</td>
-                        <td class="text-muted">Predicted flagged account ratio</td>
-                        <td><span class="badge bg-success">Within Bounds</span></td>
-                      </tr>
-                      <tr>
-                        <td class="text-white">Decision Boundary Score</td>
-                        <td class="text-white fw-bold">-0.142</td>
-                        <td class="text-muted">Automated threshold trigger point</td>
-                        <td><span class="badge bg-success">Stable</span></td>
-                      </tr>
-                      <tr>
-                        <td class="text-white">Accounts Under Review</td>
-                        <td class="text-danger fw-bold">387</td>
-                        <td class="text-muted">Accounts exceeding risk threshold</td>
-                        <td><span class="badge bg-warning text-dark">Pending Review</span></td>
-                      </tr>
-                      <tr>
-                        <td class="text-white">Validated Detection Accuracy</td>
-                        <td class="text-success fw-bold">74.1%</td>
-                        <td class="text-muted">Cross-validation alignment score</td>
-                        <td><span class="badge bg-success">Validated</span></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
+
 
           <div class="row g-4">
             <div class="col-12 col-lg-8">
