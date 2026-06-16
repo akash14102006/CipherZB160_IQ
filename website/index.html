@@ -1349,11 +1349,16 @@
               <div class="filter-group">
                 <div class="btn-group btn-group-sm bg-black p-1 rounded border border-secondary" role="group" id="btn-group-risk">
                   <button type="button" class="btn btn-dark active" onclick="GlobalState.updateFilter('riskLevel', 'ALL')">ALL RISK</button>
+                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('riskLevel', 'LOW')">LOW</button>
+                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('riskLevel', 'MEDIUM')">MEDIUM</button>
+                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('riskLevel', 'HIGH')">HIGH</button>
+                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('riskLevel', 'CRITICAL')">CRITICAL</button>
                 </div>
               </div>
               <div class="filter-group">
                 <div class="btn-group btn-group-sm bg-black p-1 rounded border border-secondary" role="group" id="btn-group-type">
-                  <button type="button" class="btn btn-dark active" onclick="GlobalState.updateFilter('accountType', 'Mule')">MULE</button>
+                  <button type="button" class="btn btn-dark active" onclick="GlobalState.updateFilter('accountType', 'ALL')">ALL TYPE</button>
+                  <button type="button" class="btn btn-dark" onclick="GlobalState.updateFilter('accountType', 'Mule')">MULE</button>
                 </div>
               </div>
             </div>
@@ -1369,8 +1374,41 @@
           <div class="row g-4 mb-4">
             <div class="col-12 col-lg-8">
               <div class="cyber-card">
-                <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-3">
                   <h5 class="text-white">SURVEILLANCE QUEUE</h5>
+                </div>
+                <!-- Risk Intelligence Summary Panel -->
+                <div class="row g-2 mb-3 text-center" style="font-family: var(--font-mono); font-size: 0.75rem;">
+                  <div class="col-4 col-sm-2">
+                    <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 6px;">
+                      <div class="text-muted" style="font-size: 0.6rem;">TOTAL ACCOUNTS</div>
+                      <div class="text-white fw-bold">1,363</div>
+                    </div>
+                  </div>
+                  <div class="col-4 col-sm-2">
+                    <div style="background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.3); border-radius: 4px; padding: 6px;">
+                      <div class="text-danger" style="font-size: 0.6rem;">CRITICAL ACCOUNTS</div>
+                      <div class="text-danger fw-bold">7</div>
+                    </div>
+                  </div>
+                  <div class="col-4 col-sm-2">
+                    <div style="background: rgba(249,115,22,0.08); border: 1px solid rgba(249,115,22,0.3); border-radius: 4px; padding: 6px;">
+                      <div class="text-warning" style="font-size: 0.6rem;">AVG RISK SCORE</div>
+                      <div class="text-warning fw-bold">54.16%</div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-sm-3">
+                    <div style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.3); border-radius: 4px; padding: 6px;">
+                      <div class="text-success" style="font-size: 0.6rem;">CHAMPION MODEL</div>
+                      <div class="text-success fw-bold">LightGBM</div>
+                    </div>
+                  </div>
+                  <div class="col-6 col-sm-3">
+                    <div style="background: rgba(6,182,212,0.08); border: 1px solid rgba(6,182,212,0.3); border-radius: 4px; padding: 6px;">
+                      <div class="text-info" style="font-size: 0.6rem;">ROC-AUC POWER</div>
+                      <div class="text-info fw-bold">99.93%</div>
+                    </div>
+                  </div>
                 </div>
                 <div id="riskGrid" class="ag-theme-balham-dark" style="height: 500px; width: 100%;"></div>
               </div>

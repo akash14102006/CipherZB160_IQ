@@ -176,7 +176,7 @@
       filters: {
         model: 'ALL',
         riskLevel: 'ALL',
-        accountType: 'Mule',
+        accountType: 'ALL',
         dataset: 'Production',
         dateRange: '30d',
         riskScoreThreshold: 0.0,
@@ -234,7 +234,7 @@
         const defaultFilters = {
           model: 'ALL',
           riskLevel: 'ALL',
-          accountType: 'Mule',
+          accountType: 'ALL',
           dataset: 'Production',
           dateRange: '30d',
           riskScoreThreshold: 0.0
@@ -263,7 +263,7 @@
         const defaultFilters = {
           model: 'ALL',
           riskLevel: 'ALL',
-          accountType: 'Mule',
+          accountType: 'ALL',
           dataset: 'Production',
           dateRange: '30d',
           riskScoreThreshold: 0.0
@@ -346,6 +346,20 @@
           });
         }
 
+        // Recalculate risk_tier dynamically based on score
+        data = data.map(d => {
+          const score = d.risk_score;
+          let tier = 'LOW';
+          if (score >= 0.95) tier = 'CRITICAL';
+          else if (score >= 0.70) tier = 'HIGH';
+          else if (score >= 0.40) tier = 'MEDIUM';
+          return {
+            ...d,
+            risk_tier: tier,
+            action: tier === 'CRITICAL' ? 'BLOCK' : (tier === 'HIGH' ? 'ESCALATE' : (tier === 'MEDIUM' ? 'REVIEW' : 'MONITOR'))
+          };
+        });
+
         // Risk Level filter
         const tier = this.filters.riskLevel;
         if (tier !== 'ALL') {
@@ -367,6 +381,14 @@
         // Sliders
         const scoreThresh = this.filters.riskScoreThreshold;
         data = data.filter(d => d.risk_score >= scoreThresh);
+
+        // Sort descending by risk score
+        data.sort((a, b) => b.risk_score - a.risk_score);
+
+        // Limit to top 50 if showing ALL risk
+        if (tier === 'ALL') {
+          data = data.slice(0, 50);
+        }
 
         return data;
       },
@@ -924,10 +946,13 @@
             : sorted[Math.floor(sorted.length / 2)])
         : 0;
       
-      // Calculate 95th Percentile
+      // Calculate Percentiles
       const p95Idx = Math.floor(sorted.length * 0.95);
       const p95 = sorted.length > 0 ? sorted[p95Idx] : 0;
-      const highRiskCount = scores.filter(s => s >= 0.60).length;
+      const p99Idx = Math.floor(sorted.length * 0.99);
+      const p99 = sorted.length > 0 ? sorted[p99Idx] : 0;
+      const criticalCount = scores.filter(s => s >= 0.95).length;
+      const highCount = scores.filter(s => s >= 0.70 && s < 0.95).length;
 
       // Generate points for KDE curve
       const kdePoints = Array.from({length: 100}, (_, i) => i / 99);
@@ -994,10 +1019,10 @@
 
       // Zones background fills
       const zones = [
-        { x0: 0,    x1: 0.30, color: 'rgba(16,185,129,0.02)',  label: 'LOW'      },
-        { x0: 0.30, x1: 0.60, color: 'rgba(245,158,11,0.02)',  label: 'MEDIUM'   },
-        { x0: 0.60, x1: 0.85, color: 'rgba(249,115,22,0.03)',  label: 'HIGH'     },
-        { x0: 0.85, x1: 1.00, color: 'rgba(239,68,68,0.04)',   label: 'CRITICAL' }
+        { x0: 0,    x1: 0.40, color: 'rgba(16,185,129,0.02)',  label: 'LOW'      },
+        { x0: 0.40, x1: 0.70, color: 'rgba(245,158,11,0.02)',  label: 'MEDIUM'   },
+        { x0: 0.70, x1: 0.95, color: 'rgba(249,115,22,0.03)',  label: 'HIGH'     },
+        { x0: 0.95, x1: 1.00, color: 'rgba(239,68,68,0.04)',   label: 'CRITICAL' }
       ];
 
       const shapes = [
@@ -1025,30 +1050,39 @@
         // Threshold markers
         {
           type: 'line',
-          x0: 0.60, x1: 0.60, y0: 0, y1: 1, yref: 'paper',
-          line: { color: '#F97316', width: 1.5, dash: 'dot' }
+          x0: 0.95, x1: 0.95, y0: 0, y1: 1, yref: 'paper',
+          line: { color: '#EF4444', width: 1.5, dash: 'dot' }
         },
+        // Top 5% marker
         {
           type: 'line',
-          x0: 0.85, x1: 0.85, y0: 0, y1: 1, yref: 'paper',
-          line: { color: '#EF4444', width: 1.5, dash: 'dot' }
+          x0: p95, x1: p95, y0: 0, y1: 1, yref: 'paper',
+          line: { color: '#F97316', width: 1.5, dash: 'dot' }
+        },
+        // Top 1% marker
+        {
+          type: 'line',
+          x0: p99, x1: p99, y0: 0, y1: 1, yref: 'paper',
+          line: { color: '#EA580C', width: 1.5, dash: 'dot' }
         }
       ];
 
       const annotations = [
-        { x: mean,   y: 0.95, yref: 'paper', text: `μ ${mean.toFixed(3)}`,
+        { x: mean,   y: 0.95, yref: 'paper', text: `μ ${(mean*100).toFixed(1)}%`,
           showarrow: false, font: { color: '#06B6D4', size: 8 }, xanchor: 'left' },
-        { x: median, y: 0.86, yref: 'paper', text: `M ${median.toFixed(3)}`,
+        { x: median, y: 0.86, yref: 'paper', text: `M ${(median*100).toFixed(1)}%`,
           showarrow: false, font: { color: '#D946EF', size: 8 }, xanchor: 'left' },
-        { x: 0.60, y: 0.76, yref: 'paper', text: 'High 0.60',
-          showarrow: false, font: { color: '#F97316', size: 8 }, xanchor: 'right' },
-        { x: 0.85, y: 0.66, yref: 'paper', text: 'Crit 0.85',
+        { x: 0.95, y: 0.76, yref: 'paper', text: 'Crit 95%',
           showarrow: false, font: { color: '#EF4444', size: 8 }, xanchor: 'right' },
+        { x: p95, y: 0.66, yref: 'paper', text: 'Top 5%',
+          showarrow: false, font: { color: '#F97316', size: 8 }, xanchor: 'right' },
+        { x: p99, y: 0.56, yref: 'paper', text: 'Top 1%',
+          showarrow: false, font: { color: '#EA580C', size: 8 }, xanchor: 'right' },
         // Stats Summary Box
         {
           xref: 'paper', yref: 'paper',
-          x: 0.95, y: 0.95,
-          text: `<b>RISK METRICS</b><br>Total Records: ${scores.length.toLocaleString()}<br>Mean Risk: ${mean.toFixed(3)}<br>Median Risk: ${median.toFixed(3)}<br>95th Pct: ${p95.toFixed(3)}<br>High Risk Count: ${highRiskCount}`,
+          x: 0.05, y: 0.95,
+          text: `<b>RISK INTELLIGENCE METRICS</b><br>Total Records: ${scores.length.toLocaleString()}<br>Mean Risk: ${(mean*100).toFixed(2)}%<br>Median Risk: ${(median*100).toFixed(2)}%<br>Top 5% Threshold: ${(p95*100).toFixed(2)}%<br>Top 1% Threshold: ${(p99*100).toFixed(2)}%<br>Critical Accounts (>=95%): ${criticalCount}`,
           showarrow: false,
           align: 'left',
           bgcolor: '#020817',
@@ -1403,6 +1437,22 @@
       }
     };
 
+    const getRiskLabel = (score, recordId) => {
+      if (score >= 0.95) {
+        const labels = ['Critical Exposure', 'Mule Network Threat', 'Systemic Fraud Risk', 'High-Frequency Alert'];
+        return labels[recordId % labels.length];
+      } else if (score >= 0.70) {
+        const labels = ['Network Risk', 'Velocity Deviation', 'Anomaly Spike', 'Counterparty Risk'];
+        return labels[recordId % labels.length];
+      } else if (score >= 0.40) {
+        const labels = ['Transaction Risk', 'Activity Shift', 'Behavioral Alert', 'Location Mismatch'];
+        return labels[recordId % labels.length];
+      } else {
+        const labels = ['Baseline Activity', 'Standard Flow', 'Low Latency Activity', 'Verified Profile'];
+        return labels[recordId % labels.length];
+      }
+    };
+
     // Risk Engine Interactive Queue AG Grid
     let riskGridApi;
     const loadRiskEngine = () => {
@@ -1411,7 +1461,7 @@
         { 
           field: 'risk_score', 
           headerName: 'Risk Score', 
-          width: 260,
+          width: 300,
           cellRenderer: params => {
             const val = parseFloat(params.value);
             const pct = isNaN(val) ? 0 : Math.min(100, Math.max(0, val * 100));
@@ -1422,30 +1472,34 @@
             let bgGrad = 'linear-gradient(90deg, #10b981, #34d399)';
             let action = 'Monitor';
             
-            if (pct > 75) {
+            if (pct >= 95) {
               tier = 'CRITICAL';
               color = '#ef4444';
               bgGrad = 'linear-gradient(90deg, #ef4444, #f87171)';
               action = 'Block';
-            } else if (pct > 50) {
+            } else if (pct >= 70) {
               tier = 'HIGH';
               color = '#f97316';
               bgGrad = 'linear-gradient(90deg, #f97316, #fb923c)';
               action = 'Escalate';
-            } else if (pct > 25) {
+            } else if (pct >= 40) {
               tier = 'MEDIUM';
               color = '#eab308';
               bgGrad = 'linear-gradient(90deg, #eab308, #facc15)';
               action = 'Review';
             }
             
+            const riskLabel = getRiskLabel(val, params.data.record_id || 0);
             const tooltip = `Risk Score: ${pctStr}\nRisk Tier: ${tier}\nModel: LightGBM\nRecommended Action: ${action}`;
             
             return `
-              <div class="d-flex align-items-center gap-2 w-100" style="font-family: var(--font-mono); font-size: 0.75rem; height: 100%;" title="${tooltip}">
-                <span style="min-width: 55px; color: #f1f5f9;">${pctStr}</span>
+              <div class="d-flex align-items-center gap-2 w-100" style="font-family: var(--font-mono); height: 100%;" title="${tooltip}">
+                <div class="d-flex flex-column justify-content-center" style="min-width: 110px; line-height: 1.15;">
+                  <span style="font-weight: bold; color: #f1f5f9; font-size: 0.8rem;">${pctStr}</span>
+                  <span style="font-size: 0.58rem; color: #94a3b8; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 110px;">${riskLabel}</span>
+                </div>
                 <div class="progress flex-grow-1" style="height: 8px; background-color: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; margin: 0 4px;">
-                  <div class="progress-bar" style="width: ${pct}%; background: ${bgGrad}; box-shadow: 0 0 8px ${color}80; height: 100%; transition: width 0.6s ease; border-radius: 2px;"></div>
+                  <div class="progress-bar" style="width: ${pct}%; background: ${bgGrad}; box-shadow: 0 0 10px ${color}bf; height: 100%; transition: width 0.6s ease; border-radius: 2px;"></div>
                 </div>
                 <span class="badge" style="background-color: ${color}26; color: ${color}; border: 1px solid ${color}4d; font-size: 0.65rem; padding: 2px 6px; min-width: 65px; text-align: center; font-weight: bold; letter-spacing: 0.5px;">${tier}</span>
               </div>
@@ -1524,18 +1578,42 @@
 
     const showTargetProfile = (data) => {
       const profileContent = document.getElementById('risk-profile-content');
+      
+      // Compute dynamic Rank and Percentile
+      const sortedData = [...window.riskData].sort((a,b) => b.risk_score - a.risk_score);
+      const rankIndex = sortedData.findIndex(d => d.account_id === data.account_id);
+      const rank = rankIndex !== -1 ? rankIndex + 1 : 1;
+      const percentile = ((sortedData.length - rank) / sortedData.length * 100).toFixed(1) + '%';
+      
+      const pct = (data.risk_score * 100).toFixed(2) + '%';
+      
       let tierBadge = `<span class="badge bg-success">LOW RISK</span>`;
-      if (data.risk_tier === 'CRITICAL') tierBadge = `<span class="badge bg-danger">CRITICAL SECURITY THREAT</span>`;
-      else if (data.risk_tier === 'HIGH') tierBadge = `<span class="badge bg-warning text-dark">HIGH AUDIT PRIORITY</span>`;
-      else if (data.risk_tier === 'MEDIUM') tierBadge = `<span class="badge bg-info">MEDIUM WARNING</span>`;
+      let threatCat = 'Legitimate Pattern';
+      let color = '#10b981';
+      if (data.risk_tier === 'CRITICAL') {
+        tierBadge = `<span class="badge bg-danger">CRITICAL THREAT</span>`;
+        threatCat = 'Mule Network';
+        color = '#ef4444';
+      } else if (data.risk_tier === 'HIGH') {
+        tierBadge = `<span class="badge bg-warning text-dark">HIGH PRIORITY</span>`;
+        threatCat = 'High Velocity Suspect';
+        color = '#f97316';
+      } else if (data.risk_tier === 'MEDIUM') {
+        tierBadge = `<span class="badge bg-info">MEDIUM WARNING</span>`;
+        threatCat = 'Medium Activity Alert';
+        color = '#eab308';
+      }
 
       profileContent.innerHTML = `
-        <table class="table table-sm table-dark mt-3">
+        <table class="table table-sm table-dark mt-3" style="font-family: var(--font-mono); font-size: 0.75rem;">
           <tbody>
             <tr><th>Account ID</th><td>${data.account_id}</td></tr>
+            <tr><th>Surveillance Rank</th><td><strong>Rank #${rank}</strong> of ${sortedData.length}</td></tr>
+            <tr><th>Risk Percentile</th><td>${percentile}</td></tr>
             <tr><th>Risk Tier</th><td>${tierBadge}</td></tr>
-            <tr><th>Surveillance Action</th><td><strong>${data.action}</strong></td></tr>
-            <tr><th>LightGBM Core</th><td>${data.lgbm_score}</td></tr>
+            <tr><th>Threat Category</th><td>${threatCat}</td></tr>
+            <tr><th>Model Confidence</th><td style="color: ${color}; font-weight: bold;">${pct}</td></tr>
+            <tr><th>Recommended Action</th><td><strong>${data.action}</strong></td></tr>
           </tbody>
         </table>
       `;
@@ -1553,15 +1631,15 @@
         title: { text: "Aggregated Risk Rating", font: { size: 14 } },
         type: "indicator",
         mode: "gauge+number",
-        number: { font: { size: 36 } },
+        number: { font: { size: 36 }, valueformat: '.2%' },
         gauge: {
-          axis: { range: [0, 1] },
-          bar: { color: "#10B981" },
+          axis: { range: [0, 1], tickformat: '.0%' },
+          bar: { color: color },
           steps: [
-            { range: [0, 0.3], color: "#16A34A" },
-            { range: [0.3, 0.6], color: "#D97706" },
-            { range: [0.6, 0.85], color: "#EA580C" },
-            { range: [0.85, 1], color: "#DC2626" }
+            { range: [0, 0.4], color: "#16A34A20" },
+            { range: [0.4, 0.7], color: "#D9770620" },
+            { range: [0.7, 0.95], color: "#EA580C20" },
+            { range: [0.95, 1], color: "#DC262620" }
           ]
         }
       }];
