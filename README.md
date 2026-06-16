@@ -186,40 +186,20 @@ CipherZB160-IQ/
 
 ## Visual Gallery
 
-<details>
-<summary>Surveillance Command Center</summary>
-
+### Surveillance Command Center
 ![Platform Overview](https://raw.githubusercontent.com/akash14102006/CipherZB160-IQ/main/VAULT/RESEARCH/technical-docs/visuals/platform_overview.png)
 
-</details>
-
-<details>
-<summary>Model Evaluation — LightGBM (Champion)</summary>
-
+### Model Evaluation — LightGBM (Champion)
 ![LightGBM Analysis](https://raw.githubusercontent.com/akash14102006/CipherZB160-IQ/main/VAULT/RESEARCH/technical-docs/visuals/lightgbm_deep_dive.png)
 
-</details>
-
-<details>
-<summary>Model Evaluation — CatBoost (Challenger)</summary>
-
+### Model Evaluation — CatBoost (Challenger)
 ![CatBoost Analysis](https://raw.githubusercontent.com/akash14102006/CipherZB160-IQ/main/VAULT/RESEARCH/technical-docs/visuals/catboost_deep_dive.png)
 
-</details>
-
-<details>
-<summary>Model Evaluation — XGBoost (Challenger)</summary>
-
+### Model Evaluation — XGBoost (Challenger)
 ![XGBoost Analysis](https://raw.githubusercontent.com/akash14102006/CipherZB160-IQ/main/VAULT/RESEARCH/technical-docs/visuals/xgboost_deep_dive.png)
 
-</details>
-
-<details>
-<summary>Model Evaluation — Isolation Forest (Baseline)</summary>
-
+### Model Evaluation — Isolation Forest (Baseline)
 ![Isolation Forest Analysis](https://raw.githubusercontent.com/akash14102006/CipherZB160-IQ/main/VAULT/RESEARCH/technical-docs/visuals/isolation_forest_deep_dive.png)
-
-</details>
 
 ---
 
