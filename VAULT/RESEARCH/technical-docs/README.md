@@ -16,6 +16,7 @@ Enterprise banking surveillance and intelligence command center for real-time de
 
 - [Mission Snapshot](#mission-snapshot)
 - [Threat Landscape](#threat-landscape)
+- [Architecture](#architecture)
 - [Mission Brief](#mission-brief)
 - [Intelligence Pipeline](#intelligence-pipeline)
 - [Data DNA](#data-dna)
@@ -25,7 +26,6 @@ Enterprise banking surveillance and intelligence command center for real-time de
 - [Model Comparison](#model-comparison)
 - [Explainable AI](#explainable-ai)
 - [Governance & Compliance](#governance--compliance)
-- [Architecture](#architecture)
 - [Repository Structure](#repository-structure)
 - [Platform Capabilities](#platform-capabilities)
 - [Visual Gallery](#visual-gallery)
@@ -54,6 +54,14 @@ Enterprise banking surveillance and intelligence command center for real-time de
 | Undetected circular routing. | Laundering syndicates drain assets. |
 | Multi-day detection latency. | Mules transfer funds out successfully. |
 | Opaque black-box models. | Regulator compliance audits fail. |
+
+---
+
+## Architecture
+
+Visual overview of high-throughput ingestion, real-time feature store, and model scoring pipeline.
+
+![Architecture Diagram](architecture/architecture_diagram.png)
 
 ---
 
@@ -147,14 +155,6 @@ Detailed model evaluation curves, lift charts, and calibration parameters.
 ✓ Monitored
 
 ✓ Governed
-
----
-
-## Architecture
-
-Visual overview of high-throughput ingestion, real-time feature store, and model scoring pipeline.
-
-![Architecture Diagram](architecture/architecture_diagram.png)
 
 ---
 
