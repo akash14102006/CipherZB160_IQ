@@ -308,9 +308,13 @@
         if (model !== 'ALL' && model !== 'CHAMPION') {
           data = data.map(d => {
             let selectedScore = d.risk_score;
-            if (model === 'LightGBM') selectedScore = d.lgbm_score;
-            else if (model === 'CatBoost') selectedScore = d.catboost_score;
-            else if (model === 'XGBoost') selectedScore = d.xgboost_score;
+            if (model === 'LightGBM') {
+              selectedScore = (d.lgbm_score !== undefined && d.lgbm_score !== 'N/A') ? d.lgbm_score : d.risk_score;
+            } else if (model === 'CatBoost') {
+              selectedScore = (d.catboost_score !== undefined && d.catboost_score !== 'N/A') ? d.catboost_score : d.risk_score;
+            } else if (model === 'XGBoost') {
+              selectedScore = (d.xgboost_score !== undefined && d.xgboost_score !== 'N/A') ? d.xgboost_score : d.risk_score;
+            }
             return { ...d, risk_score: selectedScore };
           });
         }
@@ -319,9 +323,9 @@
         data = data.map(d => {
           const score = d.risk_score;
           let tier = 'LOW';
-          if (score >= 0.95) tier = 'CRITICAL';
-          else if (score >= 0.70) tier = 'HIGH';
-          else if (score >= 0.40) tier = 'MEDIUM';
+          if (score >= 0.90) tier = 'CRITICAL';
+          else if (score >= 0.10) tier = 'HIGH';
+          else if (score >= 0.01) tier = 'MEDIUM';
           return {
             ...d,
             risk_tier: tier,
@@ -912,8 +916,8 @@
       const p95 = sorted.length > 0 ? sorted[p95Idx] : 0;
       const p99Idx = Math.floor(sorted.length * 0.99);
       const p99 = sorted.length > 0 ? sorted[p99Idx] : 0;
-      const criticalCount = scores.filter(s => s >= 0.95).length;
-      const highCount = scores.filter(s => s >= 0.70 && s < 0.95).length;
+      const criticalCount = scores.filter(s => s >= 0.90).length;
+      const highCount = scores.filter(s => s >= 0.10 && s < 0.90).length;
 
       // Generate points for KDE curve
       const kdePoints = Array.from({length: 100}, (_, i) => i / 99);
@@ -980,10 +984,10 @@
 
       // Zones background fills
       const zones = [
-        { x0: 0,    x1: 0.40, color: 'rgba(16,185,129,0.02)',  label: 'LOW'      },
-        { x0: 0.40, x1: 0.70, color: 'rgba(245,158,11,0.02)',  label: 'MEDIUM'   },
-        { x0: 0.70, x1: 0.95, color: 'rgba(249,115,22,0.03)',  label: 'HIGH'     },
-        { x0: 0.95, x1: 1.00, color: 'rgba(239,68,68,0.04)',   label: 'CRITICAL' }
+        { x0: 0,    x1: 0.01, color: 'rgba(16,185,129,0.02)',  label: 'LOW'      },
+        { x0: 0.01, x1: 0.10, color: 'rgba(245,158,11,0.02)',  label: 'MEDIUM'   },
+        { x0: 0.10, x1: 0.90, color: 'rgba(249,115,22,0.03)',  label: 'HIGH'     },
+        { x0: 0.90, x1: 1.00, color: 'rgba(239,68,68,0.04)',   label: 'CRITICAL' }
       ];
 
       const shapes = [
@@ -1011,7 +1015,7 @@
         // Threshold markers
         {
           type: 'line',
-          x0: 0.95, x1: 0.95, y0: 0, y1: 1, yref: 'paper',
+          x0: 0.90, x1: 0.90, y0: 0, y1: 1, yref: 'paper',
           line: { color: '#EF4444', width: 1.5, dash: 'dot' }
         },
         // Top 5% marker
@@ -1033,7 +1037,7 @@
           showarrow: false, font: { color: '#06B6D4', size: 8 }, xanchor: 'left' },
         { x: median, y: 0.86, yref: 'paper', text: `M ${(median*100).toFixed(1)}%`,
           showarrow: false, font: { color: '#D946EF', size: 8 }, xanchor: 'left' },
-        { x: 0.95, y: 0.76, yref: 'paper', text: 'Crit 95%',
+        { x: 0.90, y: 0.76, yref: 'paper', text: 'Crit 90%',
           showarrow: false, font: { color: '#EF4444', size: 8 }, xanchor: 'right' },
         { x: p95, y: 0.66, yref: 'paper', text: 'Top 5%',
           showarrow: false, font: { color: '#F97316', size: 8 }, xanchor: 'right' },
@@ -1043,7 +1047,7 @@
         {
           xref: 'paper', yref: 'paper',
           x: 0.05, y: 0.95,
-          text: `<b>RISK INTELLIGENCE METRICS</b><br>Total Records: ${scores.length.toLocaleString()}<br>Mean Risk: ${(mean*100).toFixed(2)}%<br>Median Risk: ${(median*100).toFixed(2)}%<br>Top 5% Threshold: ${(p95*100).toFixed(2)}%<br>Top 1% Threshold: ${(p99*100).toFixed(2)}%<br>Critical Accounts (>=95%): ${criticalCount}`,
+          text: `<b>RISK INTELLIGENCE METRICS</b><br>Total Records: ${scores.length.toLocaleString()}<br>Mean Risk: ${(mean*100).toFixed(2)}%<br>Median Risk: ${(median*100).toFixed(2)}%<br>Top 5% Threshold: ${(p95*100).toFixed(2)}%<br>Top 1% Threshold: ${(p99*100).toFixed(2)}%<br>Critical Accounts (>=90%): ${criticalCount}`,
           showarrow: false,
           align: 'left',
           bgcolor: '#020817',
@@ -1476,17 +1480,17 @@
             let bgGrad = 'linear-gradient(90deg, #10b981, #34d399)';
             let action = 'Monitor';
             
-            if (pct >= 95) {
+            if (pct >= 90) {
               tier = 'CRITICAL';
               color = '#ef4444';
               bgGrad = 'linear-gradient(90deg, #ef4444, #f87171)';
               action = 'Block';
-            } else if (pct >= 70) {
+            } else if (pct >= 10) {
               tier = 'HIGH';
               color = '#f97316';
               bgGrad = 'linear-gradient(90deg, #f97316, #fb923c)';
               action = 'Escalate';
-            } else if (pct >= 40) {
+            } else if (pct >= 1) {
               tier = 'MEDIUM';
               color = '#eab308';
               bgGrad = 'linear-gradient(90deg, #eab308, #facc15)';
@@ -1634,24 +1638,30 @@
         value: activeScore,
         title: { text: "Aggregated Risk Rating", font: { size: 14 } },
         type: "indicator",
-        mode: "gauge+number",
-        number: { font: { size: 36 }, valueformat: '.2%' },
+        mode: "gauge",
         gauge: {
           axis: { range: [0, 1], tickformat: '.0%' },
           bar: { color: color },
           steps: [
-            { range: [0, 0.4], color: "#16A34A20" },
-            { range: [0.4, 0.7], color: "#D9770620" },
-            { range: [0.7, 0.95], color: "#EA580C20" },
-            { range: [0.95, 1], color: "#DC262620" }
+            { range: [0, 0.01], color: "#16A34A20" },
+            { range: [0.01, 0.10], color: "#D9770620" },
+            { range: [0.10, 0.90], color: "#EA580C20" },
+            { range: [0.90, 1.0], color: "#DC262620" }
           ]
         }
       }];
       const layout = {
         paper_bgcolor: 'rgba(0,0,0,0)',
         font: { color: '#F1F5F9', size: 10 },
-        margin: { t: 40, b: 20, l: 30, r: 50 },
-        autosize: true
+        margin: { t: 40, b: 20, l: 30, r: 30 },
+        autosize: true,
+        annotations: [{
+          text: pct,
+          x: 0.5,
+          y: 0.25,
+          showarrow: false,
+          font: { size: 28, color: '#F1F5F9', family: "var(--font-mono)" }
+        }]
       };
       Plotly.newPlot('risk-gauge', gaugeData, layout, {responsive: true});
     };
