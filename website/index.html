@@ -925,78 +925,7 @@
           </div>
         </div>
 
-        <!-- FOURTH COMPONENTS: Risk Score Density + Threat Intelligence Summary -->
-        <div class="row g-4 mb-4">
-          <div class="col-12 col-xl-4">
-            <div class="cyber-card">
-              <h5 class="mb-3 text-white"><span style="color: var(--primary); margin-right: 6px;">//</span> risk.score.density</h5>
-              <div id="chart-risk-density" style="height: 250px;"></div>
-            </div>
-          </div>
-          <div class="col-12 col-xl-8">
-            <div class="cyber-card">
-              <h5 class="mb-4 text-white" style="font-family: var(--font-headings); letter-spacing: 0.5px;">
-                <span style="color: var(--primary); margin-right: 6px;">//</span> THREAT INTELLIGENCE SUMMARY
-              </h5>
-              <div class="row g-3">
-                <div class="col-6 col-md-4 col-xl-4">
-                  <div class="p-3 rounded border border-danger" style="background: rgba(239, 68, 68, 0.05);">
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                      <i class="fa-solid fa-skull-crossbones text-danger"></i>
-                      <span class="small fw-bold text-white" style="font-family: var(--font-mono);">CRITICAL</span>
-                    </div>
-                    <div class="kpi-value text-danger" style="font-size: 1.5rem;">81</div>
-                    <div class="small text-muted mt-1" style="font-family: var(--font-mono); font-size: 0.65rem;">Critical Accounts</div>
-                  </div>
-                </div>
-                <div class="col-6 col-md-4 col-xl-4">
-                  <div class="p-3 rounded border border-warning" style="background: rgba(245, 158, 11, 0.05);">
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                      <i class="fa-solid fa-triangle-exclamation text-warning"></i>
-                      <span class="small fw-bold text-white" style="font-family: var(--font-mono);">HIGH RISK</span>
-                    </div>
-                    <div class="kpi-value text-warning" style="font-size: 1.5rem;">127</div>
-                    <div class="small text-muted mt-1" style="font-family: var(--font-mono); font-size: 0.65rem;">High Risk Accounts</div>
-                  </div>
-                </div>
-                <div class="col-6 col-md-4 col-xl-4">
-                  <div class="p-3 rounded border border-info" style="background: rgba(59, 130, 246, 0.05);">
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                      <i class="fa-solid fa-magnifying-glass text-info"></i>
-                      <span class="small fw-bold text-white" style="font-family: var(--font-mono);">INVESTIGATING</span>
-                    </div>
-                    <div class="kpi-value text-info" style="font-size: 1.5rem;">34</div>
-                    <div class="small text-muted mt-1" style="font-family: var(--font-mono); font-size: 0.65rem;">Under Investigation</div>
-                  </div>
-                </div>
-                <div class="col-6 col-md-4 col-xl-4">
-                  <div class="p-3 rounded border border-success" style="background: rgba(16, 185, 129, 0.05);">
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                      <i class="fa-solid fa-circle-check text-success"></i>
-                      <span class="small fw-bold text-white" style="font-family: var(--font-mono);">RESOLVED</span>
-                    </div>
-                    <div class="kpi-value text-success" style="font-size: 1.5rem;">47</div>
-                    <div class="small text-muted mt-1" style="font-family: var(--font-mono); font-size: 0.65rem;">Resolved Cases</div>
-                  </div>
-                </div>
-                <div class="col-6 col-md-4 col-xl-4">
-                  <div class="p-3 rounded border border-secondary" style="background: rgba(107, 114, 128, 0.05);">
-                    <div class="d-flex align-items-center gap-2 mb-2">
-                      <i class="fa-solid fa-ban text-secondary"></i>
-                      <span class="small fw-bold text-white" style="font-family: var(--font-mono);">BLOCKED</span>
-                    </div>
-                    <div class="kpi-value text-secondary" style="font-size: 1.5rem;">23</div>
-                    <div class="small text-muted mt-1" style="font-family: var(--font-mono); font-size: 0.65rem;">Blocked Accounts</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- PAGE 2: ANALYTICS CENTERS (SINGLE MODEL FILTER VIEW) -->
+        <!-- PAGE 2: ANALYTICS CENTERS (SINGLE MODEL FILTER VIEW) -->
       <div id="page-analytics-centers" style="display: none;">
         
         <!-- VISIBLE UIUX STYLE MODEL FILTER BAR -->
@@ -1378,35 +1307,65 @@
                   <h5 class="text-white">SURVEILLANCE QUEUE</h5>
                 </div>
                 <!-- Risk Intelligence Summary Panel -->
-                <div class="row g-2 mb-3 text-center" style="font-family: var(--font-mono); font-size: 0.75rem;">
-                  <div class="col-4 col-sm-2">
+                <div class="d-flex flex-wrap gap-2 mb-3 text-center justify-content-between" style="font-family: var(--font-mono); font-size: 0.72rem;">
+                  <div class="flex-grow-1" style="min-width: 85px; max-width: 120px;">
                     <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 4px; padding: 6px;">
-                      <div class="text-muted" style="font-size: 0.6rem;">TOTAL ACCOUNTS</div>
-                      <div class="text-white fw-bold">1,363</div>
+                      <div class="text-muted" style="font-size: 0.55rem; white-space: nowrap;">TOTAL ACC</div>
+                      <div class="text-white fw-bold" id="kpi-total-acc">9,082</div>
                     </div>
                   </div>
-                  <div class="col-4 col-sm-2">
+                  <div class="flex-grow-1" style="min-width: 85px; max-width: 120px;">
                     <div style="background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.3); border-radius: 4px; padding: 6px;">
-                      <div class="text-danger" style="font-size: 0.6rem;">CRITICAL ACCOUNTS</div>
-                      <div class="text-danger fw-bold">7</div>
+                      <div class="text-danger" style="font-size: 0.55rem; white-space: nowrap;">CRIT ACC</div>
+                      <div class="text-danger fw-bold" id="kpi-crit-acc">7</div>
                     </div>
                   </div>
-                  <div class="col-4 col-sm-2">
+                  <div class="flex-grow-1" style="min-width: 85px; max-width: 120px;">
+                    <div style="background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.3); border-radius: 4px; padding: 6px;">
+                      <div class="text-danger" style="font-size: 0.55rem; white-space: nowrap;">MULES</div>
+                      <div class="text-danger fw-bold" id="kpi-mules-acc">81</div>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1" style="min-width: 85px; max-width: 120px;">
                     <div style="background: rgba(249,115,22,0.08); border: 1px solid rgba(249,115,22,0.3); border-radius: 4px; padding: 6px;">
-                      <div class="text-warning" style="font-size: 0.6rem;">AVG RISK SCORE</div>
-                      <div class="text-warning fw-bold">54.16%</div>
+                      <div class="text-warning" style="font-size: 0.55rem; white-space: nowrap;">AVG RISK</div>
+                      <div class="text-warning fw-bold" id="kpi-avg-risk">54.16%</div>
                     </div>
                   </div>
-                  <div class="col-6 col-sm-3">
+                  <div class="flex-grow-1" style="min-width: 85px; max-width: 120px;">
                     <div style="background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.3); border-radius: 4px; padding: 6px;">
-                      <div class="text-success" style="font-size: 0.6rem;">CHAMPION MODEL</div>
-                      <div class="text-success fw-bold">LightGBM</div>
+                      <div class="text-success" style="font-size: 0.55rem; white-space: nowrap;">MODEL</div>
+                      <div class="text-success fw-bold" id="kpi-model-name" style="font-size: 0.65rem;">LightGBM</div>
                     </div>
                   </div>
-                  <div class="col-6 col-sm-3">
+                  <div class="flex-grow-1" style="min-width: 85px; max-width: 120px;">
                     <div style="background: rgba(6,182,212,0.08); border: 1px solid rgba(6,182,212,0.3); border-radius: 4px; padding: 6px;">
-                      <div class="text-info" style="font-size: 0.6rem;">ROC-AUC POWER</div>
-                      <div class="text-info fw-bold">99.93%</div>
+                      <div class="text-info" style="font-size: 0.55rem; white-space: nowrap;">ROC-AUC</div>
+                      <div class="text-info fw-bold" id="kpi-roc-auc-val">99.93%</div>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1" style="min-width: 85px; max-width: 120px;">
+                    <div style="background: rgba(6,182,212,0.08); border: 1px solid rgba(6,182,212,0.3); border-radius: 4px; padding: 6px;">
+                      <div class="text-info" style="font-size: 0.55rem; white-space: nowrap;">PRECISION</div>
+                      <div class="text-info fw-bold" id="kpi-precision-val">90.00%</div>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1" style="min-width: 85px; max-width: 120px;">
+                    <div style="background: rgba(6,182,212,0.08); border: 1px solid rgba(6,182,212,0.3); border-radius: 4px; padding: 6px;">
+                      <div class="text-info" style="font-size: 0.55rem; white-space: nowrap;">RECALL</div>
+                      <div class="text-info fw-bold" id="kpi-recall-val">75.00%</div>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1" style="min-width: 85px; max-width: 120px;">
+                    <div style="background: rgba(6,182,212,0.08); border: 1px solid rgba(6,182,212,0.3); border-radius: 4px; padding: 6px;">
+                      <div class="text-info" style="font-size: 0.55rem; white-space: nowrap;">F1 SCORE</div>
+                      <div class="text-info fw-bold" id="kpi-f1-val">81.82%</div>
+                    </div>
+                  </div>
+                  <div class="flex-grow-1" style="min-width: 85px; max-width: 120px;">
+                    <div style="background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.3); border-radius: 4px; padding: 6px;">
+                      <div class="text-primary" style="font-size: 0.55rem; white-space: nowrap; color: #a78bfa !important;">SHAP COV</div>
+                      <div class="text-primary fw-bold" id="kpi-shap-cov" style="color: #a78bfa !important;">500 Recs</div>
                     </div>
                   </div>
                 </div>

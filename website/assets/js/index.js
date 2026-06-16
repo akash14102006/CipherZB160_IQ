@@ -333,7 +333,7 @@
       },
 
       getFilteredData() {
-        let data = [...riskData];
+        let data = [...(window.riskData || [])];
         
         const model = this.filters.model;
         if (model !== 'ALL' && model !== 'CHAMPION') {
@@ -370,11 +370,11 @@
         const type = this.filters.accountType;
         if (type !== 'ALL') {
           if (type === 'Mule') {
-            data = data.filter(d => d.risk_score >= 0.85);
+            data = data.filter(d => d.actual_label === 1);
           } else if (type === 'Suspicious') {
-            data = data.filter(d => d.risk_score >= 0.3 && d.risk_score < 0.85);
+            data = data.filter(d => d.actual_label !== 1 && d.risk_score >= 0.3 && d.risk_score < 0.85);
           } else if (type === 'Legitimate') {
-            data = data.filter(d => d.risk_score < 0.3);
+            data = data.filter(d => d.actual_label !== 1 && d.risk_score < 0.3);
           }
         }
 
@@ -394,13 +394,13 @@
       },
 
       updateGeneralStats(data) {
-        const totalEl = document.getElementById('kpi-total-accounts');
+        const totalEl = document.getElementById('kpi-total-accounts') || document.getElementById('kpi-total-acc');
         if (totalEl) totalEl.innerText = "9,082";
         
-        const mulesEl = document.getElementById('kpi-mules-count');
+        const mulesEl = document.getElementById('kpi-mules-count') || document.getElementById('kpi-mules-acc');
         if (mulesEl) mulesEl.innerText = "81";
         
-        const rateEl = document.getElementById('kpi-fraud-rate');
+        const rateEl = document.getElementById('kpi-fraud-rate') || document.getElementById('kpi-avg-risk');
         if (rateEl) {
           rateEl.innerText = "0.89%";
         }
@@ -408,14 +408,26 @@
         const modelKey = this.filters.model;
         const metrics = modelMetrics[modelKey] || modelMetrics['ALL'];
         
-        const rocEl = document.getElementById('kpi-roc-auc');
+        const rocEl = document.getElementById('kpi-roc-auc') || document.getElementById('kpi-roc-auc-val');
         if (rocEl) rocEl.innerText = metrics.roc;
         
-        const f1El = document.getElementById('kpi-f1-score');
+        const f1El = document.getElementById('kpi-f1-score') || document.getElementById('kpi-f1-val');
         if (f1El) f1El.innerText = metrics.f1;
         
-        const recallEl = document.getElementById('kpi-recall');
+        const recallEl = document.getElementById('kpi-recall') || document.getElementById('kpi-recall-val');
         if (recallEl) recallEl.innerText = metrics.recall;
+
+        const precisionEl = document.getElementById('kpi-precision-val');
+        if (precisionEl) precisionEl.innerText = modelKey === 'CatBoost' ? '80.00%' : (modelKey === 'XGBoost' ? '78.00%' : '90.00%');
+
+        const kpiModelEl = document.getElementById('kpi-model-name');
+        if (kpiModelEl) kpiModelEl.innerText = modelKey === 'ALL' ? 'LightGBM' : modelKey;
+
+        const shapCovEl = document.getElementById('kpi-shap-cov');
+        if (shapCovEl) shapCovEl.innerText = '500 Recs';
+
+        const critAccEl = document.getElementById('kpi-crit-acc');
+        if (critAccEl) critAccEl.innerText = '7';
       },
 
       selectAnalyticsModel(model) {
@@ -848,7 +860,7 @@
     });
 
     // Plots configurations & bindings
-    const plotClassDistribution = (dataInput = riskData) => {
+    const plotClassDistribution = (dataInput = window.riskData) => {
       const mules = dataInput.filter(d => d.risk_score >= 0.85).length;
       const legit = dataInput.length - mules;
       
@@ -882,7 +894,7 @@
       });
     };
 
-    const plotRiskTier = (dataInput = riskData) => {
+    const plotRiskTier = (dataInput = window.riskData) => {
       const low = dataInput.filter(d => d.risk_tier === 'LOW').length;
       const med = dataInput.filter(d => d.risk_tier === 'MEDIUM').length;
       const high = dataInput.filter(d => d.risk_tier === 'HIGH').length;
@@ -914,7 +926,7 @@
     };
 
     // Histogram distribution with Gaussian KDE
-    const plotRiskDensity = (dataInput = riskData) => {
+    const plotRiskDensity = (dataInput = window.riskData) => {
       const plotDiv = document.getElementById('chart-risk-density');
       if (!plotDiv) return;
 
@@ -1437,20 +1449,39 @@
       }
     };
 
-    const getRiskLabel = (score, recordId) => {
-      if (score >= 0.95) {
-        const labels = ['Critical Exposure', 'Mule Network Threat', 'Systemic Fraud Risk', 'High-Frequency Alert'];
-        return labels[recordId % labels.length];
-      } else if (score >= 0.70) {
-        const labels = ['Network Risk', 'Velocity Deviation', 'Anomaly Spike', 'Counterparty Risk'];
-        return labels[recordId % labels.length];
-      } else if (score >= 0.40) {
-        const labels = ['Transaction Risk', 'Activity Shift', 'Behavioral Alert', 'Location Mismatch'];
-        return labels[recordId % labels.length];
-      } else {
-        const labels = ['Baseline Activity', 'Standard Flow', 'Low Latency Activity', 'Verified Profile'];
-        return labels[recordId % labels.length];
+    const getThreatCategory = (d) => {
+      if (!d) return 'Low Risk Activity';
+      const f1 = d.top_feature_1 || '';
+      const f2 = d.top_feature_2 || '';
+      const isMule = d.actual_label === 1 || d.risk_tier === 'CRITICAL';
+      
+      if (isMule) {
+        if (f1 === 'F3025' || f2 === 'F3025') return 'Mule Network';
+        if (f1 === 'F1921' || f2 === 'F1921') return 'Circular Transfers';
+        if (f1 === 'F1863' || f2 === 'F1863') return 'Rapid Cash-Out';
+        if (f1 === 'F3898' || f2 === 'F3898') return 'Transaction Structuring';
+        return 'Mule Account Chaining';
       }
+      
+      if (d.risk_tier === 'HIGH') {
+        if (f1 === 'F1863') return 'Velocity Spike';
+        if (f1 === 'F1921') return 'Beneficiary Funnel';
+        if (f1 === 'F3484') return 'Suspicious Reactivation';
+        return 'High Risk Anomaly';
+      }
+      
+      if (d.risk_tier === 'MEDIUM') {
+        if (f1 === 'F3240_missing') return 'KYC Non-Compliance';
+        if (f1 === 'F3484') return 'Suspicious Activity';
+        return 'Standard Escalation';
+      }
+      
+      return 'Low Risk Activity';
+    };
+
+    const getRiskLabel = (score, recordId) => {
+      const d = (window.riskData || []).find(r => r.record_id === recordId) || {};
+      return getThreatCategory(d);
     };
 
     // Risk Engine Interactive Queue AG Grid
@@ -1489,7 +1520,7 @@
               action = 'Review';
             }
             
-            const riskLabel = getRiskLabel(val, params.data.record_id || 0);
+            const riskLabel = getThreatCategory(params.data);
             const tooltip = `Risk Score: ${pctStr}\nRisk Tier: ${tier}\nModel: LightGBM\nRecommended Action: ${action}`;
             
             return `
@@ -1507,28 +1538,25 @@
           }
         },
         { 
-          field: 'risk_tier', 
-          headerName: 'Tier', 
-          width: 100,
+          field: 'lgbm_score', 
+          headerName: 'LightGBM', 
+          width: 90,
           cellRenderer: params => {
-            if (params.value === 'CRITICAL') return `<span class="badge bg-danger">CRITICAL</span>`;
-            if (params.value === 'HIGH') return `<span class="badge bg-warning text-dark">HIGH</span>`;
-            if (params.value === 'MEDIUM') return `<span class="badge bg-info">MEDIUM</span>`;
-            return `<span class="badge bg-success">LOW</span>`;
+            const val = parseFloat(params.value);
+            return isNaN(val) ? '0.00%' : (val * 100).toFixed(2) + '%';
           }
         },
-        { field: 'lgbm_score', headerName: 'LightGBM', width: 90 },
         { field: 'action', headerName: 'Action', width: 110 }
       ];
 
       const gridOptions = {
         columnDefs: columnDefs,
-        rowData: window.riskData || [],
+        rowData: GlobalState.getFilteredData(),
         rowSelection: 'single',
         pagination: true,
-        paginationPageSize: 10,
-        rowHeight: 38,
-        headerHeight: 34,
+        paginationPageSize: 25,
+        rowHeight: 28,
+        headerHeight: 28,
         suppressHorizontalScroll: true,
         suppressColumnVirtualisation: true,
         domLayout: "normal",
@@ -1578,31 +1606,60 @@
 
     const showTargetProfile = (data) => {
       const profileContent = document.getElementById('risk-profile-content');
+      const gaugeDiv = document.getElementById('risk-gauge');
       
-      // Compute dynamic Rank and Percentile
-      const sortedData = [...window.riskData].sort((a,b) => b.risk_score - a.risk_score);
+      if (!data) {
+        if (profileContent) {
+          profileContent.innerHTML = `
+            <div class="alert alert-info bg-dark border-secondary text-center mt-3">Select account to inspect</div>
+          `;
+        }
+        if (gaugeDiv) {
+          gaugeDiv.style.display = 'none';
+        }
+        return;
+      }
+      
+      if (gaugeDiv) {
+        gaugeDiv.style.display = 'block';
+      }
+
+      // Compute dynamic Rank and Percentile across the full dataset based on active model
+      const model = GlobalState.filters.model;
+      const getActiveScore = (d) => {
+        let score = d.risk_score;
+        if (model === 'LightGBM') score = d.lgbm_score !== 'N/A' ? d.lgbm_score : d.risk_score;
+        else if (model === 'CatBoost') score = d.catboost_score !== 'N/A' ? d.catboost_score : d.risk_score;
+        else if (model === 'XGBoost') score = d.xgboost_score !== 'N/A' ? d.xgboost_score : d.risk_score;
+        return score;
+      };
+
+      const sortedData = [...(window.riskData || [])].map(d => ({
+        ...d,
+        active_score: getActiveScore(d)
+      })).sort((a,b) => b.active_score - a.active_score);
+
       const rankIndex = sortedData.findIndex(d => d.account_id === data.account_id);
       const rank = rankIndex !== -1 ? rankIndex + 1 : 1;
-      const percentile = ((sortedData.length - rank) / sortedData.length * 100).toFixed(1) + '%';
+      const percentile = ((sortedData.length - rank) / sortedData.length * 100).toFixed(2) + '%';
       
-      const pct = (data.risk_score * 100).toFixed(2) + '%';
+      const activeScore = getActiveScore(data);
+      const pct = (activeScore * 100).toFixed(2) + '%';
       
       let tierBadge = `<span class="badge bg-success">LOW RISK</span>`;
-      let threatCat = 'Legitimate Pattern';
       let color = '#10b981';
       if (data.risk_tier === 'CRITICAL') {
         tierBadge = `<span class="badge bg-danger">CRITICAL THREAT</span>`;
-        threatCat = 'Mule Network';
         color = '#ef4444';
       } else if (data.risk_tier === 'HIGH') {
         tierBadge = `<span class="badge bg-warning text-dark">HIGH PRIORITY</span>`;
-        threatCat = 'High Velocity Suspect';
         color = '#f97316';
       } else if (data.risk_tier === 'MEDIUM') {
         tierBadge = `<span class="badge bg-info">MEDIUM WARNING</span>`;
-        threatCat = 'Medium Activity Alert';
         color = '#eab308';
       }
+
+      const threatCat = getThreatCategory(data);
 
       profileContent.innerHTML = `
         <table class="table table-sm table-dark mt-3" style="font-family: var(--font-mono); font-size: 0.75rem;">
@@ -1627,7 +1684,7 @@
 
       const gaugeData = [{
         domain: { x: [0, 1], y: [0, 1] },
-        value: data.risk_score,
+        value: activeScore,
         title: { text: "Aggregated Risk Rating", font: { size: 14 } },
         type: "indicator",
         mode: "gauge+number",
