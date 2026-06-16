@@ -1,0 +1,823 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "opencode.json",
+      "file_type": "code",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L1",
+      "id": "opencode_opencode",
+      "community": 6,
+      "norm_label": "opencode.json"
+    },
+    {
+      "label": "plugin",
+      "file_type": "code",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L2",
+      "id": "opencode_opencode_plugin",
+      "community": 6,
+      "norm_label": "plugin"
+    },
+    {
+      "label": "graphify.js",
+      "file_type": "code",
+      "source_file": ".opencode/plugins/graphify.js",
+      "source_location": "L1",
+      "id": "plugins_graphify",
+      "community": 8,
+      "norm_label": "graphify.js"
+    },
+    {
+      "label": "GraphifyPlugin()",
+      "file_type": "code",
+      "source_file": ".opencode/plugins/graphify.js",
+      "source_location": "L6",
+      "id": "plugins_graphify_graphifyplugin",
+      "community": 8,
+      "norm_label": "graphifyplugin()"
+    },
+    {
+      "label": "launch.json",
+      "file_type": "code",
+      "source_file": ".vscode/launch.json",
+      "source_location": "L1",
+      "id": "vscode_launch",
+      "community": 5,
+      "norm_label": "launch.json"
+    },
+    {
+      "label": "version",
+      "file_type": "code",
+      "source_file": ".vscode/launch.json",
+      "source_location": "L5",
+      "id": "vscode_launch_version",
+      "community": 5,
+      "norm_label": "version"
+    },
+    {
+      "label": "configurations",
+      "file_type": "code",
+      "source_file": ".vscode/launch.json",
+      "source_location": "L6",
+      "id": "vscode_launch_configurations",
+      "community": 5,
+      "norm_label": "configurations"
+    },
+    {
+      "label": "xgboost_model.json",
+      "file_type": "code",
+      "source_file": "models/challenger/xgboost_model.json",
+      "source_location": "L1",
+      "id": "challenger_xgboost_model",
+      "community": 10,
+      "norm_label": "xgboost_model.json"
+    },
+    {
+      "label": "Executive Overview.md",
+      "file_type": "document",
+      "source_file": "Planning/Executive Overview.md",
+      "source_location": "L1",
+      "id": "planning_executive_overview",
+      "community": 12,
+      "norm_label": "executive overview.md"
+    },
+    {
+      "label": "SKILL.md",
+      "file_type": "document",
+      "source_file": "Planning/SKILL.md",
+      "source_location": "L1",
+      "id": "planning_skill",
+      "community": 4,
+      "norm_label": "skill.md"
+    },
+    {
+      "label": "Design Thinking",
+      "file_type": "document",
+      "source_file": "Planning/SKILL.md",
+      "source_location": "L11",
+      "id": "planning_skill_design_thinking",
+      "community": 4,
+      "norm_label": "design thinking"
+    },
+    {
+      "label": "Frontend Aesthetics Guidelines",
+      "file_type": "document",
+      "source_file": "Planning/SKILL.md",
+      "source_location": "L27",
+      "id": "planning_skill_frontend_aesthetics_guidelines",
+      "community": 4,
+      "norm_label": "frontend aesthetics guidelines"
+    },
+    {
+      "label": "uiux_master_prompt_README.md",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L1",
+      "id": "planning_uiux_master_prompt_readme",
+      "community": 0,
+      "norm_label": "uiux_master_prompt_readme.md"
+    },
+    {
+      "label": "\ud83e\udde0 MASTER PROMPT \u2013 UI/UX DESIGN ARCHITECT (PROFESSIONAL DASHBOARD SYSTEM)",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L1",
+      "id": "planning_uiux_master_prompt_readme_master_prompt_ui_ux_design_architect_professional_dashboard_system",
+      "community": 0,
+      "norm_label": "\ud83e\udde0 master prompt \u2013 ui/ux design architect (professional dashboard system)"
+    },
+    {
+      "label": "\ud83e\udde0 ROLE",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L5",
+      "id": "planning_uiux_master_prompt_readme_role",
+      "community": 7,
+      "norm_label": "\ud83e\udde0 role"
+    },
+    {
+      "label": "Experience:",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L11",
+      "id": "planning_uiux_master_prompt_readme_experience",
+      "community": 7,
+      "norm_label": "experience:"
+    },
+    {
+      "label": "\ud83c\udfaf PROJECT CONTEXT",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L17",
+      "id": "planning_uiux_master_prompt_readme_project_context",
+      "community": 0,
+      "norm_label": "\ud83c\udfaf project context"
+    },
+    {
+      "label": "\ud83c\udfa8 DESIGN THEME",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L23",
+      "id": "planning_uiux_master_prompt_readme_design_theme",
+      "community": 0,
+      "norm_label": "\ud83c\udfa8 design theme"
+    },
+    {
+      "label": "\ud83c\udfad DESIGN STYLE",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L33",
+      "id": "planning_uiux_master_prompt_readme_design_style",
+      "community": 0,
+      "norm_label": "\ud83c\udfad design style"
+    },
+    {
+      "label": "\ud83d\udcd0 LAYOUT",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L47",
+      "id": "planning_uiux_master_prompt_readme_layout",
+      "community": 0,
+      "norm_label": "\ud83d\udcd0 layout"
+    },
+    {
+      "label": "\ud83e\udde9 COMPONENTS",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L54",
+      "id": "planning_uiux_master_prompt_readme_components",
+      "community": 1,
+      "norm_label": "\ud83e\udde9 components"
+    },
+    {
+      "label": "Cards",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L56",
+      "id": "planning_uiux_master_prompt_readme_cards",
+      "community": 1,
+      "norm_label": "cards"
+    },
+    {
+      "label": "Buttons",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L61",
+      "id": "planning_uiux_master_prompt_readme_buttons",
+      "community": 1,
+      "norm_label": "buttons"
+    },
+    {
+      "label": "Forms",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L65",
+      "id": "planning_uiux_master_prompt_readme_forms",
+      "community": 1,
+      "norm_label": "forms"
+    },
+    {
+      "label": "Tables",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L69",
+      "id": "planning_uiux_master_prompt_readme_tables",
+      "community": 1,
+      "norm_label": "tables"
+    },
+    {
+      "label": "Navbar",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L73",
+      "id": "planning_uiux_master_prompt_readme_navbar",
+      "community": 1,
+      "norm_label": "navbar"
+    },
+    {
+      "label": "Sidebar",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L76",
+      "id": "planning_uiux_master_prompt_readme_sidebar",
+      "community": 1,
+      "norm_label": "sidebar"
+    },
+    {
+      "label": "\ud83d\udd24 TYPOGRAPHY",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L81",
+      "id": "planning_uiux_master_prompt_readme_typography",
+      "community": 0,
+      "norm_label": "\ud83d\udd24 typography"
+    },
+    {
+      "label": "\ud83d\udc64 USER UI",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L89",
+      "id": "planning_uiux_master_prompt_readme_user_ui",
+      "community": 3,
+      "norm_label": "\ud83d\udc64 user ui"
+    },
+    {
+      "label": "Home",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L91",
+      "id": "planning_uiux_master_prompt_readme_home",
+      "community": 3,
+      "norm_label": "home"
+    },
+    {
+      "label": "Raise Issue",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L96",
+      "id": "planning_uiux_master_prompt_readme_raise_issue",
+      "community": 3,
+      "norm_label": "raise issue"
+    },
+    {
+      "label": "My Requests",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L99",
+      "id": "planning_uiux_master_prompt_readme_my_requests",
+      "community": 3,
+      "norm_label": "my requests"
+    },
+    {
+      "label": "Issue Details",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L102",
+      "id": "planning_uiux_master_prompt_readme_issue_details",
+      "community": 3,
+      "norm_label": "issue details"
+    },
+    {
+      "label": "\ud83c\udfdb\ufe0f ADMIN DASHBOARD",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L107",
+      "id": "planning_uiux_master_prompt_readme_admin_dashboard",
+      "community": 2,
+      "norm_label": "\ud83c\udfdb\ufe0f admin dashboard"
+    },
+    {
+      "label": "Dashboard",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L109",
+      "id": "planning_uiux_master_prompt_readme_dashboard",
+      "community": 2,
+      "norm_label": "dashboard"
+    },
+    {
+      "label": "Issues",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L113",
+      "id": "planning_uiux_master_prompt_readme_issues",
+      "community": 2,
+      "norm_label": "issues"
+    },
+    {
+      "label": "Tasks",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L116",
+      "id": "planning_uiux_master_prompt_readme_tasks",
+      "community": 2,
+      "norm_label": "tasks"
+    },
+    {
+      "label": "Live Tracking",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L119",
+      "id": "planning_uiux_master_prompt_readme_live_tracking",
+      "community": 2,
+      "norm_label": "live tracking"
+    },
+    {
+      "label": "Escalation",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L122",
+      "id": "planning_uiux_master_prompt_readme_escalation",
+      "community": 2,
+      "norm_label": "escalation"
+    },
+    {
+      "label": "\ud83d\udcca VISUALIZATION",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L127",
+      "id": "planning_uiux_master_prompt_readme_visualization",
+      "community": 0,
+      "norm_label": "\ud83d\udcca visualization"
+    },
+    {
+      "label": "\u26a0\ufe0f UX RULES",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L135",
+      "id": "planning_uiux_master_prompt_readme_ux_rules",
+      "community": 0,
+      "norm_label": "\u26a0\ufe0f ux rules"
+    },
+    {
+      "label": "\ud83c\udfaf FINAL GOAL",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L143",
+      "id": "planning_uiux_master_prompt_readme_final_goal",
+      "community": 0,
+      "norm_label": "\ud83c\udfaf final goal"
+    },
+    {
+      "label": "\ud83d\udce6 OUTPUT FORMAT",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L149",
+      "id": "planning_uiux_master_prompt_readme_output_format",
+      "community": 0,
+      "norm_label": "\ud83d\udce6 output format"
+    },
+    {
+      "label": "\ud83d\udeab RULES",
+      "file_type": "document",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L159",
+      "id": "planning_uiux_master_prompt_readme_rules",
+      "community": 0,
+      "norm_label": "\ud83d\udeab rules"
+    },
+    {
+      "label": "README.md",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "id": "readme",
+      "community": 9,
+      "norm_label": "readme.md"
+    },
+    {
+      "label": "CipherZB160-IQ",
+      "file_type": "document",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "id": "readme_cipherzb160_iq",
+      "community": 9,
+      "norm_label": "cipherzb160-iq"
+    },
+    {
+      "label": "changes.md",
+      "file_type": "document",
+      "source_file": "changes.md",
+      "source_location": "L1",
+      "id": "changes",
+      "community": 11,
+      "norm_label": "changes.md"
+    },
+    {
+      "label": "task.md",
+      "file_type": "document",
+      "source_file": "task.md",
+      "source_location": "L1",
+      "id": "task",
+      "community": 13,
+      "norm_label": "task.md"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".opencode/opencode.json",
+      "source_location": "L2",
+      "weight": 1.0,
+      "source": "opencode_opencode",
+      "target": "opencode_opencode_plugin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".opencode/plugins/graphify.js",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "plugins_graphify",
+      "target": "plugins_graphify_graphifyplugin",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vscode/launch.json",
+      "source_location": "L6",
+      "weight": 1.0,
+      "source": "vscode_launch",
+      "target": "vscode_launch_configurations",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": ".vscode/launch.json",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "vscode_launch",
+      "target": "vscode_launch_version",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/SKILL.md",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "planning_skill",
+      "target": "planning_skill_design_thinking",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/SKILL.md",
+      "source_location": "L27",
+      "weight": 1.0,
+      "source": "planning_skill",
+      "target": "planning_skill_frontend_aesthetics_guidelines",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme",
+      "target": "planning_uiux_master_prompt_readme_master_prompt_ui_ux_design_architect_professional_dashboard_system",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L107",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_master_prompt_ui_ux_design_architect_professional_dashboard_system",
+      "target": "planning_uiux_master_prompt_readme_admin_dashboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L54",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_master_prompt_ui_ux_design_architect_professional_dashboard_system",
+      "target": "planning_uiux_master_prompt_readme_components",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L33",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_master_prompt_ui_ux_design_architect_professional_dashboard_system",
+      "target": "planning_uiux_master_prompt_readme_design_style",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L23",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_master_prompt_ui_ux_design_architect_professional_dashboard_system",
+      "target": "planning_uiux_master_prompt_readme_design_theme",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L143",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_master_prompt_ui_ux_design_architect_professional_dashboard_system",
+      "target": "planning_uiux_master_prompt_readme_final_goal",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L47",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_master_prompt_ui_ux_design_architect_professional_dashboard_system",
+      "target": "planning_uiux_master_prompt_readme_layout",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L149",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_master_prompt_ui_ux_design_architect_professional_dashboard_system",
+      "target": "planning_uiux_master_prompt_readme_output_format",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L17",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_master_prompt_ui_ux_design_architect_professional_dashboard_system",
+      "target": "planning_uiux_master_prompt_readme_project_context",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L5",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_master_prompt_ui_ux_design_architect_professional_dashboard_system",
+      "target": "planning_uiux_master_prompt_readme_role",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L159",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_master_prompt_ui_ux_design_architect_professional_dashboard_system",
+      "target": "planning_uiux_master_prompt_readme_rules",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L81",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_master_prompt_ui_ux_design_architect_professional_dashboard_system",
+      "target": "planning_uiux_master_prompt_readme_typography",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L89",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_master_prompt_ui_ux_design_architect_professional_dashboard_system",
+      "target": "planning_uiux_master_prompt_readme_user_ui",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L135",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_master_prompt_ui_ux_design_architect_professional_dashboard_system",
+      "target": "planning_uiux_master_prompt_readme_ux_rules",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L127",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_master_prompt_ui_ux_design_architect_professional_dashboard_system",
+      "target": "planning_uiux_master_prompt_readme_visualization",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L11",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_role",
+      "target": "planning_uiux_master_prompt_readme_experience",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L61",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_components",
+      "target": "planning_uiux_master_prompt_readme_buttons",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L56",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_components",
+      "target": "planning_uiux_master_prompt_readme_cards",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L65",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_components",
+      "target": "planning_uiux_master_prompt_readme_forms",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L73",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_components",
+      "target": "planning_uiux_master_prompt_readme_navbar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L76",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_components",
+      "target": "planning_uiux_master_prompt_readme_sidebar",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L69",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_components",
+      "target": "planning_uiux_master_prompt_readme_tables",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L91",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_user_ui",
+      "target": "planning_uiux_master_prompt_readme_home",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L102",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_user_ui",
+      "target": "planning_uiux_master_prompt_readme_issue_details",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L99",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_user_ui",
+      "target": "planning_uiux_master_prompt_readme_my_requests",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L96",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_user_ui",
+      "target": "planning_uiux_master_prompt_readme_raise_issue",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L109",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_admin_dashboard",
+      "target": "planning_uiux_master_prompt_readme_dashboard",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L122",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_admin_dashboard",
+      "target": "planning_uiux_master_prompt_readme_escalation",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L113",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_admin_dashboard",
+      "target": "planning_uiux_master_prompt_readme_issues",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L119",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_admin_dashboard",
+      "target": "planning_uiux_master_prompt_readme_live_tracking",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "Planning/uiux_master_prompt_README.md",
+      "source_location": "L116",
+      "weight": 1.0,
+      "source": "planning_uiux_master_prompt_readme_admin_dashboard",
+      "target": "planning_uiux_master_prompt_readme_tasks",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "README.md",
+      "source_location": "L1",
+      "weight": 1.0,
+      "source": "readme",
+      "target": "readme_cipherzb160_iq",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": [],
+  "built_at_commit": "58ea35de36a00aef8b88a17e4812e6e2294818f7"
+}

@@ -1,0 +1,217 @@
+{
+  ".opencode/opencode.json": {
+    "mtime": 1781482904.9806876,
+    "ast_hash": "f2ae21510d07365eb2bce8159272c7a0",
+    "semantic_hash": ""
+  },
+  ".opencode/plugins/graphify.js": {
+    "mtime": 1781482904.9796784,
+    "ast_hash": "32b67963417a30cb80544e0b2a56a98d",
+    "semantic_hash": ""
+  },
+  ".vscode/launch.json": {
+    "mtime": 1781472616.8201563,
+    "ast_hash": "f61b761a6155a9836edd23e84b6fbd22",
+    "semantic_hash": ""
+  },
+  "models/challenger/xgboost_model.json": {
+    "mtime": 1781470876.09308,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "reports/model_evaluation/xgboost/xgboost_model_v1.json": {
+    "mtime": 1781444792.474,
+    "ast_hash": "af2fc3f8104708378edf07abffeb37eb",
+    "semantic_hash": ""
+  },
+  "Planning/Executive Overview.md": {
+    "mtime": 1781472348.2266374,
+    "ast_hash": "d12eeb7b5aecf8d34fe864c39b111426",
+    "semantic_hash": ""
+  },
+  "Planning/SKILL.md": {
+    "mtime": 1774083584.92252,
+    "ast_hash": "a686132048d02d9a16350b81cfed6e60",
+    "semantic_hash": ""
+  },
+  "Planning/uiux_master_prompt_README.md": {
+    "mtime": 1774557641.842894,
+    "ast_hash": "5c50ad0802af47383c0382d280c22581",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1781482076.1630764,
+    "ast_hash": "e6eae71ba0eebe8ba75f58fd0a2cc638",
+    "semantic_hash": ""
+  },
+  "changes.md": {
+    "mtime": 1781475472.5126672,
+    "ast_hash": "e614450349674794a65b9f547a6c6b34",
+    "semantic_hash": ""
+  },
+  "dashboard.html": {
+    "mtime": 1781477083.9137418,
+    "ast_hash": "4a4a21df1ebfdcefe0a39aa52168688f",
+    "semantic_hash": ""
+  },
+  "index.html": {
+    "mtime": 1781481673.7472043,
+    "ast_hash": "41a5efbd75e732054dffd50b2027a18a",
+    "semantic_hash": ""
+  },
+  "models/challenger/lightgbm_model.txt": {
+    "mtime": 1781470876.0845294,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "models/champion/champion_model.txt": {
+    "mtime": 1781436892.67,
+    "ast_hash": "d1f1e42fc2dfaacfae37f8497fa9dc2a",
+    "semantic_hash": ""
+  },
+  "reports/model_evaluation/lightgbm/lightgbm_model_v1.txt": {
+    "mtime": 1781467202.482,
+    "ast_hash": "d1f1e42fc2dfaacfae37f8497fa9dc2a",
+    "semantic_hash": ""
+  },
+  "task.md": {
+    "mtime": 1781484662.8062048,
+    "ast_hash": "ed4eb76cc712c7317569ea1640151ac6",
+    "semantic_hash": ""
+  },
+  "reports/data_processing/data_cleaning_report.pdf": {
+    "mtime": 1781415170.3313198,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "reports/data_processing/feature_engineering_report.pdf": {
+    "mtime": 1781415170.4087763,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "reports/data_processing/feature_selection_report.pdf": {
+    "mtime": 1781415170.4606032,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": ""
+  },
+  "assets/images/cipher-logo.png": {
+    "mtime": 1781480914.6692154,
+    "ast_hash": "7db5f05a54e22f5e698c3e1455847b81",
+    "semantic_hash": ""
+  },
+  "assets/images/theme-toggle.png": {
+    "mtime": 1781480914.6664555,
+    "ast_hash": "7c1792666ee1f99d31495780896474db",
+    "semantic_hash": ""
+  },
+  "download.png": {
+    "mtime": 1781438382.951818,
+    "ast_hash": "db8827ac196cc09ab2cf18ff8bec3d49",
+    "semantic_hash": ""
+  },
+  "reports/model_comparison.png": {
+    "mtime": 1781466081.662,
+    "ast_hash": "387072b431ad13b045cef9edd6f8d88b",
+    "semantic_hash": ""
+  },
+  "reports/model_comparison_visualizations/accuracy_comparison.png": {
+    "mtime": 1781467456.343,
+    "ast_hash": "fbea818fd207a0d8acb8e052977fdfad",
+    "semantic_hash": ""
+  },
+  "reports/model_comparison_visualizations/enterprise_score_comparison.png": {
+    "mtime": 1781467508.917,
+    "ast_hash": "d8479fa45567310b43beed2a06fc2d15",
+    "semantic_hash": ""
+  },
+  "reports/model_comparison_visualizations/f1_comparison.png": {
+    "mtime": 1781467505.242,
+    "ast_hash": "50efef2d7ff5833b1240a3a2fd2ff0be",
+    "semantic_hash": ""
+  },
+  "reports/model_comparison_visualizations/roc_auc_comparison.png": {
+    "mtime": 1781467507.227,
+    "ast_hash": "f4cdcdcd5a1f759351d3db3cd0e7fbb1",
+    "semantic_hash": ""
+  },
+  "reports/model_evaluation/isolation_forest/isolation_forest_score_distribution.png": {
+    "mtime": 1781466539.354,
+    "ast_hash": "b16d62b7dac9e0f073adc268b14ce5b9",
+    "semantic_hash": ""
+  },
+  "reports/model_performance/catboost/visualizations/calibration_curve.png": {
+    "mtime": 1781465099.712,
+    "ast_hash": "e364e4a67cb69161d554d3f27f716feb",
+    "semantic_hash": ""
+  },
+  "reports/model_performance/catboost/visualizations/gain_chart.png": {
+    "mtime": 1781465106.971,
+    "ast_hash": "5de369c962171fc15e7eefc83995fe4f",
+    "semantic_hash": ""
+  },
+  "reports/model_performance/catboost/visualizations/lift_chart.png": {
+    "mtime": 1781465113.492,
+    "ast_hash": "46e9da13ab850508872496c5d56009fc",
+    "semantic_hash": ""
+  },
+  "reports/model_performance/catboost/visualizations/pr_curve.png": {
+    "mtime": 1781465086.056,
+    "ast_hash": "e8ee9dc2e79f8c9c4458c57192282003",
+    "semantic_hash": ""
+  },
+  "reports/model_performance/catboost/visualizations/roc_curve.png": {
+    "mtime": 1781465075.97,
+    "ast_hash": "9620f5118d0c0dd6e4a4a08bb6c33436",
+    "semantic_hash": ""
+  },
+  "reports/model_performance/isolation_forest/visualizations/calibration_curve.png": {
+    "mtime": 1781466851.493,
+    "ast_hash": "3daab10671d541df8fbd60015a8ea17f",
+    "semantic_hash": ""
+  },
+  "reports/model_performance/isolation_forest/visualizations/gain_chart.png": {
+    "mtime": 1781466877.648,
+    "ast_hash": "df6ac0adf6be778db1426b3e62dcfab0",
+    "semantic_hash": ""
+  },
+  "reports/model_performance/isolation_forest/visualizations/lift_chart.png": {
+    "mtime": 1781466901.321,
+    "ast_hash": "e714e90778a1905293a7960c6c23fc5f",
+    "semantic_hash": ""
+  },
+  "reports/model_performance/isolation_forest/visualizations/pr_curve.png": {
+    "mtime": 1781466538.855,
+    "ast_hash": "0e99e3ad0ad83c3f6273dace66c8028c",
+    "semantic_hash": ""
+  },
+  "reports/model_performance/isolation_forest/visualizations/roc_curve.png": {
+    "mtime": 1781466538.309,
+    "ast_hash": "80d3a1751878a952064f578866a77986",
+    "semantic_hash": ""
+  },
+  "reports/model_performance/lightgbm/visualizations/calibration_curve.png": {
+    "mtime": 1781464837.913,
+    "ast_hash": "59ce9d6748c4a091d0a0b9080c5d3756",
+    "semantic_hash": ""
+  },
+  "reports/model_performance/lightgbm/visualizations/gain_chart.png": {
+    "mtime": 1781464846.053,
+    "ast_hash": "42ad4d9a3c3c61395ef51205b43c890d",
+    "semantic_hash": ""
+  },
+  "reports/model_performance/lightgbm/visualizations/lift_chart.png": {
+    "mtime": 1781464857.223,
+    "ast_hash": "20fec8d211891ff784d54fc94c14d504",
+    "semantic_hash": ""
+  },
+  "reports/model_performance/lightgbm/visualizations/pr_curve.png": {
+    "mtime": 1781464825.991,
+    "ast_hash": "0397d207be4033386fd917754815e0c1",
+    "semantic_hash": ""
+  },
+  "reports/model_performance/lightgbm/visualizations/roc_curve.png": {
+    "mtime": 1781464817.271,
+    "ast_hash": "59571bd78395e56007d45589dcad3a11",
+    "semantic_hash": ""
+  }
+}

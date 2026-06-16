@@ -64,49 +64,49 @@
     // Enterprise Repository Interactive Mapping
     const repositoryFiles = {
       'reports': [
-        { model: 'lightgbm', name: 'lightgbm_metrics.csv', path: 'website/assets/visualizations/lightgbm/metrics.csv', size: '2 KB', type: 'CSV Document' },
-        { model: 'lightgbm', name: 'lightgbm_classification_report.csv', path: 'website/assets/visualizations/lightgbm/classification_report.csv', size: '1 KB', type: 'CSV Document' },
-        { model: 'catboost', name: 'catboost_metrics.csv', path: 'website/assets/visualizations/catboost/metrics.csv', size: '2 KB', type: 'CSV Document' },
-        { model: 'catboost', name: 'catboost_classification_report.csv', path: 'website/assets/visualizations/catboost/classification_report.csv', size: '1 KB', type: 'CSV Document' },
-        { model: 'xgboost', name: 'xgboost_metrics.csv', path: 'website/assets/visualizations/xgboost/metrics.csv', size: '2 KB', type: 'CSV Document' },
-        { model: 'xgboost', name: 'xgboost_classification_report.csv', path: 'website/assets/visualizations/xgboost/classification_report.csv', size: '1 KB', type: 'CSV Document' },
-        { model: 'isolation_forest', name: 'isolation_forest_metrics.csv', path: 'website/assets/visualizations/isolation_forest/metrics.csv', size: '1 KB', type: 'CSV Document' },
-        { model: 'ALL', name: 'champion_model_report.csv', path: 'website/assets/visualizations/champion_model_report.csv', size: '3 KB', type: 'CSV Document' },
-        { model: 'ALL', name: 'enterprise_model_comparison.csv', path: 'website/assets/visualizations/enterprise_model_comparison.csv', size: '4 KB', type: 'CSV Document' },
-        { model: 'ALL', name: 'model_governance_report.csv', path: 'website/assets/visualizations/model_governance_report.csv', size: '8 KB', type: 'CSV Document' }
+        { model: 'lightgbm', name: 'lightgbm_metrics.csv', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/lightgbm/metrics.csv', size: '2 KB', type: 'CSV Document' },
+        { model: 'lightgbm', name: 'lightgbm_classification_report.csv', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/lightgbm/classification_report.csv', size: '1 KB', type: 'CSV Document' },
+        { model: 'catboost', name: 'catboost_metrics.csv', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/catboost/metrics.csv', size: '2 KB', type: 'CSV Document' },
+        { model: 'catboost', name: 'catboost_classification_report.csv', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/catboost/classification_report.csv', size: '1 KB', type: 'CSV Document' },
+        { model: 'xgboost', name: 'xgboost_metrics.csv', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/xgboost/metrics.csv', size: '2 KB', type: 'CSV Document' },
+        { model: 'xgboost', name: 'xgboost_classification_report.csv', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/xgboost/classification_report.csv', size: '1 KB', type: 'CSV Document' },
+        { model: 'isolation_forest', name: 'isolation_forest_metrics.csv', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/isolation_forest/metrics.csv', size: '1 KB', type: 'CSV Document' },
+        { model: 'ALL', name: 'champion_model_report.csv', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/champion_model_report.csv', size: '3 KB', type: 'CSV Document' },
+        { model: 'ALL', name: 'enterprise_model_comparison.csv', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/enterprise_model_comparison.csv', size: '4 KB', type: 'CSV Document' },
+        { model: 'ALL', name: 'model_governance_report.csv', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/model_governance_report.csv', size: '8 KB', type: 'CSV Document' }
       ],
       'visualizations': [
-        { model: 'lightgbm', name: 'lightgbm_roc_curve.png', path: 'website/assets/visualizations/lightgbm/roc_curve.png', size: '45 KB', type: 'Image File' },
-        { model: 'lightgbm', name: 'lightgbm_pr_curve.png', path: 'website/assets/visualizations/lightgbm/pr_curve.png', size: '42 KB', type: 'Image File' },
-        { model: 'lightgbm', name: 'lightgbm_calibration_curve.png', path: 'website/assets/visualizations/lightgbm/calibration_curve.png', size: '38 KB', type: 'Image File' },
-        { model: 'lightgbm', name: 'lightgbm_lift_chart.png', path: 'website/assets/visualizations/lightgbm/lift_chart.png', size: '40 KB', type: 'Image File' },
-        { model: 'catboost', name: 'catboost_roc_curve.png', path: 'website/assets/visualizations/catboost/roc_curve.png', size: '46 KB', type: 'Image File' },
-        { model: 'catboost', name: 'catboost_pr_curve.png', path: 'website/assets/visualizations/catboost/pr_curve.png', size: '43 KB', type: 'Image File' },
-        { model: 'catboost', name: 'catboost_calibration_curve.png', path: 'website/assets/visualizations/catboost/calibration_curve.png', size: '39 KB', type: 'Image File' },
-        { model: 'catboost', name: 'catboost_lift_chart.png', path: 'website/assets/visualizations/catboost/lift_chart.png', size: '41 KB', type: 'Image File' },
-        { model: 'xgboost', name: 'xgboost_roc_curve.png', path: 'website/assets/visualizations/xgboost/XGBoost ROC Curve.png', size: '45 KB', type: 'Image File' },
-        { model: 'xgboost', name: 'xgboost_pr_curve.png', path: 'website/assets/visualizations/xgboost/XGBoost PR Curve.png', size: '42 KB', type: 'Image File' },
-        { model: 'xgboost', name: 'xgboost_calibration_curve.png', path: 'website/assets/visualizations/xgboost/XGBoost Calibration Curve.png', size: '38 KB', type: 'Image File' },
-        { model: 'xgboost', name: 'xgboost_lift_chart.png', path: 'website/assets/visualizations/xgboost/XGBoost Lift Chart.png', size: '40 KB', type: 'Image File' },
-        { model: 'isolation_forest', name: 'isolation_forest_roc_curve.png', path: 'website/assets/visualizations/isolation_forest/roc_curve.png', size: '35 KB', type: 'Image File' },
-        { model: 'isolation_forest', name: 'isolation_forest_pr_curve.png', path: 'website/assets/visualizations/isolation_forest/pr_curve.png', size: '32 KB', type: 'Image File' },
-        { model: 'isolation_forest', name: 'isolation_forest_score_distribution.png', path: 'website/assets/visualizations/isolation_forest/isolation_forest_score_distribution.png', size: '48 KB', type: 'Image File' }
+        { model: 'lightgbm', name: 'lightgbm_roc_curve.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/lightgbm/roc_curve.png', size: '45 KB', type: 'Image File' },
+        { model: 'lightgbm', name: 'lightgbm_pr_curve.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/lightgbm/pr_curve.png', size: '42 KB', type: 'Image File' },
+        { model: 'lightgbm', name: 'lightgbm_calibration_curve.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/lightgbm/calibration_curve.png', size: '38 KB', type: 'Image File' },
+        { model: 'lightgbm', name: 'lightgbm_lift_chart.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/lightgbm/lift_chart.png', size: '40 KB', type: 'Image File' },
+        { model: 'catboost', name: 'catboost_roc_curve.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/catboost/roc_curve.png', size: '46 KB', type: 'Image File' },
+        { model: 'catboost', name: 'catboost_pr_curve.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/catboost/pr_curve.png', size: '43 KB', type: 'Image File' },
+        { model: 'catboost', name: 'catboost_calibration_curve.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/catboost/calibration_curve.png', size: '39 KB', type: 'Image File' },
+        { model: 'catboost', name: 'catboost_lift_chart.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/catboost/lift_chart.png', size: '41 KB', type: 'Image File' },
+        { model: 'xgboost', name: 'xgboost_roc_curve.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/xgboost/XGBoost ROC Curve.png', size: '45 KB', type: 'Image File' },
+        { model: 'xgboost', name: 'xgboost_pr_curve.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/xgboost/XGBoost PR Curve.png', size: '42 KB', type: 'Image File' },
+        { model: 'xgboost', name: 'xgboost_calibration_curve.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/xgboost/XGBoost Calibration Curve.png', size: '38 KB', type: 'Image File' },
+        { model: 'xgboost', name: 'xgboost_lift_chart.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/xgboost/XGBoost Lift Chart.png', size: '40 KB', type: 'Image File' },
+        { model: 'isolation_forest', name: 'isolation_forest_roc_curve.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/isolation_forest/roc_curve.png', size: '35 KB', type: 'Image File' },
+        { model: 'isolation_forest', name: 'isolation_forest_pr_curve.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/isolation_forest/pr_curve.png', size: '32 KB', type: 'Image File' },
+        { model: 'isolation_forest', name: 'isolation_forest_score_distribution.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/isolation_forest/isolation_forest_score_distribution.png', size: '48 KB', type: 'Image File' }
       ],
       'models': [
-        { model: 'lightgbm', name: 'lightgbm_model.txt', path: 'models/challenger/lightgbm_model.txt', size: '1.2 MB', type: 'Model Binary', fw: 'LightGBM', ver: '1.0', champion: false },
-        { model: 'catboost', name: 'catboost_model.cbm', path: 'models/challenger/catboost_model.cbm', size: '2.5 MB', type: 'Model Binary', fw: 'CatBoost', ver: '1.0', champion: false },
-        { model: 'xgboost', name: 'xgboost_model.json', path: 'models/challenger/xgboost_model.json', size: '1.9 MB', type: 'Model JSON', fw: 'XGBoost', ver: '1.0', champion: false },
-        { model: 'isolation_forest', name: 'isolation_forest.pkl', path: 'models/challenger/isolation_forest.pkl', size: '14 KB', type: 'Pickle', fw: 'Scikit-Learn', ver: '1.0', champion: false },
-        { model: 'ALL', name: 'champion_model.txt', path: 'models/champion/champion_model.txt', size: '1.2 MB', type: 'Model Binary', fw: 'LightGBM', ver: '1.0', champion: true }
+        { model: 'lightgbm', name: 'lightgbm_model.txt', path: 'CORE/INTELLIGENCE-LAB/models/challenger/lightgbm_model.txt', size: '1.2 MB', type: 'Model Binary', fw: 'LightGBM', ver: '1.0', champion: false },
+        { model: 'catboost', name: 'catboost_model.cbm', path: 'CORE/INTELLIGENCE-LAB/models/challenger/catboost_model.cbm', size: '2.5 MB', type: 'Model Binary', fw: 'CatBoost', ver: '1.0', champion: false },
+        { model: 'xgboost', name: 'xgboost_model.json', path: 'CORE/INTELLIGENCE-LAB/models/challenger/xgboost_model.json', size: '1.9 MB', type: 'Model JSON', fw: 'XGBoost', ver: '1.0', champion: false },
+        { model: 'isolation_forest', name: 'isolation_forest.pkl', path: 'CORE/INTELLIGENCE-LAB/models/challenger/isolation_forest.pkl', size: '14 KB', type: 'Pickle', fw: 'Scikit-Learn', ver: '1.0', champion: false },
+        { model: 'ALL', name: 'champion_model.txt', path: 'CORE/INTELLIGENCE-LAB/models/champion/champion_model.txt', size: '1.2 MB', type: 'Model Binary', fw: 'LightGBM', ver: '1.0', champion: true }
       ],
       'datasets': [
-        { model: 'ALL', name: 'enterprise_training_dataset_v1.parquet', path: 'data/processed/enterprise_training_dataset_v1.parquet', size: '256 MB', type: 'Parquet Data', rows: '1,024,000', cols: '64' },
-        { model: 'ALL', name: 'champion_dataset_v1.parquet', path: 'data/processed/champion_dataset_v1.parquet', size: '210 MB', type: 'Parquet Data', rows: '840,000', cols: '42' },
-        { model: 'ALL', name: 'investigator_dataset.parquet', path: 'data/outputs/investigator_dataset.parquet', size: '15 MB', type: 'Parquet Data', rows: '9,082', cols: '128' },
-        { model: 'ALL', name: 'risk_engine_output.parquet', path: 'data/outputs/risk_engine_output.parquet', size: '42 MB', type: 'Parquet Data', rows: '9,082', cols: '8' },
-        { model: 'ALL', name: 'train.parquet', path: 'data/processed/train.parquet', size: '150 MB', type: 'Parquet Data', rows: '600,000', cols: '64' },
-        { model: 'ALL', name: 'test.parquet', path: 'data/processed/test.parquet', size: '45 MB', type: 'Parquet Data', rows: '180,000', cols: '64' },
-        { model: 'ALL', name: 'validation.parquet', path: 'data/processed/validation.parquet', size: '45 MB', type: 'Parquet Data', rows: '180,000', cols: '64' }
+        { model: 'ALL', name: 'enterprise_training_dataset_v1.parquet', path: 'CORE/DATA-HUB/processed-data/enterprise_training_dataset_v1.parquet', size: '256 MB', type: 'Parquet Data', rows: '1,024,000', cols: '64' },
+        { model: 'ALL', name: 'champion_dataset_v1.parquet', path: 'CORE/DATA-HUB/processed-data/champion_dataset_v1.parquet', size: '210 MB', type: 'Parquet Data', rows: '840,000', cols: '42' },
+        { model: 'ALL', name: 'investigator_dataset.parquet', path: 'CORE/DATA-HUB/processed-data/outputs/investigator_dataset.parquet', size: '15 MB', type: 'Parquet Data', rows: '9,082', cols: '128' },
+        { model: 'ALL', name: 'risk_engine_output.parquet', path: 'CORE/DATA-HUB/processed-data/outputs/risk_engine_output.parquet', size: '42 MB', type: 'Parquet Data', rows: '9,082', cols: '8' },
+        { model: 'ALL', name: 'train.parquet', path: 'CORE/DATA-HUB/processed-data/train.parquet', size: '150 MB', type: 'Parquet Data', rows: '600,000', cols: '64' },
+        { model: 'ALL', name: 'test.parquet', path: 'CORE/DATA-HUB/processed-data/test.parquet', size: '45 MB', type: 'Parquet Data', rows: '180,000', cols: '64' },
+        { model: 'ALL', name: 'validation.parquet', path: 'CORE/DATA-HUB/processed-data/validation.parquet', size: '45 MB', type: 'Parquet Data', rows: '180,000', cols: '64' }
       ]
     };
 
@@ -1987,7 +1987,7 @@
                       <span class="text-muted small d-block" style="font-size: 0.65rem;">Filtered subset containing this account</span>
                     </div>
                   </div>
-                  <a href="data/outputs/investigator_dataset.parquet" target="_blank" class="btn btn-sm btn-cyber py-1 px-3" style="font-size: 0.65rem; font-family: var(--font-mono);">[ OPEN ]</a>
+                  <a href="../../../CORE/DATA-HUB/processed-data/outputs/investigator_dataset.parquet" target="_blank" class="btn btn-sm btn-cyber py-1 px-3" style="font-size: 0.65rem; font-family: var(--font-mono);">[ OPEN ]</a>
                 </div>
                 
                 <div class="d-flex align-items-center justify-content-between p-2 rounded border border-secondary bg-black" style="font-size: 0.8rem;">
@@ -1998,7 +1998,7 @@
                       <span class="text-muted small d-block" style="font-size: 0.65rem;">Local explainer report</span>
                     </div>
                   </div>
-                  <a href="reports/explainability/shap_local_explanations.csv" target="_blank" class="btn btn-sm btn-cyber py-1 px-3" style="font-size: 0.65rem; font-family: var(--font-mono);">[ OPEN ]</a>
+                  <a href="../../../VAULT/REPORTS-CENTER/explainability/shap_local_explanations.csv" target="_blank" class="btn btn-sm btn-cyber py-1 px-3" style="font-size: 0.65rem; font-family: var(--font-mono);">[ OPEN ]</a>
                 </div>
               </div>
             </div>

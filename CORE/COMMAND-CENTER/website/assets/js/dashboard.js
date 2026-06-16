@@ -52,43 +52,43 @@
     // Repository Interactive mapping
     const repositoryFiles = {
       'reports': [
-        { name: 'executive_kpis.csv', path: 'website/assets/visualizations/executive_kpis.csv', size: '120 B', desc: 'Core business KPIs for surveillance decision makers.' },
-        { name: 'model_governance_report.csv', path: 'website/assets/visualizations/model_governance_report.csv', size: '97 B', desc: 'Compliance status and regulator-aligned check logs.' },
-        { name: 'challenger_models_report.csv', path: 'website/assets/visualizations/challenger_models_report.csv', size: '181 B', desc: 'Metrics benchmark comparison for challengers CatBoost & XGBoost.' },
-        { name: 'threshold_optimization_report.csv', path: 'website/assets/visualizations/threshold_optimization_report.csv', size: '779 B', desc: 'Decision boundaries and FPR/TPR trade-off parameters.' },
-        { name: 'champion_model_selection.csv', path: 'website/assets/visualizations/champion_model_selection.csv', size: '79 B', desc: 'Selection matrices determining active deployment champion status.' }
+        { name: 'executive_kpis.csv', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/executive_kpis.csv', size: '120 B', desc: 'Core business KPIs for surveillance decision makers.' },
+        { name: 'model_governance_report.csv', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/model_governance_report.csv', size: '97 B', desc: 'Compliance status and regulator-aligned check logs.' },
+        { name: 'challenger_models_report.csv', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/challenger_models_report.csv', size: '181 B', desc: 'Metrics benchmark comparison for challengers CatBoost & XGBoost.' },
+        { name: 'threshold_optimization_report.csv', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/threshold_optimization_report.csv', size: '779 B', desc: 'Decision boundaries and FPR/TPR trade-off parameters.' },
+        { name: 'champion_model_selection.csv', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/champion_model_selection.csv', size: '79 B', desc: 'Selection matrices determining active deployment champion status.' }
       ],
       'visualizations': [
-        { name: 'model_comparison.png', path: 'website/assets/visualizations/model_comparison.png', size: '74.3 KB', desc: 'Aggregated ROC/PR comparison plot across all tree models.' },
-        { name: 'lightgbm_roc_curve.png', path: 'website/assets/visualizations/lightgbm/roc_curve.png', size: '15.6 KB', desc: 'Champion LightGBM model False Positive vs True Positive rate curve.' },
-        { name: 'lightgbm_pr_curve.png', path: 'website/assets/visualizations/lightgbm/pr_curve.png', size: '14.8 KB', desc: 'Champion LightGBM model Precision-Recall curve.' },
-        { name: 'lightgbm_calibration.png', path: 'website/assets/visualizations/lightgbm/calibration_curve.png', size: '12.4 KB', desc: 'Probability calibration reliability curves.' },
-        { name: 'lightgbm_lift_chart.png', path: 'website/assets/visualizations/lightgbm/lift_chart.png', size: '13.1 KB', desc: 'Lift and cumulative response curve.' },
-        { name: 'catboost_roc_curve.png', path: 'website/assets/visualizations/catboost/roc_curve.png', size: '16.1 KB', desc: 'CatBoost challenger ROC validation plot.' },
-        { name: 'catboost_pr_curve.png', path: 'website/assets/visualizations/catboost/pr_curve.png', size: '15.2 KB', desc: 'CatBoost challenger Precision-Recall plot.' },
-        { name: 'isolation_forest_roc.png', path: 'website/assets/visualizations/isolation_forest/roc_curve.png', size: '11.8 KB', desc: 'Unsupervised anomalies model validation curve.' },
-        { name: 'isolation_forest_distribution.png', path: 'website/assets/visualizations/isolation_forest/isolation_forest_score_distribution.png', size: '18.9 KB', desc: 'Decision score boundary distribution plot.' }
+        { name: 'model_comparison.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/model_comparison.png', size: '74.3 KB', desc: 'Aggregated ROC/PR comparison plot across all tree models.' },
+        { name: 'lightgbm_roc_curve.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/lightgbm/roc_curve.png', size: '15.6 KB', desc: 'Champion LightGBM model False Positive vs True Positive rate curve.' },
+        { name: 'lightgbm_pr_curve.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/lightgbm/pr_curve.png', size: '14.8 KB', desc: 'Champion LightGBM model Precision-Recall curve.' },
+        { name: 'lightgbm_calibration.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/lightgbm/calibration_curve.png', size: '12.4 KB', desc: 'Probability calibration reliability curves.' },
+        { name: 'lightgbm_lift_chart.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/lightgbm/lift_chart.png', size: '13.1 KB', desc: 'Lift and cumulative response curve.' },
+        { name: 'catboost_roc_curve.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/catboost/roc_curve.png', size: '16.1 KB', desc: 'CatBoost challenger ROC validation plot.' },
+        { name: 'catboost_pr_curve.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/catboost/pr_curve.png', size: '15.2 KB', desc: 'CatBoost challenger Precision-Recall plot.' },
+        { name: 'isolation_forest_roc.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/isolation_forest/roc_curve.png', size: '11.8 KB', desc: 'Unsupervised anomalies model validation curve.' },
+        { name: 'isolation_forest_distribution.png', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/isolation_forest/isolation_forest_score_distribution.png', size: '18.9 KB', desc: 'Decision score boundary distribution plot.' }
       ],
       'models': [
-        { name: 'champion_model.txt', path: 'models/champion/champion_model.txt', size: '1.06 MB', desc: 'Serialized model binary weights for active LightGBM pipeline.' },
-        { name: 'lightgbm_model.txt', path: 'models/challenger/lightgbm_model.txt', size: '1.06 MB', desc: 'Validation weights backup for LightGBM gradient booster.' },
-        { name: 'catboost_model.cbm', path: 'models/challenger/catboost_model.cbm', size: '2.34 MB', desc: 'Symmetric decision tree classifier parameters.' },
-        { name: 'xgboost_model.json', path: 'models/challenger/xgboost_model.json', size: '1.87 MB', desc: 'Extreme gradient boosting JSON structure weights.' },
-        { name: 'isolation_forest.pkl', path: 'models/challenger/isolation_forest.pkl', size: '14.2 KB', desc: 'Unsupervised contamination anomaly detector pickle file.' }
+        { name: 'champion_model.txt', path: 'CORE/INTELLIGENCE-LAB/models/champion/champion_model.txt', size: '1.06 MB', desc: 'Serialized model binary weights for active LightGBM pipeline.' },
+        { name: 'lightgbm_model.txt', path: 'CORE/INTELLIGENCE-LAB/models/challenger/lightgbm_model.txt', size: '1.06 MB', desc: 'Validation weights backup for LightGBM gradient booster.' },
+        { name: 'catboost_model.cbm', path: 'CORE/INTELLIGENCE-LAB/models/challenger/catboost_model.cbm', size: '2.34 MB', desc: 'Symmetric decision tree classifier parameters.' },
+        { name: 'xgboost_model.json', path: 'CORE/INTELLIGENCE-LAB/models/challenger/xgboost_model.json', size: '1.87 MB', desc: 'Extreme gradient boosting JSON structure weights.' },
+        { name: 'isolation_forest.pkl', path: 'CORE/INTELLIGENCE-LAB/models/challenger/isolation_forest.pkl', size: '14.2 KB', desc: 'Unsupervised contamination anomaly detector pickle file.' }
       ],
       'datasets': [
         { name: 'DataSet.csv', path: 'DataSet.csv', size: '111.1 MB', desc: 'Raw financial transaction records containing features and labels.' },
-        { name: 'risk_engine_output.parquet', path: 'data/outputs/risk_engine_output.parquet', size: '15.7 KB', desc: 'Processed risk scores and assigned action codes.' },
-        { name: 'investigator_dataset.parquet', path: 'data/outputs/investigator_dataset.parquet', size: '20.3 KB', desc: 'Aggregated suspect accounts list loaded in queues.' },
+        { name: 'risk_engine_output.parquet', path: 'CORE/DATA-HUB/processed-data/outputs/risk_engine_output.parquet', size: '15.7 KB', desc: 'Processed risk scores and assigned action codes.' },
+        { name: 'investigator_dataset.parquet', path: 'CORE/DATA-HUB/processed-data/outputs/investigator_dataset.parquet', size: '20.3 KB', desc: 'Aggregated suspect accounts list loaded in queues.' },
         { name: 'train_features.parquet', path: 'data/cleaned/train_features.parquet', size: '25.1 MB', desc: 'Features matrix split used in model training.' },
         { name: 'validation_features.parquet', path: 'data/cleaned/validation_features.parquet', size: '8.58 MB', desc: 'Features matrix split used in validation.' },
         { name: 'test_features.parquet', path: 'data/cleaned/test_features.parquet', size: '8.56 MB', desc: 'Features matrix split used in final test.' }
       ],
       'documents': [
-        { name: 'model_metrics_report.csv', path: 'website/assets/visualizations/model_metrics_report.csv', size: '60 B', desc: 'Aggregated precision and F1 statistics signed by auditors.' },
-        { name: 'model_summary.csv', path: 'website/assets/visualizations/model_summary.csv', size: '104 B', desc: 'High level execution summary metadata.' },
-        { name: 'enterprise_model_comparison.csv', path: 'website/assets/visualizations/enterprise_model_comparison.csv', size: '180 B', desc: 'Cross-institution benchmark score audits.' },
-        { name: 'champion_model_report.csv', path: 'website/assets/visualizations/champion_model_report.csv', size: '79 B', desc: 'Regulator AML alignment certificate data.' }
+        { name: 'model_metrics_report.csv', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/model_metrics_report.csv', size: '60 B', desc: 'Aggregated precision and F1 statistics signed by auditors.' },
+        { name: 'model_summary.csv', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/model_summary.csv', size: '104 B', desc: 'High level execution summary metadata.' },
+        { name: 'enterprise_model_comparison.csv', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/enterprise_model_comparison.csv', size: '180 B', desc: 'Cross-institution benchmark score audits.' },
+        { name: 'champion_model_report.csv', path: 'CORE/COMMAND-CENTER/website/assets/visualizations/champion_model_report.csv', size: '79 B', desc: 'Regulator AML alignment certificate data.' }
       ]
     };
 
