@@ -317,6 +317,7 @@
     }
     .leaderboard-item {
       transition: all 0.3s ease;
+      cursor: pointer;
     }
     .leaderboard-item:hover {
       border-color: var(--primary) !important;
