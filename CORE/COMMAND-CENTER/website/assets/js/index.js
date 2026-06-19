@@ -1573,10 +1573,13 @@
       };
 
       const gridDiv = document.querySelector('#riskGrid');
+      if (gridDiv && typeof agGrid !== 'undefined') {
+        riskGridApi = agGrid.createGrid(gridDiv, gridOptions);
+      }
     };
 
     window.openEvidenceRepository = () => {
-      switchTab('platform-overview');
+      switchTab('surveillance-command');
       setTimeout(() => {
         const el = document.getElementById('evidence-repository');
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
