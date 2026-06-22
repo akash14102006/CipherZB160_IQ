@@ -248,3 +248,33 @@ Clickable shortcuts to verified system records:
 ## License
 
 MIT License. Prepared by the CipherZB160-IQ Team.
+
+---
+
+## 🏆 CyberShield PSBs Hackathon Series 2026
+
+- Organized by Department of Financial Services, Ministry of Finance, Government of India
+- In collaboration with Bank of India & IIT Hyderabad
+- Theme: Financial Crime Intelligence & Cyber Security
+- Prize Pool: ₹20 Lakhs
+
+---
+
+## 🔗 Project Resources
+
+- 🌐 Live Platform → [Open Platform](https://cipher-zb-160-iq.vercel.app)
+- 💻 Source Code → [View Source Code](https://github.com/akash14102006/CipherZB160-IQ)
+- 🧠 ZB-Core (Intelligence Engine) → [Open ZB-Core](https://drive.google.com/drive/u/0/folders/1AP427e94riSBzPAk1Znozi9dG6wQOM_6)
+- 📊 Presentation Deck → [View PPT](https://drive.google.com/file/d/1xxhlabPH0pyEm_7bx1UsENGDuGDJsNMY/view?usp=sharing)
+
+---
+
+## 👥 Team CipherZB160 IQ
+
+- Akash M — Product Lead | AI Architect
+- Buvanraj V — ML & Intelligence Lead | Risk Modeling
+- Dhashwanth Dheeraj D — Platform Lead | Experience Design
+
+<br>
+
+> *"CipherZB160 IQ transforms hidden financial relationships into explainable intelligence, enabling investigators to move from suspicion to action with confidence."*
