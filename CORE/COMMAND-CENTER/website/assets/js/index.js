@@ -1447,9 +1447,11 @@
       };
       
       const gridDiv = document.querySelector('#fraudFeedGrid');
-      fraudFeedGridApi = agGrid.createGrid(gridDiv, gridOptions);
-      if (fraudFeedGridApi && typeof fraudFeedGridApi.sizeColumnsToFit === 'function') {
-        fraudFeedGridApi.sizeColumnsToFit();
+      if (gridDiv) {
+        fraudFeedGridApi = agGrid.createGrid(gridDiv, gridOptions);
+        if (fraudFeedGridApi && typeof fraudFeedGridApi.sizeColumnsToFit === 'function') {
+          fraudFeedGridApi.sizeColumnsToFit();
+        }
       }
     };
 
