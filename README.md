@@ -20,6 +20,18 @@ Enterprise banking surveillance and intelligence command center for real-time de
 
 ---
 
+## 👥 Team CipherZB160 IQ
+
+- Akash M — Product Lead | AI Architect
+- Buvanraj V — ML & Intelligence Lead | Risk Modeling
+- Baby P A — Platform Lead | Experience Design
+
+<br>
+
+> *"CipherZB160 IQ transforms hidden financial relationships into explainable intelligence, enabling investigators to move from suspicion to action with confidence."*
+
+---
+
 ## 🔗 Project Resources
 
 - 🌐 Live Platform → [Open Platform](https://cipher-zb-160-iq.vercel.app)
@@ -43,19 +55,6 @@ This project's dataset has been optimized and trained using [Adaption's Adaptive
 ### Training Winrates
 ![Training Winrates](VAULT/Adaption%20App/training_winrates.png)
 
----
-
-## 👥 Team CipherZB160 IQ
-
-- Akash M — Product Lead | AI Architect
-- Buvanraj V — ML & Intelligence Lead | Risk Modeling
-- Baby P A — Platform Lead | Experience Design
-
-<br>
-
-> *"CipherZB160 IQ transforms hidden financial relationships into explainable intelligence, enabling investigators to move from suspicion to action with confidence."*
-
----
 
 ## Technical Index
 
