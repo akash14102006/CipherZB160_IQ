@@ -49,7 +49,7 @@ This project's dataset has been optimized and trained using [Adaption's Adaptive
 
 - Akash M — Product Lead | AI Architect
 - Buvanraj V — ML & Intelligence Lead | Risk Modeling
-- Dhashwanth Dheeraj D — Platform Lead | Experience Design
+- Baby P A — Platform Lead | Experience Design
 
 <br>
 
