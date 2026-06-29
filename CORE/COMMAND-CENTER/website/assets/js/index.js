@@ -135,7 +135,7 @@
         drawerBody.innerHTML = `<div class="text-center text-muted py-5"><i class="fa-solid fa-folder-open mb-3" style="font-size: 3rem;"></i><br>No evidence found for selected model filter.</div>`;
       } else {
         drawerBody.innerHTML = filteredFiles.map(f => {
-          const githubLink = 'https://github.com/akash14102006/CipherZB160-IQ';
+          const githubLink = 'https://github.com/akash14102006/CipherZB160_IQ';
           const isDataset = category === 'datasets';
           const isModel = category === 'models';
 
@@ -545,7 +545,7 @@
               </table>
               <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px; margin-top: 8px; display: flex; gap: 8px;">
                 <a href="${DRIVE_URL}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-info"><i class="fa-brands fa-google-drive me-1"></i> Full Reports on Drive</a>
-                <a href="https://github.com/akash14102006/CipherZB160-IQ" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-secondary"><i class="fa-brands fa-github me-1"></i> GitHub Repository</a>
+                <a href="https://github.com/akash14102006/CipherZB160_IQ" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-secondary"><i class="fa-brands fa-github me-1"></i> GitHub Repository</a>
               </div>
             </div>
           </div>

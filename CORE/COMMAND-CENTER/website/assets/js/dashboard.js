@@ -111,7 +111,7 @@
       let html = '';
       
       files.forEach(f => {
-        const githubLink = 'https://github.com/akash14102006/CipherZB160-IQ';
+        const githubLink = 'https://github.com/akash14102006/CipherZB160_IQ';
         html += `
           <div class="modal-file-item">
             <div class="d-flex align-items-center gap-3">
@@ -512,7 +512,7 @@
               </table>
               <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 12px; margin-top: 8px; display: flex; gap: 8px;">
                 <a href="${DRIVE_URL}" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-info"><i class="fa-brands fa-google-drive me-1"></i> Full Reports on Drive</a>
-                <a href="https://github.com/akash14102006/CipherZB160-IQ" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-secondary"><i class="fa-brands fa-github me-1"></i> GitHub Repository</a>
+                <a href="https://github.com/akash14102006/CipherZB160_IQ" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline-secondary"><i class="fa-brands fa-github me-1"></i> GitHub Repository</a>
               </div>
             </div>
           </div>

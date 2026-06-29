@@ -5,8 +5,8 @@ Enterprise banking surveillance and intelligence command center for real-time de
 ---
 
 [![Vercel Deployment](https://img.shields.io/badge/Deployment-Vercel-000000?style=for-the-badge&logo=vercel)](https://cipher-zb-160-iq.vercel.app)
-[![GitHub Repository](https://img.shields.io/badge/Repository-GitHub-181717?style=for-the-badge&logo=github)](https://github.com/akash14102006/CipherZB160-IQ)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://github.com/akash14102006/CipherZB160-IQ/blob/main/LICENSE)
+[![GitHub Repository](https://img.shields.io/badge/Repository-GitHub-181717?style=for-the-badge&logo=github)](https://github.com/akash14102006/CipherZB160_IQ)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://github.com/akash14102006/CipherZB160_IQ/blob/main/LICENSE)
 [![Python](https://img.shields.io/badge/Language-Python%203.10-3776AB?style=for-the-badge&logo=python)](https://python.org)
 [![JavaScript](https://img.shields.io/badge/Language-JavaScript-F7DF1E?style=for-the-badge&logo=javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
@@ -23,9 +23,25 @@ Enterprise banking surveillance and intelligence command center for real-time de
 ## 🔗 Project Resources
 
 - 🌐 Live Platform → [Open Platform](https://cipher-zb-160-iq.vercel.app)
-- 💻 Source Code → [View Source Code](https://github.com/akash14102006/CipherZB160-IQ)
+- 💻 Source Code → [View Source Code](https://github.com/akash14102006/CipherZB160_IQ)
 - 🧠 ZB-Core (Intelligence Engine) → [Open ZB-Core](https://drive.google.com/drive/u/0/folders/1AP427e94riSBzPAk1Znozi9dG6wQOM_6)
 - 📊 Presentation Deck → [View PPT](https://drive.google.com/file/d/1xxhlabPH0pyEm_7bx1UsENGDuGDJsNMY/view?usp=sharing)
+- 🧬 Trained Dataset & Metrics → [View on Adaption Platform](https://adaptionlabs.ai/app/dataset/c3e61929-b5da-4e34-bb79-c925d1a1ad33?tab=measure)
+
+---
+
+## 📊 Adaption Platform Training & Quality Metrics
+
+This project's dataset has been optimized and trained using [Adaption's Adaptive Data platform](https://adaptionlabs.ai/app/dataset/c3e61929-b5da-4e34-bb79-c925d1a1ad33?tab=measure). Below are the training and quality improvement details:
+
+### Dataset Overview
+![Dataset Overview](VAULT/Adaption%20App/dataset_overview.png)
+
+### Quality & Grade Improvement
+![Quality & Grade Improvement](VAULT/Adaption%20App/quality_improvement.png)
+
+### Training Winrates
+![Training Winrates](VAULT/Adaption%20App/training_winrates.png)
 
 ---
 

@@ -5,8 +5,8 @@ Enterprise banking surveillance and intelligence command center for real-time de
 ---
 
 [![Vercel Deployment](https://img.shields.io/badge/Deployment-Vercel-000000?style=for-the-badge&logo=vercel)](https://cipher-zb-160-iq.vercel.app)
-[![GitHub Repository](https://img.shields.io/badge/Repository-GitHub-181717?style=for-the-badge&logo=github)](https://github.com/akash14102006/CipherZB160-IQ)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://github.com/akash14102006/CipherZB160-IQ/blob/main/LICENSE)
+[![GitHub Repository](https://img.shields.io/badge/Repository-GitHub-181717?style=for-the-badge&logo=github)](https://github.com/akash14102006/CipherZB160_IQ)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://github.com/akash14102006/CipherZB160_IQ/blob/main/LICENSE)
 [![Python](https://img.shields.io/badge/Language-Python%203.10-3776AB?style=for-the-badge&logo=python)](https://python.org)
 [![JavaScript](https://img.shields.io/badge/Language-JavaScript-F7DF1E?style=for-the-badge&logo=javascript)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
