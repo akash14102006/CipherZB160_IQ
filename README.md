@@ -31,7 +31,7 @@ Enterprise banking surveillance and intelligence command center for real-time de
 - 🌐 Live Platform → [Open Platform](https://cipher-zb-160-iq.vercel.app)
 - 💻 Source Code → [View Source Code](https://github.com/akash14102006/CipherZB160_IQ)
 - 🧠 ZB-Core (Intelligence Engine) → [Open ZB-Core](https://drive.google.com/drive/u/0/folders/1AP427e94riSBzPAk1Znozi9dG6wQOM_6)
-- 📊 Presentation Deck → [View PPT](https://drive.google.com/file/d/1xxhlabPH0pyEm_7bx1UsENGDuGDJsNMY/view?usp=sharing)
+- 📊 Presentation Deck → [View PPT](https://drive.google.com/file/d/19YeAVNXestOdI8wH_AHl2gqSwacYtOU0/view?usp=sharing)
 - 🧬 Trained Dataset & Metrics → [View on Adaption Platform](https://adaptionlabs.ai/app/dataset/c3e61929-b5da-4e34-bb79-c925d1a1ad33?tab=measure)
 
 ---
