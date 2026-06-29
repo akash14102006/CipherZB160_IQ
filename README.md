@@ -14,7 +14,7 @@ Enterprise banking surveillance and intelligence command center for real-time de
 
 ## 🏆** Adaption AutoScientist Challenge**
 
-## 👥 Team CipherZB160 IQ
+**👥 Team CipherZB160 IQ**
 
 - Akash M — Product Lead | AI Architect
 - Buvanraj V — ML & Intelligence Lead | Risk Modeling
