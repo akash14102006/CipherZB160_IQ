@@ -12,13 +12,7 @@ Enterprise banking surveillance and intelligence command center for real-time de
 
 ---
 
-## 🏆 CyberShield PSBs Hackathon Series 2026
-
-- Organized by Department of Financial Services, Ministry of Finance, Government of India
-- In collaboration with Bank of India & IIT Hyderabad
-- Theme: Financial Crime Intelligence & Cyber Security
-
----
+## 🏆** Adaption AutoScientist Challenge**
 
 ## 👥 Team CipherZB160 IQ
 
